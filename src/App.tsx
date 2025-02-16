@@ -1,16 +1,16 @@
 import { type FC } from 'react';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import RootLayout from './layouts/RootLayout';
-import Home from './pages/Home';
 import About from './pages/About';
-import Services from './pages/Services';
-import Works from './pages/Works';
-import News from './pages/News';
+import Blog from './pages/Blog';
 import Careers from './pages/Careers';
 import Contact from './pages/Contact';
-import Blog from './pages/Blog';
 import FAQ from './pages/FAQ';
+import Home from './pages/Home';
 import Legal from './pages/Legal';
+import News from './pages/News';
+import Services from './pages/Services';
+import Works from './pages/Works';
 
 const router = createBrowserRouter([
   {
@@ -29,7 +29,9 @@ const router = createBrowserRouter([
       { path: '/legal', element: <Legal /> },
     ],
   },
-]);
+], {
+  basename: '/w-pinkietech.github.io'  // リポジトリ名に合わせて変更
+});
 
 const App: FC = () => {
   return <RouterProvider router={router} />;
