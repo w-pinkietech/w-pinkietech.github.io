@@ -1,6 +1,6 @@
 import { type FC } from 'react';
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Button } from "../components/ui/button";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "../components/ui/card";
 import { Brain, Workflow, Bot, ArrowRight } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
