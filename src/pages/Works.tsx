@@ -9,44 +9,13 @@ import { Link } from 'react-router-dom';
 const Works: FC = () => {
   const { t } = useTranslation();
 
-  const caseStudies = [
-    {
-      title: "製造業のAI品質管理システム",
-      company: "大手製造メーカー",
-      tags: ["AI Integration", "Workflow Optimization"],
-      description: "AIを活用した品質管理システムの導入により、不良品検出率が98%向上し、作業効率が30%改善されました。",
-      image: "/images/ai-integration.jpg",
-      results: [
-        "不良品検出率98%向上",
-        "作業効率30%改善",
-        "年間コスト20%削減"
-      ]
-    },
-    {
-      title: "金融機関の業務自動化",
-      company: "大手銀行",
-      tags: ["Workflow Optimization", "AI Consulting"],
-      description: "RPAとAIを組み合わせた業務自動化により、処理時間を75%削減し、人的ミスを90%削減しました。",
-      image: "/images/workflow.jpg",
-      results: [
-        "処理時間75%削減",
-        "人的ミス90%削減",
-        "顧客満足度15%向上"
-      ]
-    },
-    {
-      title: "小売業の需要予測システム",
-      company: "全国チェーンストア",
-      tags: ["AI Integration", "AI Consulting"],
-      description: "機械学習を活用した需要予測システムにより、在庫管理を最適化し、廃棄ロスを60%削減しました。",
-      image: "/images/consulting.jpg",
-      results: [
-        "廃棄ロス60%削減",
-        "在庫回転率25%向上",
-        "発注業務時間50%削減"
-      ]
-    }
-  ];
+  const caseStudies = t('pages.works.case_studies', { returnObjects: true }) as Array<{
+    title: string;
+    company: string;
+    tags: string[];
+    description: string;
+    results: string[];
+  }>;
 
   return (
     <div className="container mx-auto px-6 py-12">
