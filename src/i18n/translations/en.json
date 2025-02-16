@@ -69,11 +69,30 @@
       "company_info": {
         "title": "Company Information",
         "items": {
-          "name": "Company Name",
-          "established": "Established",
-          "capital": "Capital",
-          "employees": "Employees",
-          "address": "Address"
+          "name": {
+            "label": "Company Name",
+            "value": "PinkieTech Inc."
+          },
+          "ceo": {
+            "label": "CEO",
+            "value": "Kenta Watanabe"
+          },
+          "established": {
+            "label": "Established",
+            "value": "January 17, 2025"
+          },
+          "capital": {
+            "label": "Capital",
+            "value": "¥5,000,000"
+          },
+          "employees": {
+            "label": "Employees",
+            "value": "3"
+          },
+          "address": {
+            "label": "Address",
+            "value": "1-14-22 Tono, Yahatanishi-ku, Kitakyushu-shi, Fukuoka"
+          }
         }
       }
     },
