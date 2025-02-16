@@ -69,12 +69,52 @@
       "company_info": {
         "title": "企業情報",
         "items": {
-          "name": "会社名",
-          "ceo": "代表取締役",
-          "established": "設立",
-          "capital": "資本金",
-          "employees": "従業員数",
-          "address": "所在地"
+          "name": {
+            "label": "会社名",
+            "value": "PinkieTech株式会社"
+          },
+          "ceo": {
+            "label": "代表取締役",
+            "value": "渡部健太"
+          },
+          "established": {
+            "label": "設立",
+            "value": "2025年1月17日"
+          },
+          "capital": {
+            "label": "資本金",
+            "value": "5,000,000円"
+          },
+          "employees": {
+            "label": "従業員数",
+            "value": "3人"
+          },
+          "address": {
+            "label": "所在地",
+            "value": "福岡県北九州市八幡西区塔野1-14-22"
+          }
+        },
+        "business_description": {
+          "title": "事業内容",
+          "items": [
+            {
+              "title": "AIビジネス変革支援",
+              "description": "AIを活用したビジネス変革を支援し、企業の業務効率化を実現します。"
+            },
+            {
+              "title": "Pinkieit（オープンソース）",
+              "description": "トヨタ生産方式を導入可能なオープンソースソフトウェアを提供しています。",
+              "link": "https://github.com/w-pinkietech/pinkieit"
+            },
+            {
+              "title": "SEOコンテンツ生成",
+              "description": "AIでの検索リサーチ時代に対応したSEO対策とコンテンツ生成を提供します。"
+            },
+            {
+              "title": "オープンソース活動",
+              "description": "オープンソースソフトウェアの開発と普及に取り組んでいます。"
+            }
+          ]
         }
       }
     },
@@ -91,13 +131,9 @@
     },
     "works": {
       "title": "導入事例",
-      "description": "PinkieTechのAIソリューションが、お客様のビジネスにもたらした具体的な成果をご紹介します。",
+      "description": "現在、導入事例はまだありません。今後、お客様との協力のもと、成功事例を順次公開していく予定です。",
       "results_title": "導入効果",
-      "case_studies": [
-        {
-          "title": "製造業のAI品質管理システム",
-          "company": "大手製造メーカー",
-          "tags": ["AI統合", "ワークフロー最適化"],
+      "case_studies": []
           "description": "AIを活用した品質管理システムの導入により、不良品検出率が98%向上し、作業効率が30%改善されました。",
           "image": "/images/ai-integration.jpg",
           "results": [
@@ -165,56 +201,11 @@
     },
     "careers": {
       "title": "採用情報",
-      "description": "PinkieTechは、AIの力でビジネスの未来を創造する仲間を募集しています。私たちと一緒に、革新的なソリューションを作り上げませんか？",
-      "benefits": {
-        "title": "働く環境",
-        "items": [
-          {
-            "title": "フレックスタイム制",
-            "description": "コアタイムなしのフレックスタイム制を採用。ワークライフバランスを重視した働き方が可能です。"
-          },
-          {
-            "title": "充実した福利厚生",
-            "description": "各種社会保険、健康診断、社員旅行、書籍購入補助など、充実した福利厚生を用意しています。"
-          },
-          {
-            "title": "成長支援制度",
-            "description": "資格取得支援、カンファレンス参加費用補助、社内勉強会など、社員の成長をサポートします。"
-          }
-        ]
-      },
-      "positions": {
-        "title": "募集ポジション",
-        "view_details": "詳細を見る",
-        "requirements_title": "必要なスキル・経験",
-        "items": [
-          {
-            "id": 1,
-            "title": "AIエンジニア",
-            "department": "エンジニアリング",
-            "type": "正社員",
-            "location": "東京",
-            "description": "AIソリューションの設計・開発・実装を担当していただきます。機械学習、深層学習の実務経験がある方を募集しています。",
-            "requirements": [
-              "機械学習・深層学習の実務経験3年以上",
-              "Python, PyTorchまたはTensorFlowの実務経験",
-              "英語でのコミュニケーション能力（読み書き）"
-            ]
-          },
-          {
-            "id": 2,
-            "title": "フロントエンドエンジニア",
-            "department": "エンジニアリング",
-            "type": "正社員",
-            "location": "東京/リモート",
-            "description": "最新のフロントエンド技術を活用し、ユーザー体験の高いWebアプリケーションの開発を担当していただきます。",
-            "requirements": [
-              "React/TypeScriptの実務経験2年以上",
-              "モダンなフロントエンド開発経験",
-              "UIライブラリの使用経験"
-            ]
-          }
-        ]
+      "description": "現在、個別での採用のみ受け付けています。",
+      "contact": {
+        "title": "お問い合わせ",
+        "message": "採用に関するお問い合わせは、以下のメールアドレスまでご連絡ください。気に入れば採用します。",
+        "email": "contact@pinkie-tech.jp"
       }
     },
     "contact": {
@@ -253,7 +244,7 @@
         },
         "address": {
           "title": "所在地",
-          "content": "〒100-0004 東京都千代田区大手町1-1-1"
+          "content": "福岡県北九州市八幡西区塔野1-14-22"
         }
       }
     },
@@ -390,7 +381,7 @@
             },
             {
               "subtitle": "所在地",
-              "text": "〒100-0004 東京都千代田区大手町1-1-1"
+              "text": "福岡県北九州市八幡西区塔野1-14-22"
             },
             {
               "subtitle": "連絡先",
