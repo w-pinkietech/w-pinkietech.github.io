@@ -1,30 +1,92 @@
 {
-  "hero": {
-    "title": "Transform Your Business with AI",
-    "description": "PinkieTech helps businesses streamline operations by integrating AI into their existing workflows. Boost productivity and make smarter decisions with our tailored AI solutions.",
-    "cta": "Get Started"
-  },
-  "services": {
-    "title": "Our Services",
-    "ai_integration": {
-      "title": "AI Integration",
-      "description": "Seamlessly integrate AI capabilities into your existing business processes",
-      "content": "Enhance decision-making and automate routine tasks with custom AI solutions tailored to your needs."
+  "common": {
+    "nav": {
+      "home": "Home",
+      "about": "About Us",
+      "services": "Services",
+      "works": "Works",
+      "news": "News",
+      "careers": "Careers",
+      "contact": "Contact",
+      "blog": "Blog",
+      "faq": "FAQ",
+      "legal": "Legal"
     },
-    "workflow": {
-      "title": "Workflow Optimization",
-      "description": "Streamline your operations with intelligent automation",
-      "content": "Identify bottlenecks and optimize processes using AI-powered workflow analysis and automation."
-    },
-    "consulting": {
-      "title": "AI Consulting",
-      "description": "Expert guidance on AI implementation",
-      "content": "Get strategic advice on how to leverage AI technology to achieve your business goals."
+    "footer": {
+      "company_description": "PinkieTech helps businesses transform through AI integration.",
+      "services": "Services",
+      "ai_integration": "AI Integration",
+      "workflow": "Workflow Optimization",
+      "consulting": "AI Consulting",
+      "company": "Company",
+      "about": "About Us",
+      "careers": "Careers",
+      "contact": "Contact",
+      "legal": "Legal",
+      "privacy": "Privacy Policy",
+      "terms": "Terms of Service",
+      "rights": "All rights reserved."
     }
   },
-  "cta": {
-    "title": "Ready to Transform Your Business?",
-    "description": "Join the growing number of businesses that are leveraging AI to stay ahead of the competition.",
-    "button": "Contact Us"
+  "pages": {
+    "home": {
+      "hero": {
+        "title": "Transform Your Business with AI",
+        "description": "PinkieTech helps businesses streamline operations by integrating AI into their existing workflows. Boost productivity and make smarter decisions with our tailored AI solutions.",
+        "cta": "Get Started"
+      },
+      "services": {
+        "title": "Our Services",
+        "ai_integration": {
+          "title": "AI Integration",
+          "description": "Seamlessly integrate AI capabilities into your existing business processes",
+          "content": "Enhance decision-making and automate routine tasks with custom AI solutions tailored to your needs."
+        },
+        "workflow": {
+          "title": "Workflow Optimization",
+          "description": "Streamline your operations with intelligent automation",
+          "content": "Identify bottlenecks and optimize processes using AI-powered workflow analysis and automation."
+        },
+        "consulting": {
+          "title": "AI Consulting",
+          "description": "Expert guidance on AI implementation",
+          "content": "Get strategic advice on how to leverage AI technology to achieve your business goals."
+        }
+      },
+      "cta": {
+        "title": "Ready to Transform Your Business?",
+        "description": "Join the growing number of businesses that are leveraging AI to stay ahead of the competition.",
+        "button": "Contact Us"
+      }
+    },
+    "about": {
+      "title": "About Us",
+      "description": "PinkieTech is a company that drives business transformation through cutting-edge AI technology.",
+      "ceo_message": {
+        "title": "CEO Message",
+        "content": "We create the future of business through the power of AI."
+      },
+      "company_info": {
+        "title": "Company Information",
+        "items": {
+          "name": "Company Name",
+          "established": "Established",
+          "capital": "Capital",
+          "employees": "Employees",
+          "address": "Address"
+        }
+      }
+    },
+    "contact": {
+      "title": "Contact Us",
+      "description": "Feel free to reach out to us.",
+      "form": {
+        "name": "Name",
+        "email": "Email",
+        "company": "Company",
+        "message": "Message",
+        "submit": "Submit"
+      }
+    }
   }
 }
