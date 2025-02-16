@@ -12,21 +12,21 @@ const Contact: FC = () => {
   const contactInfo = [
     {
       icon: Mail,
-      title: "メールアドレス",
-      content: "contact@pinkie-tech.jp",
-      href: "mailto:contact@pinkie-tech.jp"
+      title: t('pages.contact.info.email.title'),
+      content: t('pages.contact.info.email.content'),
+      href: `mailto:${t('pages.contact.info.email.content')}`
     },
     {
       icon: Phone,
-      title: "電話番号",
-      content: "03-1234-5678",
-      href: "tel:+81312345678"
+      title: t('pages.contact.info.phone.title'),
+      content: t('pages.contact.info.phone.content'),
+      href: `tel:+81${t('pages.contact.info.phone.content').replace(/-/g, '')}`
     },
     {
       icon: MapPin,
-      title: "所在地",
-      content: "〒100-0004 東京都千代田区大手町1-1-1",
-      href: "https://maps.google.com/?q=東京都千代田区大手町1-1-1"
+      title: t('pages.contact.info.address.title'),
+      content: t('pages.contact.info.address.content'),
+      href: `https://maps.google.com/?q=${encodeURIComponent(t('pages.contact.info.address.content'))}`
     }
   ];
 
@@ -39,9 +39,9 @@ const Contact: FC = () => {
     <div className="container mx-auto px-6 py-12">
       {/* Hero Section */}
       <div className="text-center mb-16">
-        <h1 className="text-4xl font-bold mb-6">お問い合わせ</h1>
+        <h1 className="text-4xl font-bold mb-6">{t('pages.contact.title')}</h1>
         <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-          PinkieTechに関するお問い合わせは、以下のフォームまたは各種連絡先よりお願いいたします。
+          {t('pages.contact.description')}
         </p>
       </div>
 
@@ -49,64 +49,64 @@ const Contact: FC = () => {
         {/* Contact Form */}
         <Card>
           <CardHeader>
-            <CardTitle>お問い合わせフォーム</CardTitle>
+            <CardTitle>{t('pages.contact.form.title')}</CardTitle>
           </CardHeader>
           <CardContent>
             <form onSubmit={handleSubmit} className="space-y-6">
               <div className="space-y-2">
                 <label htmlFor="name" className="text-sm font-medium">
-                  お名前
-                  <span className="text-red-500 ml-1">*</span>
+                  {t('pages.contact.form.name.label')}
+                  <span className="text-red-500 ml-1">{t('pages.contact.form.required')}</span>
                 </label>
                 <Input
                   id="name"
                   name="name"
                   required
-                  placeholder="山田 太郎"
+                  placeholder={t('pages.contact.form.name.placeholder')}
                 />
               </div>
 
               <div className="space-y-2">
                 <label htmlFor="email" className="text-sm font-medium">
-                  メールアドレス
-                  <span className="text-red-500 ml-1">*</span>
+                  {t('pages.contact.form.email.label')}
+                  <span className="text-red-500 ml-1">{t('pages.contact.form.required')}</span>
                 </label>
                 <Input
                   id="email"
                   name="email"
                   type="email"
                   required
-                  placeholder="example@email.com"
+                  placeholder={t('pages.contact.form.email.placeholder')}
                 />
               </div>
 
               <div className="space-y-2">
                 <label htmlFor="company" className="text-sm font-medium">
-                  会社名
+                  {t('pages.contact.form.company.label')}
                 </label>
                 <Input
                   id="company"
                   name="company"
-                  placeholder="株式会社〇〇"
+                  placeholder={t('pages.contact.form.company.placeholder')}
                 />
               </div>
 
               <div className="space-y-2">
                 <label htmlFor="message" className="text-sm font-medium">
-                  お問い合わせ内容
-                  <span className="text-red-500 ml-1">*</span>
+                  {t('pages.contact.form.message.label')}
+                  <span className="text-red-500 ml-1">{t('pages.contact.form.required')}</span>
                 </label>
                 <Textarea
                   id="message"
                   name="message"
                   required
-                  placeholder="お問い合わせ内容をご記入ください"
+                  placeholder={t('pages.contact.form.message.placeholder')}
                   className="min-h-[150px]"
                 />
               </div>
 
               <Button type="submit" className="w-full">
-                送信する
+                {t('pages.contact.form.submit')}
               </Button>
             </form>
           </CardContent>
@@ -116,7 +116,7 @@ const Contact: FC = () => {
         <div className="space-y-6">
           <Card>
             <CardHeader>
-              <CardTitle>お問い合わせ先</CardTitle>
+              <CardTitle>{t('pages.contact.info.title')}</CardTitle>
             </CardHeader>
             <CardContent className="space-y-6">
               {contactInfo.map(({ icon: Icon, title, content, href }) => (
