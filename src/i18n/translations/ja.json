@@ -120,13 +120,42 @@
     },
     "contact": {
       "title": "お問い合わせ",
-      "description": "お気軽にお問い合わせください。",
+      "description": "PinkieTechに関するお問い合わせは、以下のフォームまたは各種連絡先よりお願いいたします。",
       "form": {
-        "name": "お名前",
-        "email": "メールアドレス",
-        "company": "会社名",
-        "message": "お問い合わせ内容",
+        "title": "お問い合わせフォーム",
+        "name": {
+          "label": "お名前",
+          "placeholder": "山田 太郎"
+        },
+        "email": {
+          "label": "メールアドレス",
+          "placeholder": "example@email.com"
+        },
+        "company": {
+          "label": "会社名",
+          "placeholder": "株式会社〇〇"
+        },
+        "message": {
+          "label": "お問い合わせ内容",
+          "placeholder": "お問い合わせ内容をご記入ください"
+        },
+        "required": "*",
         "submit": "送信する"
+      },
+      "info": {
+        "title": "お問い合わせ先",
+        "email": {
+          "title": "メールアドレス",
+          "content": "contact@pinkie-tech.jp"
+        },
+        "phone": {
+          "title": "電話番号",
+          "content": "03-1234-5678"
+        },
+        "address": {
+          "title": "所在地",
+          "content": "福岡県北九州市八幡西区塔野1-14-22"
+        }
       }
     },
     "works": {
@@ -173,46 +202,6 @@
         "title": "お問い合わせ",
         "message": "採用に関するお問い合わせは、以下のメールアドレスまでご連絡ください。気に入れば採用します。",
         "email": "contact@pinkie-tech.jp"
-      }
-    },
-    "contact": {
-      "title": "お問い合わせ",
-      "description": "PinkieTechに関するお問い合わせは、以下のフォームまたは各種連絡先よりお願いいたします。",
-      "form": {
-        "title": "お問い合わせフォーム",
-        "name": {
-          "label": "お名前",
-          "placeholder": "山田 太郎"
-        },
-        "email": {
-          "label": "メールアドレス",
-          "placeholder": "example@email.com"
-        },
-        "company": {
-          "label": "会社名",
-          "placeholder": "株式会社〇〇"
-        },
-        "message": {
-          "label": "お問い合わせ内容",
-          "placeholder": "お問い合わせ内容をご記入ください"
-        },
-        "required": "*",
-        "submit": "送信する"
-      },
-      "info": {
-        "title": "お問い合わせ先",
-        "email": {
-          "title": "メールアドレス",
-          "content": "contact@pinkie-tech.jp"
-        },
-        "phone": {
-          "title": "電話番号",
-          "content": "03-1234-5678"
-        },
-        "address": {
-          "title": "所在地",
-          "content": "福岡県北九州市八幡西区塔野1-14-22"
-        }
       }
     },
     "blog": {

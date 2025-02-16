@@ -1,12 +1,12 @@
 import i18n from 'i18next';
-import { initReactI18next } from 'react-i18next';
 import LanguageDetector from 'i18next-browser-languagedetector';
+import { initReactI18next } from 'react-i18next';
 
-import translationJA from './translations/ja.json';
-import translationEN from './translations/en.json';
-import translationZH from './translations/zh.json';
-import translationKO from './translations/ko.json';
 import translationAR from './translations/ar.json';
+import translationEN from './translations/en.json';
+import translationJA from './translations/ja.json';
+import translationKO from './translations/ko.json';
+import translationZH from './translations/zh.json';
 
 const resources = {
   ja: {
@@ -32,12 +32,13 @@ i18n
   .init({
     resources,
     fallbackLng: 'ja',
-    lng: 'ja', // default language
+    supportedLngs: ['ja', 'en', 'zh', 'ko', 'ar'],
     interpolation: {
       escapeValue: false,
     },
     detection: {
-      order: ['querystring', 'localStorage', 'navigator'],
+      order: ['localStorage', 'navigator'],
+      lookupLocalStorage: 'i18nextLng',
       caches: ['localStorage'],
     },
   });

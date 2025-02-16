@@ -1,39 +1,42 @@
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { useTranslation } from "react-i18next";
+import { type FC } from 'react';
+import { useTranslation } from 'react-i18next';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 const languages = [
   { code: 'ja', name: '日本語' },
   { code: 'en', name: 'English' },
   { code: 'zh', name: '中文' },
   { code: 'ko', name: '한국어' },
-  { code: 'ar', name: 'العربية' }
+  { code: 'ar', name: 'العربية' },
 ];
 
-export function LanguageSwitcher() {
+const LanguageSwitcher: FC = () => {
   const { i18n } = useTranslation();
 
+  const handleLanguageChange = (value: string) => {
+    i18n.changeLanguage(value);
+  };
+
   return (
-    <div>
-      <Select
-        value={i18n.language}
-        onValueChange={(value) => {
-          i18n.changeLanguage(value);
-          window.location.reload();
-        }}
-      >
-        <SelectTrigger className="w-[120px]" aria-label="Select language">
-          <SelectValue>
-            {languages.find(lang => lang.code === i18n.language)?.name || '日本語'}
-          </SelectValue>
-        </SelectTrigger>
-        <SelectContent>
-          {languages.map((lang) => (
-            <SelectItem key={lang.code} value={lang.code}>
-              {lang.name}
-            </SelectItem>
-          ))}
-        </SelectContent>
-      </Select>
-    </div>
+    <Select value={i18n.language} onValueChange={handleLanguageChange}>
+      <SelectTrigger className="w-[120px]">
+        <SelectValue />
+      </SelectTrigger>
+      <SelectContent>
+        {languages.map((lang) => (
+          <SelectItem key={lang.code} value={lang.code}>
+            {lang.name}
+          </SelectItem>
+        ))}
+      </SelectContent>
+    </Select>
   );
-}
+};
+
+export default LanguageSwitcher;

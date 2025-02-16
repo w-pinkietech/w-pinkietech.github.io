@@ -2,9 +2,9 @@
   "common": {
     "nav": {
       "home": "Home",
-      "about": "About Us",
+      "about": "About",
       "services": "Services",
-      "works": "Case Studies",
+      "works": "Works",
       "news": "News",
       "careers": "Careers",
       "contact": "Contact",
@@ -13,13 +13,13 @@
       "legal": "Legal"
     },
     "footer": {
-      "company_description": "PinkieTech helps businesses transform through AI integration.",
+      "company_description": "PinkieTech supports business transformation through AI.",
       "services": "Services",
       "ai_integration": "AI Integration",
       "workflow": "Workflow Optimization",
       "consulting": "AI Consulting",
       "company": "Company",
-      "about": "About Us",
+      "about": "About",
       "careers": "Careers",
       "contact": "Contact",
       "legal": "Legal",
@@ -120,13 +120,42 @@
     },
     "contact": {
       "title": "Contact Us",
-      "description": "Feel free to reach out to us.",
+      "description": "Please feel free to contact us using the form below or through our contact information.",
       "form": {
-        "name": "Name",
-        "email": "Email",
-        "company": "Company",
-        "message": "Message",
+        "title": "Contact Form",
+        "name": {
+          "label": "Name",
+          "placeholder": "John Doe"
+        },
+        "email": {
+          "label": "Email",
+          "placeholder": "example@email.com"
+        },
+        "company": {
+          "label": "Company",
+          "placeholder": "Company Name"
+        },
+        "message": {
+          "label": "Message",
+          "placeholder": "Please enter your message"
+        },
+        "required": "*",
         "submit": "Submit"
+      },
+      "info": {
+        "title": "Contact Information",
+        "email": {
+          "title": "Email",
+          "content": "contact@pinkie-tech.jp"
+        },
+        "phone": {
+          "title": "Phone",
+          "content": "03-1234-5678"
+        },
+        "address": {
+          "title": "Address",
+          "content": "1-14-22 Tono, Yahatanishi Ward, Kitakyushu City, Fukuoka Prefecture"
+        }
       }
     },
     "careers": {
