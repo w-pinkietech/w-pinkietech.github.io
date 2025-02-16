@@ -9,8 +9,8 @@ const Footer: FC = () => {
   const { t } = useTranslation()
 
   const socialLinks = [
-    { icon: Github, href: 'https://github.com/w-pinkietech', label: 'GitHub' },
-    { icon: Twitter, href: 'https://twitter.com/pinkietech', label: 'Twitter' },
+    { icon: Github, href: 'https://github.com/w-pinkietech/pinkieit', label: 'GitHub' },
+    { icon: Twitter, href: 'https://twitter.com/wataken215', label: 'Twitter' },
     { icon: Linkedin, href: 'https://linkedin.com/company/pinkietech', label: 'LinkedIn' },
     { icon: Mail, href: 'mailto:contact@pinkie-tech.jp', label: 'Email' }
   ]
