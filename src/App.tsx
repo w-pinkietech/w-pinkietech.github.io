@@ -2,15 +2,15 @@ import { type FC } from 'react';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import RootLayout from './layouts/RootLayout';
 import Home from './pages/Home';
-import About from './pages/About.tsx';
-import Services from './pages/Services.tsx';
-import Works from './pages/Works.tsx';
-import News from './pages/News.tsx';
-import Careers from './pages/Careers.tsx';
-import Contact from './pages/Contact.tsx';
-import Blog from './pages/Blog.tsx';
-import FAQ from './pages/FAQ.tsx';
-import Legal from './pages/Legal.tsx';
+import About from './pages/About';
+import Services from './pages/Services';
+import Works from './pages/Works';
+import News from './pages/News';
+import Careers from './pages/Careers';
+import Contact from './pages/Contact';
+import Blog from './pages/Blog';
+import FAQ from './pages/FAQ';
+import Legal from './pages/Legal';
 
 const router = createBrowserRouter([
   {

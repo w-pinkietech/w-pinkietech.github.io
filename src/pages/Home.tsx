@@ -6,8 +6,7 @@ import { Brain, Workflow, Bot, ArrowRight } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
 const Home: FC = () => {
-  const { t, i18n } = useTranslation();
-  const isRTL = i18n.language === 'ar';
+  const { t } = useTranslation();
 
   return (
     <>
