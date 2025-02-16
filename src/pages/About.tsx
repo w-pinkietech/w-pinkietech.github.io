@@ -13,6 +13,15 @@ const About: FC = () => {
     };
   };
 
+  const businessDescription = t('pages.about.company_info.business_description', { returnObjects: true }) as {
+    title: string;
+    items: Array<{
+      title: string;
+      description: string;
+      link?: string;
+    }>;
+  };
+
   return (
     <div className="container mx-auto px-6 py-12">
       {/* Hero Section */}
@@ -75,10 +84,57 @@ const About: FC = () => {
                   {item.label}
                 </dt>
                 <Separator className="my-2 sm:hidden" />
-                <dd className="text-muted-foreground">{item.value}</dd>
+                <dd className="text-muted-foreground">
+                  {key === 'ceo' ? (
+                    <div className="flex items-center gap-2">
+                      {item.value}
+                      <a
+                        href="https://twitter.com/wataken215"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-primary hover:underline inline-flex items-center gap-1"
+                      >
+                        <svg viewBox="0 0 24 24" className="w-4 h-4 fill-current">
+                          <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+                        </svg>
+                        @wataken215
+                      </a>
+                    </div>
+                  ) : (
+                    item.value
+                  )}
+                </dd>
               </div>
             ))}
           </dl>
+        </CardContent>
+      </Card>
+
+      {/* Business Description */}
+      <Card className="mt-8">
+        <CardHeader>
+          <CardTitle>{businessDescription.title}</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div className="grid gap-6">
+            {businessDescription.items.map((item, index) => (
+              <div key={index} className="space-y-2">
+                <h3 className="text-lg font-semibold">{item.title}</h3>
+                <p className="text-muted-foreground">{item.description}</p>
+                {item.link && (
+                  <a
+                    href={item.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-primary hover:underline inline-flex items-center gap-2"
+                  >
+                    <Github className="w-4 h-4" />
+                    View on GitHub
+                  </a>
+                )}
+              </div>
+            ))}
+          </div>
         </CardContent>
       </Card>
     </div>
