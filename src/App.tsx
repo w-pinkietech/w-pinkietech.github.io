@@ -1,5 +1,5 @@
 import { type FC } from 'react';
-import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import { createHashRouter, RouterProvider } from 'react-router-dom';
 import RootLayout from './layouts/RootLayout';
 import About from './pages/About';
 import Blog from './pages/Blog';
@@ -12,7 +12,7 @@ import News from './pages/News';
 import Services from './pages/Services';
 import Works from './pages/Works';
 
-const router = createBrowserRouter([
+const router = createHashRouter([
   {
     path: '/',
     element: <RootLayout />,
@@ -29,9 +29,7 @@ const router = createBrowserRouter([
       { path: '/legal', element: <Legal /> },
     ],
   },
-], {
-  basename: '/w-pinkietech.github.io'  // リポジトリ名に合わせて変更
-});
+]);
 
 const App: FC = () => {
   return <RouterProvider router={router} />;

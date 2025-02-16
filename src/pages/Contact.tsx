@@ -1,10 +1,10 @@
+import { Mail, MapPin, Phone } from "lucide-react";
 import { type FC } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Card, CardContent, CardHeader, CardTitle } from "../components/ui/card";
 import { Button } from "../components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "../components/ui/card";
 import { Input } from "../components/ui/input";
 import { Textarea } from "../components/ui/textarea";
-import { Mail, Phone, MapPin } from "lucide-react";
 
 const Contact: FC = () => {
   const { t } = useTranslation();
@@ -26,7 +26,7 @@ const Contact: FC = () => {
       icon: MapPin,
       title: t('pages.contact.info.address.title'),
       content: t('pages.contact.info.address.content'),
-      href: `https://maps.google.com/?q=${encodeURIComponent(t('pages.contact.info.address.content'))}`
+      href: `https://maps.google.com/?q=${encodeURIComponent('福岡県北九州市八幡西区塔野1-14-22')}`
     }
   ];
 
@@ -143,12 +143,14 @@ const Contact: FC = () => {
             <CardContent className="p-0">
               <iframe
                 title="会社所在地"
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3240.828030555938!2d139.76454725!3d35.6811773!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x60188bfbd89f700b%3A0x277c49ba34ed38!2z5aSn5omL55S6!5e0!3m2!1sja!2sjp!4v1644037858843!5m2!1sja!2sjp"
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3314.538241511479!2d130.73536311154467!3d33.82422747313201!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3543cef36e446151%3A0x4f8fcc8b78eb19f7!2s1-ch%C5%8Dme-14-22%20T%C5%8Dno%2C%20Yahatanishi%20Ward%2C%20Kitakyushu%2C%20Fukuoka%20807-0085%2C%20Japan!5e0!3m2!1sen!2ssg!4v1739725201107!5m2!1sen!2ssg"
                 width="100%"
                 height="300"
                 style={{ border: 0 }}
                 loading="lazy"
                 className="rounded-lg"
+                referrerPolicy="no-referrer-when-downgrade"
+                allowFullScreen
               />
             </CardContent>
           </Card>
