@@ -3,7 +3,7 @@ import { type ThemeConfig } from "../lib/types"
 export const theme: ThemeConfig = {
   colors: {
     primary: {
-      DEFAULT: "#FF6B35", // Warm orange
+      DEFAULT: "#C64418", // Deep warm orange for WCAG compliance (4.5:1 contrast)
       foreground: "#FFFFFF",
     },
     secondary: {
