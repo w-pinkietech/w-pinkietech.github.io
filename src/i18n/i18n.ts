@@ -36,6 +36,10 @@ i18n
     interpolation: {
       escapeValue: false,
     },
+    detection: {
+      order: ['querystring', 'localStorage', 'navigator'],
+      caches: ['localStorage'],
+    },
   });
 
 export default i18n;

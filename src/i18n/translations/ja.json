@@ -1,30 +1,331 @@
 {
-  "hero": {
-    "title": "AIでビジネスを変革する",
-    "description": "PinkieTechは、AIを既存のワークフローに統合することで、企業の業務を効率化します。カスタマイズされたAIソリューションで生産性を向上し、より賢明な意思決定を実現します。",
-    "cta": "はじめる"
-  },
-  "services": {
-    "title": "サービス内容",
-    "ai_integration": {
-      "title": "AI統合",
-      "description": "既存のビジネスプロセスにAI機能をシームレスに統合",
-      "content": "お客様のニーズに合わせたAIソリューションで、意思決定の向上とルーチンタスクの自動化を実現します。"
+  "common": {
+    "nav": {
+      "home": "ホーム",
+      "about": "会社概要",
+      "services": "サービス",
+      "works": "実績",
+      "news": "お知らせ",
+      "careers": "採用情報",
+      "contact": "お問い合わせ",
+      "blog": "ブログ",
+      "faq": "よくある質問",
+      "legal": "法的表記"
     },
-    "workflow": {
-      "title": "ワークフロー最適化",
-      "description": "インテリジェントな自動化による業務の効率化",
-      "content": "AI駆動のワークフロー分析と自動化により、ボトルネックを特定し、プロセスを最適化します。"
-    },
-    "consulting": {
-      "title": "AIコンサルティング",
-      "description": "AI実装に関する専門的なガイダンス",
-      "content": "ビジネス目標を達成するためのAIテクノロジー活用について、戦略的なアドバイスを提供します。"
+    "footer": {
+      "company_description": "PinkieTechは、AIを活用したビジネス変革を支援する企業です。",
+      "services": "サービス",
+      "ai_integration": "AI統合",
+      "workflow": "ワークフロー最適化",
+      "consulting": "AIコンサルティング",
+      "company": "企業情報",
+      "about": "会社概要",
+      "careers": "採用情報",
+      "contact": "お問い合わせ",
+      "legal": "法的情報",
+      "privacy": "プライバシーポリシー",
+      "terms": "利用規約",
+      "rights": "All rights reserved."
     }
   },
-  "cta": {
-    "title": "ビジネスの変革を始めませんか？",
-    "description": "AIを活用して競争力を高めている企業の仲間入りをしましょう。",
-    "button": "お問い合わせ"
+  "pages": {
+    "home": {
+      "hero": {
+        "title": "AIでビジネスを変革する",
+        "description": "PinkieTechは、AIを既存のワークフローに統合することで、企業の業務を効率化します。カスタマイズされたAIソリューションで生産性を向上し、より賢明な意思決定を実現します。",
+        "cta": "はじめる"
+      },
+      "services": {
+        "title": "サービス内容",
+        "ai_integration": {
+          "title": "AI統合",
+          "description": "既存のビジネスプロセスにAI機能をシームレスに統合",
+          "content": "お客様のニーズに合わせたAIソリューションで、意思決定の向上とルーチンタスクの自動化を実現します。"
+        },
+        "workflow": {
+          "title": "ワークフロー最適化",
+          "description": "インテリジェントな自動化による業務の効率化",
+          "content": "AI駆動のワークフロー分析と自動化により、ボトルネックを特定し、プロセスを最適化します。"
+        },
+        "consulting": {
+          "title": "AIコンサルティング",
+          "description": "AI実装に関する専門的なガイダンス",
+          "content": "ビジネス目標を達成するためのAIテクノロジー活用について、戦略的なアドバイスを提供します。"
+        }
+      },
+      "cta": {
+        "title": "ビジネスの変革を始めませんか？",
+        "description": "AIを活用して競争力を高めている企業の仲間入りをしましょう。",
+        "button": "お問い合わせ"
+      }
+    },
+    "about": {
+      "title": "会社概要",
+      "description": "PinkieTechは、最新のAI技術を活用してビジネスの変革を支援する企業です。",
+      "ceo_message": {
+        "title": "代表メッセージ",
+        "content": "私たちは、AIの力でビジネスの未来を創造します。"
+      },
+      "company_info": {
+        "title": "企業情報",
+        "items": {
+          "name": {
+            "label": "会社名",
+            "value": "PinkieTech株式会社"
+          },
+          "ceo": {
+            "label": "代表取締役",
+            "value": "渡部健太"
+          },
+          "established": {
+            "label": "設立",
+            "value": "2025年1月17日"
+          },
+          "capital": {
+            "label": "資本金",
+            "value": "5,000,000円"
+          },
+          "employees": {
+            "label": "従業員数",
+            "value": "3人"
+          },
+          "address": {
+            "label": "所在地",
+            "value": "福岡県北九州市八幡西区塔野1-14-22"
+          }
+        },
+        "business_description": {
+          "title": "事業内容",
+          "items": [
+            {
+              "title": "AIビジネス変革支援",
+              "description": "AIを活用したビジネス変革を支援し、企業の業務効率化を実現します。"
+            },
+            {
+              "title": "Pinkieit（オープンソース）",
+              "description": "トヨタ生産方式を導入可能なオープンソースソフトウェアを提供しています。",
+              "link": "https://github.com/w-pinkietech/pinkieit"
+            },
+            {
+              "title": "SEOコンテンツ生成",
+              "description": "AIでの検索リサーチ時代に対応したSEO対策とコンテンツ生成を提供します。"
+            },
+            {
+              "title": "オープンソース活動",
+              "description": "オープンソースソフトウェアの開発と普及に取り組んでいます。"
+            }
+          ]
+        }
+      }
+    },
+    "contact": {
+      "title": "お問い合わせ",
+      "description": "お気軽にお問い合わせください。",
+      "form": {
+        "name": "お名前",
+        "email": "メールアドレス",
+        "company": "会社名",
+        "message": "お問い合わせ内容",
+        "submit": "送信する"
+      }
+    },
+    "works": {
+      "title": "導入事例",
+      "description": "現在、導入事例はまだありません。今後、お客様との協力のもと、成功事例を順次公開していく予定です。",
+      "results_title": "導入効果",
+      "case_studies": []
+    },
+    "news": {
+      "title": "ニュース",
+      "description": "PinkieTechの最新のニュースやお知らせをご覧いただけます。",
+      "read_more": "続きを読む",
+      "items": [
+        {
+          "id": 1,
+          "date": "2024-02-15",
+          "category": "プレスリリース",
+          "title": "新サービス「AI Workflow Optimizer」の提供を開始",
+          "description": "企業のワークフローを最適化するAIソリューション「AI Workflow Optimizer」の提供を開始しました。",
+          "link": "/news/ai-workflow-optimizer"
+        },
+        {
+          "id": 2,
+          "date": "2024-02-01",
+          "category": "お知らせ",
+          "title": "東京本社オフィスを移転",
+          "description": "事業拡大に伴い、東京本社オフィスを移転いたしました。新オフィスでは、より充実した環境でサービスを提供してまいります。",
+          "link": "/news/office-relocation"
+        },
+        {
+          "id": 3,
+          "date": "2024-01-20",
+          "category": "メディア掲載",
+          "title": "日経新聞に当社のAI活用事例が掲載",
+          "description": "日経新聞電子版に、当社のAI活用による業務改善事例が特集記事として掲載されました。",
+          "link": "/news/nikkei-feature"
+        }
+      ]
+    },
+    "careers": {
+      "title": "採用情報",
+      "description": "現在、個別での採用のみ受け付けています。",
+      "contact": {
+        "title": "お問い合わせ",
+        "message": "採用に関するお問い合わせは、以下のメールアドレスまでご連絡ください。気に入れば採用します。",
+        "email": "contact@pinkie-tech.jp"
+      }
+    },
+    "contact": {
+      "title": "お問い合わせ",
+      "description": "PinkieTechに関するお問い合わせは、以下のフォームまたは各種連絡先よりお願いいたします。",
+      "form": {
+        "title": "お問い合わせフォーム",
+        "name": {
+          "label": "お名前",
+          "placeholder": "山田 太郎"
+        },
+        "email": {
+          "label": "メールアドレス",
+          "placeholder": "example@email.com"
+        },
+        "company": {
+          "label": "会社名",
+          "placeholder": "株式会社〇〇"
+        },
+        "message": {
+          "label": "お問い合わせ内容",
+          "placeholder": "お問い合わせ内容をご記入ください"
+        },
+        "required": "*",
+        "submit": "送信する"
+      },
+      "info": {
+        "title": "お問い合わせ先",
+        "email": {
+          "title": "メールアドレス",
+          "content": "contact@pinkie-tech.jp"
+        },
+        "phone": {
+          "title": "電話番号",
+          "content": "03-1234-5678"
+        },
+        "address": {
+          "title": "所在地",
+          "content": "福岡県北九州市八幡西区塔野1-14-22"
+        }
+      }
+    },
+    "blog": {
+      "title": "ブログ",
+      "description": "AI技術やビジネストレンド、導入事例など、最新の情報をお届けします。",
+      "read_more": "続きを読む",
+      "posts": []
+    },
+    "faq": {
+      "title": "よくある質問",
+      "description": "PinkieTechのサービスに関する一般的な質問とその回答をご紹介します。",
+      "categories": [
+        {
+          "title": "サービスについて",
+          "items": [
+            {
+              "question": "AIソリューションの導入にはどのくらいの期間がかかりますか？",
+              "answer": "プロジェクトの規模や要件によって異なりますが、一般的な導入期間は3〜6ヶ月程度です。具体的な期間は、初回のコンサルティングでご案内させていただきます。"
+            },
+            {
+              "question": "導入後のサポート体制はどうなっていますか？",
+              "answer": "24時間365日のテクニカルサポート、定期的なメンテナンス、アップデート対応など、包括的なサポート体制を整えています。サポートプランの詳細は、お問い合わせください。"
+            }
+          ]
+        },
+        {
+          "title": "料金について",
+          "items": [
+            {
+              "question": "料金体系を教えてください",
+              "answer": "初期導入費用と月額利用料で構成されています。具体的な料金は、ご利用規模や機能要件によって異なるため、お見積りをご用意させていただきます。"
+            },
+            {
+              "question": "最低契約期間はありますか？",
+              "answer": "基本的な最低契約期間は1年間となっています。ただし、プロジェクトの内容によって柔軟に対応させていただきますので、ご相談ください。"
+            }
+          ]
+        },
+        {
+          "title": "技術について",
+          "items": [
+            {
+              "question": "どのような技術スタックを使用していますか？",
+              "answer": "最新のAI/ML技術（TensorFlow, PyTorch）、クラウドインフラ（AWS, GCP）、Webテクノロジー（React, Node.js）など、プロジェクトに最適な技術を選定しています。"
+            },
+            {
+              "question": "既存のシステムとの連携は可能ですか？",
+              "answer": "はい、可能です。RESTful API、GraphQL、その他標準的なプロトコルを通じて、既存システムとのシームレスな連携を実現します。"
+            }
+          ]
+        }
+      ]
+    },
+    "legal": {
+      "title": "法的情報",
+      "description": "プライバシーポリシー、利用規約、特定商取引法に基づく表記をご確認いただけます。",
+      "last_updated": "最終更新日：2024年2月15日",
+      "sections": [
+        {
+          "id": "privacy",
+          "title": "プライバシーポリシー",
+          "content": [
+            {
+              "subtitle": "1. 個人情報の収集について",
+              "text": "当社は、お客様から以下の個人情報を収集する場合があります：\n・氏名\n・メールアドレス\n・会社名\n・電話番号\n・その他、当社サービスの提供に必要な情報"
+            },
+            {
+              "subtitle": "2. 個人情報の利用目的",
+              "text": "収集した個人情報は、以下の目的で利用いたします：\n・サービスの提供および運営\n・お問い合わせへの対応\n・新サービスの開発および改善\n・マーケティング活動"
+            },
+            {
+              "subtitle": "3. 個人情報の管理",
+              "text": "当社は、お客様の個人情報を適切に管理し、法令に基づいて取り扱います。個人情報への不正アクセス、紛失、破壊、改ざん、漏洩などを防止するため、適切な安全管理措置を講じています。"
+            }
+          ]
+        },
+        {
+          "id": "terms",
+          "title": "利用規約",
+          "content": [
+            {
+              "subtitle": "1. サービスの利用",
+              "text": "本サービスのご利用にあたり、利用者は本規約に同意したものとみなされます。当社は、本規約を随時変更することができ、変更後の規約は直ちに効力を生じるものとします。"
+            },
+            {
+              "subtitle": "2. 禁止事項",
+              "text": "以下の行為を禁止します：\n・法令違反行為\n・当社または第三者の権利を侵害する行為\n・サービスの運営を妨害する行為\n・その他、当社が不適切と判断する行為"
+            },
+            {
+              "subtitle": "3. 免責事項",
+              "text": "当社は、本サービスの利用により生じた損害について、一切の責任を負いません。ただし、当社の故意または重大な過失による場合は、この限りではありません。"
+            }
+          ]
+        },
+        {
+          "id": "commercial",
+          "title": "特定商取引法に基づく表記",
+          "content": [
+            {
+              "subtitle": "事業者の名称",
+              "text": "PinkieTech株式会社"
+            },
+            {
+              "subtitle": "所在地",
+              "text": "福岡県北九州市八幡西区塔野1-14-22"
+            },
+            {
+              "subtitle": "連絡先",
+              "text": "メール：contact@pinkie-tech.jp\n電話：03-1234-5678\n受付時間：平日9:00〜18:00"
+            }
+          ]
+        }
+      ]
+    }
   }
 }

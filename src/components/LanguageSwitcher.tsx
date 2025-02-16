@@ -13,13 +13,18 @@ export function LanguageSwitcher() {
   const { i18n } = useTranslation();
 
   return (
-    <div className="fixed top-4 right-4 z-50">
+    <div>
       <Select
         value={i18n.language}
-        onValueChange={(value) => i18n.changeLanguage(value)}
+        onValueChange={(value) => {
+          i18n.changeLanguage(value);
+          window.location.reload();
+        }}
       >
-        <SelectTrigger className="w-[120px]">
-          <SelectValue />
+        <SelectTrigger className="w-[120px]" aria-label="Select language">
+          <SelectValue>
+            {languages.find(lang => lang.code === i18n.language)?.name || '日本語'}
+          </SelectValue>
         </SelectTrigger>
         <SelectContent>
           {languages.map((lang) => (

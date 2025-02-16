@@ -1,30 +1,247 @@
 {
-  "hero": {
-    "title": "Transform Your Business with AI",
-    "description": "PinkieTech helps businesses streamline operations by integrating AI into their existing workflows. Boost productivity and make smarter decisions with our tailored AI solutions.",
-    "cta": "Get Started"
-  },
-  "services": {
-    "title": "Our Services",
-    "ai_integration": {
-      "title": "AI Integration",
-      "description": "Seamlessly integrate AI capabilities into your existing business processes",
-      "content": "Enhance decision-making and automate routine tasks with custom AI solutions tailored to your needs."
+  "common": {
+    "nav": {
+      "home": "Home",
+      "about": "About Us",
+      "services": "Services",
+      "works": "Case Studies",
+      "news": "News",
+      "careers": "Careers",
+      "contact": "Contact",
+      "blog": "Blog",
+      "faq": "FAQ",
+      "legal": "Legal"
     },
-    "workflow": {
-      "title": "Workflow Optimization",
-      "description": "Streamline your operations with intelligent automation",
-      "content": "Identify bottlenecks and optimize processes using AI-powered workflow analysis and automation."
-    },
-    "consulting": {
-      "title": "AI Consulting",
-      "description": "Expert guidance on AI implementation",
-      "content": "Get strategic advice on how to leverage AI technology to achieve your business goals."
+    "footer": {
+      "company_description": "PinkieTech helps businesses transform through AI integration.",
+      "services": "Services",
+      "ai_integration": "AI Integration",
+      "workflow": "Workflow Optimization",
+      "consulting": "AI Consulting",
+      "company": "Company",
+      "about": "About Us",
+      "careers": "Careers",
+      "contact": "Contact",
+      "legal": "Legal",
+      "privacy": "Privacy Policy",
+      "terms": "Terms of Service",
+      "rights": "All rights reserved."
     }
   },
-  "cta": {
-    "title": "Ready to Transform Your Business?",
-    "description": "Join the growing number of businesses that are leveraging AI to stay ahead of the competition.",
-    "button": "Contact Us"
+  "pages": {
+    "home": {
+      "hero": {
+        "title": "Transform Your Business with AI",
+        "description": "PinkieTech helps businesses streamline operations by integrating AI into their existing workflows. Boost productivity and make smarter decisions with our tailored AI solutions.",
+        "cta": "Get Started"
+      },
+      "services": {
+        "title": "Our Services",
+        "ai_integration": {
+          "title": "AI Integration",
+          "description": "Seamlessly integrate AI capabilities into your existing business processes",
+          "content": "Enhance decision-making and automate routine tasks with custom AI solutions tailored to your needs."
+        },
+        "workflow": {
+          "title": "Workflow Optimization",
+          "description": "Streamline your operations with intelligent automation",
+          "content": "Identify bottlenecks and optimize processes using AI-powered workflow analysis and automation."
+        },
+        "consulting": {
+          "title": "AI Consulting",
+          "description": "Expert guidance on AI implementation",
+          "content": "Get strategic advice on how to leverage AI technology to achieve your business goals."
+        }
+      },
+      "cta": {
+        "title": "Ready to Transform Your Business?",
+        "description": "Join the growing number of businesses that are leveraging AI to stay ahead of the competition.",
+        "button": "Contact Us"
+      }
+    },
+    "about": {
+      "title": "About Us",
+      "description": "PinkieTech is a company that drives business transformation through cutting-edge AI technology.",
+      "ceo_message": {
+        "title": "CEO Message",
+        "content": "We create the future of business through the power of AI."
+      },
+      "company_info": {
+        "title": "Company Information",
+        "items": {
+          "name": {
+            "label": "Company Name",
+            "value": "PinkieTech Inc."
+          },
+          "ceo": {
+            "label": "CEO",
+            "value": "Kenta Watanabe"
+          },
+          "established": {
+            "label": "Established",
+            "value": "January 17, 2025"
+          },
+          "capital": {
+            "label": "Capital",
+            "value": "¥5,000,000"
+          },
+          "employees": {
+            "label": "Employees",
+            "value": "3"
+          },
+          "address": {
+            "label": "Address",
+            "value": "1-14-22 Tono, Yahatanishi-ku, Kitakyushu-shi, Fukuoka"
+          }
+        },
+        "business_description": {
+          "title": "Business Description",
+          "items": [
+            {
+              "title": "AI Business Transformation",
+              "description": "Supporting business transformation through AI integration to improve operational efficiency."
+            },
+            {
+              "title": "Pinkieit (Open Source)",
+              "description": "Providing open-source software for implementing Toyota Production System.",
+              "link": "https://github.com/w-pinkietech/pinkieit"
+            },
+            {
+              "title": "SEO Content Generation",
+              "description": "Providing SEO optimization and content generation for the AI search research era."
+            },
+            {
+              "title": "Open Source Initiatives",
+              "description": "Actively developing and promoting open-source software."
+            }
+          ]
+        }
+      }
+    },
+    "contact": {
+      "title": "Contact Us",
+      "description": "Feel free to reach out to us.",
+      "form": {
+        "name": "Name",
+        "email": "Email",
+        "company": "Company",
+        "message": "Message",
+        "submit": "Submit"
+      }
+    },
+    "careers": {
+      "title": "Careers",
+      "description": "We are currently accepting individual applications only.",
+      "contact": {
+        "title": "Contact",
+        "message": "For recruitment inquiries, please contact us via email. If we like you, we'll hire you.",
+        "email": "contact@pinkie-tech.jp"
+      }
+    },
+    "works": {
+      "title": "Case Studies",
+      "description": "We currently have no case studies to showcase. We plan to publish success stories in collaboration with our clients in the future.",
+      "results_title": "Results",
+      "case_studies": []
+    },
+    "blog": {
+      "title": "Blog",
+      "description": "Stay updated with the latest in AI technology, business trends, and case studies.",
+      "read_more": "Read More",
+      "posts": []
+    },
+    "faq": {
+      "title": "FAQ",
+      "description": "Find answers to common questions about PinkieTech's services.",
+      "categories": [
+        {
+          "title": "About Our Services",
+          "items": [
+            {
+              "question": "How long does it take to implement an AI solution?",
+              "answer": "Implementation time varies depending on the scope and complexity of your project. We'll provide a detailed timeline during our initial consultation."
+            },
+            {
+              "question": "Can you integrate with existing systems?",
+              "answer": "Yes, we can integrate with existing systems through RESTful APIs, GraphQL, and other standard protocols."
+            }
+          ]
+        },
+        {
+          "title": "Pricing",
+          "items": [
+            {
+              "question": "What is your pricing structure?",
+              "answer": "Our pricing consists of initial setup costs and monthly fees. Specific pricing varies based on usage scale and feature requirements. We'll provide a detailed quote for your needs."
+            },
+            {
+              "question": "Is there a minimum contract period?",
+              "answer": "The standard minimum contract period is one year. However, we can be flexible depending on your project requirements."
+            }
+          ]
+        }
+      ]
+    },
+    "legal": {
+      "title": "Legal Information",
+      "description": "Review our Privacy Policy, Terms of Service, and Commercial Transaction Law disclosures.",
+      "last_updated": "Last updated: February 15, 2024",
+      "sections": [
+        {
+          "id": "privacy",
+          "title": "Privacy Policy",
+          "content": [
+            {
+              "subtitle": "1. Collection of Personal Information",
+              "text": "We may collect the following personal information:\n• Name\n• Email address\n• Company name\n• Phone number\n• Other information necessary for our services"
+            },
+            {
+              "subtitle": "2. Use of Personal Information",
+              "text": "We use collected personal information for:\n• Service provision and operation\n• Responding to inquiries\n• New service development and improvement\n• Marketing activities"
+            },
+            {
+              "subtitle": "3. Management of Personal Information",
+              "text": "We appropriately manage your personal information in accordance with laws and regulations. We implement appropriate security measures to prevent unauthorized access, loss, destruction, alteration, and leakage."
+            }
+          ]
+        },
+        {
+          "id": "terms",
+          "title": "Terms of Service",
+          "content": [
+            {
+              "subtitle": "1. Service Usage",
+              "text": "By using our services, users are deemed to have agreed to these terms. We may modify these terms at any time, and such modifications shall take immediate effect."
+            },
+            {
+              "subtitle": "2. Prohibited Actions",
+              "text": "The following actions are prohibited:\n• Violations of laws and regulations\n• Infringement of our or third-party rights\n• Interference with service operations\n• Other actions we deem inappropriate"
+            },
+            {
+              "subtitle": "3. Disclaimer",
+              "text": "We shall not be liable for any damages arising from the use of our services, except in cases of willful misconduct or gross negligence on our part."
+            }
+          ]
+        },
+        {
+          "id": "commercial",
+          "title": "Commercial Transaction Law Disclosures",
+          "content": [
+            {
+              "subtitle": "Business Name",
+              "text": "PinkieTech Inc."
+            },
+            {
+              "subtitle": "Address",
+              "text": "1-14-22 Tono, Yahatanishi-ku, Kitakyushu-shi, Fukuoka"
+            },
+            {
+              "subtitle": "Contact Information",
+              "text": "Email: contact@pinkie-tech.jp\nPhone: 03-1234-5678\nBusiness Hours: Weekdays 9:00-18:00"
+            }
+          ]
+        }
+      ]
+    }
   }
 }

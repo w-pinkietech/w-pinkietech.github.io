@@ -1,30 +1,92 @@
 {
-  "hero": {
-    "title": "用AI改变您的业务",
-    "description": "PinkieTech通过将AI集成到现有工作流程中，帮助企业简化运营。通过我们量身定制的AI解决方案提高生产力，做出更明智的决策。",
-    "cta": "开始使用"
-  },
-  "services": {
-    "title": "我们的服务",
-    "ai_integration": {
-      "title": "AI集成",
-      "description": "将AI功能无缝集成到现有业务流程中",
-      "content": "通过定制的AI解决方案增强决策能力并自动化日常任务。"
+  "common": {
+    "nav": {
+      "home": "首页",
+      "about": "关于我们",
+      "services": "服务",
+      "works": "案例",
+      "news": "新闻",
+      "careers": "招聘",
+      "contact": "联系我们",
+      "blog": "博客",
+      "faq": "常见问题",
+      "legal": "法律声明"
     },
-    "workflow": {
-      "title": "工作流程优化",
-      "description": "通过智能自动化简化运营",
-      "content": "使用AI驱动的工作流程分析和自动化识别瓶颈并优化流程。"
-    },
-    "consulting": {
-      "title": "AI咨询",
-      "description": "AI实施专家指导",
-      "content": "就如何利用AI技术实现业务目标提供战略建议。"
+    "footer": {
+      "company_description": "PinkieTech通过AI集成帮助企业实现转型。",
+      "services": "服务",
+      "ai_integration": "AI集成",
+      "workflow": "工作流程优化",
+      "consulting": "AI咨询",
+      "company": "公司",
+      "about": "关于我们",
+      "careers": "招聘",
+      "contact": "联系我们",
+      "legal": "法律",
+      "privacy": "隐私政策",
+      "terms": "服务条款",
+      "rights": "版权所有"
     }
   },
-  "cta": {
-    "title": "准备好改变您的业务了吗？",
-    "description": "加入越来越多利用AI保持竞争优势的企业行列。",
-    "button": "联系我们"
+  "pages": {
+    "home": {
+      "hero": {
+        "title": "用AI改变您的业务",
+        "description": "PinkieTech通过将AI集成到现有工作流程中，帮助企业简化运营。通过我们量身定制的AI解决方案提高生产力，做出更明智的决策。",
+        "cta": "开始使用"
+      },
+      "services": {
+        "title": "我们的服务",
+        "ai_integration": {
+          "title": "AI集成",
+          "description": "将AI功能无缝集成到现有业务流程中",
+          "content": "通过定制的AI解决方案增强决策能力并自动化日常任务。"
+        },
+        "workflow": {
+          "title": "工作流程优化",
+          "description": "通过智能自动化简化运营",
+          "content": "使用AI驱动的工作流程分析和自动化识别瓶颈并优化流程。"
+        },
+        "consulting": {
+          "title": "AI咨询",
+          "description": "AI实施专家指导",
+          "content": "就如何利用AI技术实现业务目标提供战略建议。"
+        }
+      },
+      "cta": {
+        "title": "准备好改变您的业务了吗？",
+        "description": "加入越来越多利用AI保持竞争优势的企业行列。",
+        "button": "联系我们"
+      }
+    },
+    "about": {
+      "title": "关于我们",
+      "description": "PinkieTech是一家通过尖端AI技术推动企业转型的公司。",
+      "ceo_message": {
+        "title": "CEO致辞",
+        "content": "我们通过AI的力量创造企业的未来。"
+      },
+      "company_info": {
+        "title": "公司信息",
+        "items": {
+          "name": "公司名称",
+          "established": "成立时间",
+          "capital": "注册资本",
+          "employees": "员工人数",
+          "address": "公司地址"
+        }
+      }
+    },
+    "contact": {
+      "title": "联系我们",
+      "description": "欢迎随时与我们联系。",
+      "form": {
+        "name": "姓名",
+        "email": "电子邮箱",
+        "company": "公司",
+        "message": "留言",
+        "submit": "提交"
+      }
+    }
   }
 }
