@@ -1,30 +1,92 @@
 {
-  "hero": {
-    "title": "AIでビジネスを変革する",
-    "description": "PinkieTechは、AIを既存のワークフローに統合することで、企業の業務を効率化します。カスタマイズされたAIソリューションで生産性を向上し、より賢明な意思決定を実現します。",
-    "cta": "はじめる"
-  },
-  "services": {
-    "title": "サービス内容",
-    "ai_integration": {
-      "title": "AI統合",
-      "description": "既存のビジネスプロセスにAI機能をシームレスに統合",
-      "content": "お客様のニーズに合わせたAIソリューションで、意思決定の向上とルーチンタスクの自動化を実現します。"
+  "common": {
+    "nav": {
+      "home": "ホーム",
+      "about": "会社概要",
+      "services": "サービス",
+      "works": "実績",
+      "news": "お知らせ",
+      "careers": "採用情報",
+      "contact": "お問い合わせ",
+      "blog": "ブログ",
+      "faq": "よくある質問",
+      "legal": "法的表記"
     },
-    "workflow": {
-      "title": "ワークフロー最適化",
-      "description": "インテリジェントな自動化による業務の効率化",
-      "content": "AI駆動のワークフロー分析と自動化により、ボトルネックを特定し、プロセスを最適化します。"
-    },
-    "consulting": {
-      "title": "AIコンサルティング",
-      "description": "AI実装に関する専門的なガイダンス",
-      "content": "ビジネス目標を達成するためのAIテクノロジー活用について、戦略的なアドバイスを提供します。"
+    "footer": {
+      "company_description": "PinkieTechは、AIを活用したビジネス変革を支援する企業です。",
+      "services": "サービス",
+      "ai_integration": "AI統合",
+      "workflow": "ワークフロー最適化",
+      "consulting": "AIコンサルティング",
+      "company": "企業情報",
+      "about": "会社概要",
+      "careers": "採用情報",
+      "contact": "お問い合わせ",
+      "legal": "法的情報",
+      "privacy": "プライバシーポリシー",
+      "terms": "利用規約",
+      "rights": "All rights reserved."
     }
   },
-  "cta": {
-    "title": "ビジネスの変革を始めませんか？",
-    "description": "AIを活用して競争力を高めている企業の仲間入りをしましょう。",
-    "button": "お問い合わせ"
+  "pages": {
+    "home": {
+      "hero": {
+        "title": "AIでビジネスを変革する",
+        "description": "PinkieTechは、AIを既存のワークフローに統合することで、企業の業務を効率化します。カスタマイズされたAIソリューションで生産性を向上し、より賢明な意思決定を実現します。",
+        "cta": "はじめる"
+      },
+      "services": {
+        "title": "サービス内容",
+        "ai_integration": {
+          "title": "AI統合",
+          "description": "既存のビジネスプロセスにAI機能をシームレスに統合",
+          "content": "お客様のニーズに合わせたAIソリューションで、意思決定の向上とルーチンタスクの自動化を実現します。"
+        },
+        "workflow": {
+          "title": "ワークフロー最適化",
+          "description": "インテリジェントな自動化による業務の効率化",
+          "content": "AI駆動のワークフロー分析と自動化により、ボトルネックを特定し、プロセスを最適化します。"
+        },
+        "consulting": {
+          "title": "AIコンサルティング",
+          "description": "AI実装に関する専門的なガイダンス",
+          "content": "ビジネス目標を達成するためのAIテクノロジー活用について、戦略的なアドバイスを提供します。"
+        }
+      },
+      "cta": {
+        "title": "ビジネスの変革を始めませんか？",
+        "description": "AIを活用して競争力を高めている企業の仲間入りをしましょう。",
+        "button": "お問い合わせ"
+      }
+    },
+    "about": {
+      "title": "会社概要",
+      "description": "PinkieTechは、最新のAI技術を活用してビジネスの変革を支援する企業です。",
+      "ceo_message": {
+        "title": "代表メッセージ",
+        "content": "私たちは、AIの力でビジネスの未来を創造します。"
+      },
+      "company_info": {
+        "title": "企業情報",
+        "items": {
+          "name": "会社名",
+          "established": "設立",
+          "capital": "資本金",
+          "employees": "従業員数",
+          "address": "所在地"
+        }
+      }
+    },
+    "contact": {
+      "title": "お問い合わせ",
+      "description": "お気軽にお問い合わせください。",
+      "form": {
+        "name": "お名前",
+        "email": "メールアドレス",
+        "company": "会社名",
+        "message": "お問い合わせ内容",
+        "submit": "送信する"
+      }
+    }
   }
 }
