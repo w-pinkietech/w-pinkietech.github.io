@@ -14,6 +14,7 @@ const Works: FC = () => {
     company: string;
     tags: string[];
     description: string;
+    image: string;
     results: string[];
   }>;
 
