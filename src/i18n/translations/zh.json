@@ -1,0 +1,30 @@
+{
+  "hero": {
+    "title": "用AI改变您的业务",
+    "description": "PinkieTech通过将AI集成到现有工作流程中，帮助企业简化运营。通过我们量身定制的AI解决方案提高生产力，做出更明智的决策。",
+    "cta": "开始使用"
+  },
+  "services": {
+    "title": "我们的服务",
+    "ai_integration": {
+      "title": "AI集成",
+      "description": "将AI功能无缝集成到现有业务流程中",
+      "content": "通过定制的AI解决方案增强决策能力并自动化日常任务。"
+    },
+    "workflow": {
+      "title": "工作流程优化",
+      "description": "通过智能自动化简化运营",
+      "content": "使用AI驱动的工作流程分析和自动化识别瓶颈并优化流程。"
+    },
+    "consulting": {
+      "title": "AI咨询",
+      "description": "AI实施专家指导",
+      "content": "就如何利用AI技术实现业务目标提供战略建议。"
+    }
+  },
+  "cta": {
+    "title": "准备好改变您的业务了吗？",
+    "description": "加入越来越多利用AI保持竞争优势的企业行列。",
+    "button": "联系我们"
+  }
+}

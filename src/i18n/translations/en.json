@@ -1,0 +1,30 @@
+{
+  "hero": {
+    "title": "Transform Your Business with AI",
+    "description": "PinkieTech helps businesses streamline operations by integrating AI into their existing workflows. Boost productivity and make smarter decisions with our tailored AI solutions.",
+    "cta": "Get Started"
+  },
+  "services": {
+    "title": "Our Services",
+    "ai_integration": {
+      "title": "AI Integration",
+      "description": "Seamlessly integrate AI capabilities into your existing business processes",
+      "content": "Enhance decision-making and automate routine tasks with custom AI solutions tailored to your needs."
+    },
+    "workflow": {
+      "title": "Workflow Optimization",
+      "description": "Streamline your operations with intelligent automation",
+      "content": "Identify bottlenecks and optimize processes using AI-powered workflow analysis and automation."
+    },
+    "consulting": {
+      "title": "AI Consulting",
+      "description": "Expert guidance on AI implementation",
+      "content": "Get strategic advice on how to leverage AI technology to achieve your business goals."
+    }
+  },
+  "cta": {
+    "title": "Ready to Transform Your Business?",
+    "description": "Join the growing number of businesses that are leveraging AI to stay ahead of the competition.",
+    "button": "Contact Us"
+  }
+}
