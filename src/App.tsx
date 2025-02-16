@@ -1,10 +1,11 @@
+import { type FC } from 'react';
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Brain, Workflow, Bot, ArrowRight } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { LanguageSwitcher } from "./components/LanguageSwitcher";
 
-export default function App() {
+const App: FC = () => {
   const { t, i18n } = useTranslation();
   const isRTL = i18n.language === 'ar';
 
@@ -119,3 +120,5 @@ export default function App() {
     </div>
   );
 }
+
+export default App;
