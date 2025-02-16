@@ -70,6 +70,7 @@
         "title": "企業情報",
         "items": {
           "name": "会社名",
+          "ceo": "代表取締役",
           "established": "設立",
           "capital": "資本金",
           "employees": "従業員数",

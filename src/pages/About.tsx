@@ -8,10 +8,11 @@ const About: FC = () => {
 
   const companyInfo = [
     { key: 'name', value: 'PinkieTech株式会社' },
-    { key: 'established', value: '2023年4月' },
-    { key: 'capital', value: '1,000万円' },
-    { key: 'employees', value: '25名' },
-    { key: 'address', value: '〒100-0004 東京都千代田区大手町1-1-1' }
+    { key: 'ceo', value: '渡部健太' },
+    { key: 'established', value: '2025年1月17日' },
+    { key: 'capital', value: '5,000,000円' },
+    { key: 'employees', value: '3名' },
+    { key: 'address', value: '福岡県北九州市八幡西区塔野1-14-22' }
   ];
 
   return (
