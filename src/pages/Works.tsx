@@ -52,9 +52,9 @@ const Works: FC = () => {
     <div className="container mx-auto px-6 py-12">
       {/* Hero Section */}
       <div className="text-center mb-16">
-        <h1 className="text-4xl font-bold mb-6">導入事例</h1>
+        <h1 className="text-4xl font-bold mb-6">{t('pages.works.title')}</h1>
         <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-          PinkieTechのAIソリューションが、お客様のビジネスにもたらした具体的な成果をご紹介します。
+          {t('pages.works.description')}
         </p>
       </div>
 
@@ -78,7 +78,7 @@ const Works: FC = () => {
                 <CardContent className="px-0 space-y-6">
                   <p className="text-lg">{study.description}</p>
                   <div className="space-y-2">
-                    <h3 className="font-semibold">導入効果</h3>
+                    <h3 className="font-semibold">{t('pages.works.results_title')}</h3>
                     <ul className="list-disc list-inside space-y-1 text-muted-foreground">
                       {study.results.map((result, idx) => (
                         <li key={idx}>{result}</li>
@@ -87,7 +87,7 @@ const Works: FC = () => {
                   </div>
                   <Button asChild>
                     <Link to="/contact" className="gap-2">
-                      お問い合わせ <ArrowRight className="w-4 h-4" />
+                      {t('pages.home.hero.cta')} <ArrowRight className="w-4 h-4" />
                     </Link>
                   </Button>
                 </CardContent>
