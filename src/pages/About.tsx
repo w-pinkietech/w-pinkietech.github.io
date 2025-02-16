@@ -6,14 +6,12 @@ import { Separator } from "@/components/ui/separator";
 const About: FC = () => {
   const { t } = useTranslation();
 
-  const companyInfo = [
-    { key: 'name', value: 'PinkieTech株式会社' },
-    { key: 'ceo', value: '渡部健太' },
-    { key: 'established', value: '2025年1月17日' },
-    { key: 'capital', value: '5,000,000円' },
-    { key: 'employees', value: '3名' },
-    { key: 'address', value: '福岡県北九州市八幡西区塔野1-14-22' }
-  ];
+  const companyInfo = t('pages.about.company_info.items', { returnObjects: true }) as {
+    [key: string]: {
+      label: string;
+      value: string;
+    };
+  };
 
   return (
     <div className="container mx-auto px-6 py-12">
@@ -40,9 +38,25 @@ const About: FC = () => {
               />
             </div>
             <div className="md:col-span-2">
-              <p className="text-lg leading-relaxed">
-                {t('pages.about.ceo_message.content')}
-              </p>
+              <div className="space-y-4">
+                <p className="text-lg leading-relaxed">
+                  {t('pages.about.ceo_message.content')}
+                </p>
+                <div className="flex items-center gap-4">
+                  <span className="font-medium">CEO</span>
+                  <a
+                    href="https://twitter.com/wataken215"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-primary hover:underline inline-flex items-center gap-2"
+                  >
+                    <svg viewBox="0 0 24 24" className="w-5 h-5 fill-current">
+                      <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+                    </svg>
+                    @wataken215
+                  </a>
+                </div>
+              </div>
             </div>
           </div>
         </CardContent>
@@ -55,13 +69,13 @@ const About: FC = () => {
         </CardHeader>
         <CardContent>
           <dl className="space-y-4">
-            {companyInfo.map(({ key, value }) => (
+            {Object.entries(companyInfo).map(([key, item]) => (
               <div key={key} className="flex flex-col sm:flex-row sm:gap-4">
                 <dt className="font-semibold min-w-[200px]">
-                  {t(`pages.about.company_info.items.${key}`)}
+                  {item.label}
                 </dt>
                 <Separator className="my-2 sm:hidden" />
-                <dd className="text-muted-foreground">{value}</dd>
+                <dd className="text-muted-foreground">{item.value}</dd>
               </div>
             ))}
           </dl>
