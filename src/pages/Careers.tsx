@@ -41,6 +41,7 @@ const Careers: FC = () => {
         <div className="grid md:grid-cols-3 gap-8">
           {benefits.map(({ title, description }, index) => {
             const Icon = benefitIcons[index];
+            return (
             <Card key={index} className="text-center">
               <CardHeader>
                 <div className="mx-auto mb-4 p-3 bg-primary/10 rounded-full w-fit">
@@ -52,7 +53,8 @@ const Careers: FC = () => {
                 <p className="text-muted-foreground">{description}</p>
               </CardContent>
             </Card>
-          ))}
+            );
+          })}
         </div>
       </section>
 
