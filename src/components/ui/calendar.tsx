@@ -32,10 +32,10 @@ function Calendar({
         table: "w-full border-collapse space-y-1",
         head_row: "flex",
         head_cell:
-          "text-zinc-500 rounded-md w-8 font-normal text-[0.8rem] dark:text-zinc-400",
+          "text-muted-foreground rounded-md w-8 font-normal text-[0.8rem] dark:text-muted-foreground/70",
         row: "flex w-full mt-2",
         cell: cn(
-          "relative p-0 text-center text-sm focus-within:relative focus-within:z-20 [&:has([aria-selected])]:bg-zinc-100 [&:has([aria-selected].day-outside)]:bg-zinc-100/50 [&:has([aria-selected].day-range-end)]:rounded-r-md dark:[&:has([aria-selected])]:bg-zinc-800 dark:[&:has([aria-selected].day-outside)]:bg-zinc-800/50",
+          "relative p-0 text-center text-sm focus-within:relative focus-within:z-20 [&:has([aria-selected])]:bg-accent/10 [&:has([aria-selected].day-outside)]:bg-accent/5 [&:has([aria-selected].day-range-end)]:rounded-r-md dark:[&:has([aria-selected])]:bg-accent/20 dark:[&:has([aria-selected].day-outside)]:bg-accent/10",
           props.mode === "range"
             ? "[&:has(>.day-range-end)]:rounded-r-md [&:has(>.day-range-start)]:rounded-l-md first:[&:has([aria-selected])]:rounded-l-md last:[&:has([aria-selected])]:rounded-r-md"
             : "[&:has([aria-selected])]:rounded-md"
@@ -47,13 +47,13 @@ function Calendar({
         day_range_start: "day-range-start",
         day_range_end: "day-range-end",
         day_selected:
-          "bg-zinc-900 text-zinc-50 hover:bg-zinc-900 hover:text-zinc-50 focus:bg-zinc-900 focus:text-zinc-50 dark:bg-zinc-50 dark:text-zinc-900 dark:hover:bg-zinc-50 dark:hover:text-zinc-900 dark:focus:bg-zinc-50 dark:focus:text-zinc-900",
-        day_today: "bg-zinc-100 text-zinc-900 dark:bg-zinc-800 dark:text-zinc-50",
+          "bg-primary text-primary-foreground hover:bg-primary hover:text-primary-foreground focus:bg-primary focus:text-primary-foreground dark:bg-primary dark:text-primary-foreground dark:hover:bg-primary dark:hover:text-primary-foreground dark:focus:bg-primary dark:focus:text-primary-foreground",
+        day_today: "bg-accent/10 text-foreground dark:bg-accent/20 dark:text-foreground",
         day_outside:
-          "day-outside text-zinc-500 aria-selected:bg-zinc-100/50 aria-selected:text-zinc-500 dark:text-zinc-400 dark:aria-selected:bg-zinc-800/50 dark:aria-selected:text-zinc-400",
-        day_disabled: "text-zinc-500 opacity-50 dark:text-zinc-400",
+          "day-outside text-muted-foreground aria-selected:bg-accent/5 aria-selected:text-muted-foreground dark:text-muted-foreground/70 dark:aria-selected:bg-accent/10 dark:aria-selected:text-muted-foreground/70",
+        day_disabled: "text-muted-foreground/50 dark:text-muted-foreground/30",
         day_range_middle:
-          "aria-selected:bg-zinc-100 aria-selected:text-zinc-900 dark:aria-selected:bg-zinc-800 dark:aria-selected:text-zinc-50",
+          "aria-selected:bg-accent/10 aria-selected:text-foreground dark:aria-selected:bg-accent/20 dark:aria-selected:text-foreground",
         day_hidden: "invisible",
         ...classNames,
       }}
