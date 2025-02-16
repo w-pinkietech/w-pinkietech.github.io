@@ -255,6 +255,43 @@
           "content": "〒100-0004 東京都千代田区大手町1-1-1"
         }
       }
+    },
+    "blog": {
+      "title": "ブログ",
+      "description": "AI技術やビジネストレンド、導入事例など、最新の情報をお届けします。",
+      "read_more": "続きを読む",
+      "posts": [
+        {
+          "id": 1,
+          "title": "AIが変える企業の未来：2024年のトレンド",
+          "excerpt": "企業におけるAI活用の最新トレンドと、ビジネスにもたらす変革について解説します。",
+          "category": "AI技術",
+          "author": "田中 健一",
+          "date": "2024-02-15",
+          "image": "/images/ai-integration.jpg",
+          "slug": "ai-future-trends-2024"
+        },
+        {
+          "id": 2,
+          "title": "効率的なワークフロー構築のためのベストプラクティス",
+          "excerpt": "業務効率を最大化するワークフロー構築の方法と、自動化ツールの活用について紹介します。",
+          "category": "業務効率化",
+          "author": "鈴木 美咲",
+          "date": "2024-02-10",
+          "image": "/images/workflow.jpg",
+          "slug": "workflow-best-practices"
+        },
+        {
+          "id": 3,
+          "title": "AIコンサルティング成功事例：製造業での導入",
+          "excerpt": "製造業におけるAI導入の実例と、得られた具体的な成果について解説します。",
+          "category": "事例紹介",
+          "author": "佐藤 隆",
+          "date": "2024-02-05",
+          "image": "/images/consulting.jpg",
+          "slug": "ai-consulting-case-study"
+        }
+      ]
     }
   }
 }
