@@ -1,5 +1,5 @@
 import { Footer } from '@/components/Footer'
-import LanguageSwitcher from '@/components/LanguageSwitcher'
+import { LanguageSwitcher } from '@/components/LanguageSwitcher'
 import { MainNav } from '@/components/MainNav'
 import { type FC } from 'react'
 import { useTranslation } from 'react-i18next'

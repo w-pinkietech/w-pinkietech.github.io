@@ -1,16 +1,17 @@
-import { type FC, useState } from 'react'
-import { useTranslation } from 'react-i18next'
-import { LanguageSwitcher } from '../LanguageSwitcher'
 import { Button } from '@/components/ui/button'
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet'
 import { Menu, X } from 'lucide-react'
+import { type FC, useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import { Link } from 'react-router-dom'
+import { LanguageSwitcher } from '../LanguageSwitcher'
 
 const Header: FC = () => {
   const { t } = useTranslation()
   const [isOpen, setIsOpen] = useState(false)
 
-  const navLinks = [
+  const navItems = [
+    { href: '/', label: t('common.nav.home') },
     { href: '/about', label: t('common.nav.about') },
     { href: '/services', label: t('common.nav.services') },
     { href: '/works', label: t('common.nav.works') },
@@ -18,7 +19,8 @@ const Header: FC = () => {
     { href: '/careers', label: t('common.nav.careers') },
     { href: '/contact', label: t('common.nav.contact') },
     { href: '/blog', label: t('common.nav.blog') },
-    { href: '/faq', label: t('common.nav.faq') }
+    { href: '/faq', label: t('common.nav.faq') },
+    { href: '/legal', label: t('common.nav.legal') },
   ]
 
   return (
@@ -28,7 +30,7 @@ const Header: FC = () => {
           <div className="flex items-center gap-8">
             <Link to="/" className="text-xl font-bold">PinkieTech</Link>
             <nav className="hidden md:flex items-center gap-6">
-              {navLinks.map(({ href, label }) => (
+              {navItems.map(({ href, label }) => (
                 <Link
                   key={href}
                   to={href}
@@ -49,7 +51,7 @@ const Header: FC = () => {
               </SheetTrigger>
               <SheetContent side="right" className="w-[300px] sm:w-[400px]">
                 <nav className="flex flex-col gap-4">
-                  {navLinks.map(({ href, label }) => (
+                  {navItems.map(({ href, label }) => (
                     <Link
                       key={href}
                       to={href}

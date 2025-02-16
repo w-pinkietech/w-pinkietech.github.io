@@ -1,5 +1,3 @@
-import { type FC } from 'react';
-import { useTranslation } from 'react-i18next';
 import {
   Select,
   SelectContent,
@@ -7,6 +5,8 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { type FC } from 'react';
+import { useTranslation } from 'react-i18next';
 
 const languages = [
   { code: 'ja', name: '日本語' },
@@ -16,7 +16,7 @@ const languages = [
   { code: 'ar', name: 'العربية' },
 ];
 
-const LanguageSwitcher: FC = () => {
+export const LanguageSwitcher: FC = () => {
   const { i18n } = useTranslation();
 
   const handleLanguageChange = (value: string) => {
@@ -38,5 +38,3 @@ const LanguageSwitcher: FC = () => {
     </Select>
   );
 };
-
-export default LanguageSwitcher;
