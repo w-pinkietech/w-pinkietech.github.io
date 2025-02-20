@@ -10,5 +10,8 @@ export default defineConfig({
     },
   },
   base: '/',
+  server: {
+    allowedHosts: ['funny-peas-fry.loca.lt'],
+  },
 })
 

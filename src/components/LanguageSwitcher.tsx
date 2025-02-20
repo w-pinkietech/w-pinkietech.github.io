@@ -7,6 +7,7 @@ import {
 } from "@/components/ui/select";
 import { type FC } from 'react';
 import { useTranslation } from 'react-i18next';
+import { updateMetaTags } from '@/utils/title';
 
 const languages = [
   { code: 'ja', name: '日本語' },
@@ -21,6 +22,7 @@ export const LanguageSwitcher: FC = () => {
 
   const handleLanguageChange = (value: string) => {
     i18n.changeLanguage(value);
+    updateMetaTags();
   };
 
   return (

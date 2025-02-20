@@ -1,5 +1,10 @@
 {
   "common": {
+    "meta": {
+      "title": "PinkieTech - AI로 비즈니스를 혁신하다",
+      "description": "PinkieTech는 AI 통합을 통해 비즈니스 혁신을 지원하며, 기존 워크플로우에 AI를 통합하여 운영을 최적화합니다.",
+      "keywords": "AI,비즈니스 혁신,워크플로우 최적화,AI 컨설팅,효율성 향상"
+    },
     "nav": {
       "home": "홈",
       "about": "회사 소개",
