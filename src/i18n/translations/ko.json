@@ -1,9 +1,9 @@
 {
   "common": {
     "meta": {
-      "title": "PinkieTech - AI로 비즈니스를 혁신하다",
-      "description": "PinkieTech는 AI 통합을 통해 비즈니스 혁신을 지원하며, 기존 워크플로우에 AI를 통합하여 운영을 최적화합니다.",
-      "keywords": "AI,비즈니스 혁신,워크플로우 최적화,AI 컨설팅,효율성 향상"
+      "title": "PinkieTech - 기타큐슈에서 DX와 AI로 비즈니스를 혁신하다",
+      "description": "PinkieTech는 기타큐슈에 본사를 둔 디지털 전환 지원 기업입니다. AI 통합을 통해 비즈니스 혁신을 지원하며, 기존 워크플로우에 AI를 통합하여 운영을 최적화합니다.",
+      "keywords": "AI,디지털 전환,비즈니스 혁신,워크플로우 최적화,AI 컨설팅,효율성 향상,기타큐슈"
     },
     "nav": {
       "home": "홈",

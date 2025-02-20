@@ -1,9 +1,9 @@
 {
   "common": {
     "meta": {
-      "title": "PinkieTech - AIでビジネスを変革する",
-      "description": "PinkieTechは、AIを活用したビジネス変革を支援する企業です。AIを既存のワークフローに統合することで、企業の業務を効率化します。",
-      "keywords": "AI,ビジネス変革,業務効率化,ワークフロー最適化,AIコンサルティング"
+      "title": "PinkieTech - 北九州からDXとAIでビジネスを変革する",
+      "description": "PinkieTechは、北九州を拠点とするDX支援企業です。AIを活用したビジネス変革を支援し、既存のワークフローに統合することで、企業の業務を効率化します。",
+      "keywords": "AI,DX支援,ビジネス変革,業務効率化,ワークフロー最適化,AIコンサルティング,北九州"
     },
     "nav": {
       "home": "ホーム",
