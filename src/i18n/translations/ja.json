@@ -28,6 +28,27 @@
       "rights": "All rights reserved."
     }
   },
+  "cli": {
+    "welcomeMessage": "PinkieTechのCLIへようこそ。利用可能なコマンドを見るには 'help' と入力してください。",
+    "helpMessage": "コマンドを入力してサイト内を移動できます。",
+    "availableCommands": "利用可能なコマンド:",
+    "command": {
+      "home": "ホームへ移動",
+      "about": "PinkieTechについて",
+      "services": "サービスを見る",
+      "works": "導入事例を見る",
+      "news": "最新ニュースを読む",
+      "careers": "採用情報を見る",
+      "contact": "お問い合わせ",
+      "blog": "ブログを読む",
+      "faq": "よくある質問を見る",
+      "legal": "法的情報を見る",
+      "clear": "ターミナル画面をクリア",
+      "help": "このヘルプメッセージを表示"
+    },
+    "navigatingTo": "{page}へ移動中...",
+    "commandNotFound": "コマンドが見つかりません: {command}。コマンド一覧は 'help' と入力してください。"
+  },
   "pages": {
     "home": {
       "hero": {

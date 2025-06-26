@@ -28,6 +28,27 @@
       "rights": "All rights reserved."
     }
   },
+  "cli": {
+    "welcomeMessage": "Welcome to PinkieTech's CLI. Type 'help' to see available commands.",
+    "helpMessage": "You can navigate the site by typing commands.",
+    "availableCommands": "Available commands:",
+    "command": {
+      "home": "Go to the home page",
+      "about": "Learn about PinkieTech",
+      "services": "Explore our services",
+      "works": "View our case studies",
+      "news": "Read the latest news",
+      "careers": "Check career opportunities",
+      "contact": "Get in touch with us",
+      "blog": "Read our blog",
+      "faq": "Find answers to common questions",
+      "legal": "View legal information",
+      "clear": "Clear the terminal screen",
+      "help": "Display this help message"
+    },
+    "navigatingTo": "Navigating to {page}...",
+    "commandNotFound": "Command not found: {command}. Type 'help' for a list of commands."
+  },
   "pages": {
     "home": {
       "hero": {
