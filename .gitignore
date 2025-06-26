@@ -41,4 +41,7 @@ lerna-debug.log*
 Thumbs.db
 
 # TypeScript
-*.tsbuildinfo 
+*.tsbuildinfo
+
+# Target directory
+target/

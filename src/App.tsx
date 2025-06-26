@@ -12,21 +12,14 @@ import News from './pages/News';
 import Services from './pages/Services';
 import Works from './pages/Works';
 
+// All pages now use the same CLI interface
 const router = createHashRouter([
   {
     path: '/',
     element: <RootLayout />,
     children: [
       { path: '/', element: <Home /> },
-      { path: '/about', element: <About /> },
-      { path: '/services', element: <Services /> },
-      { path: '/works', element: <Works /> },
-      { path: '/news', element: <News /> },
-      { path: '/careers', element: <Careers /> },
-      { path: '/contact', element: <Contact /> },
-      { path: '/blog', element: <Blog /> },
-      { path: '/faq', element: <FAQ /> },
-      { path: '/legal', element: <Legal /> },
+      // Remove other routes - everything is handled through CLI now
     ],
   },
 ]);
