@@ -10,12 +10,23 @@ interface CLIEmulatorProps {
 const CLIEmulator: React.FC<CLIEmulatorProps> = ({ initialOutput = [] }) => {
   const [output, setOutput] = useState<string[]>(initialOutput);
   const [currentInput, setCurrentInput] = useState('');
-  const [currentPrompt, setCurrentPrompt] = useState('guest@pinkietech:~$');
+  const getCyberPrompt = () => {
+    const user = '\x02guest\x02';
+    const at = '\x03@\x03';
+    const host = '\x02pinkietech\x02';
+    const path = '\x03:~$\x03';
+    return `${user}${at}${host}${path}`;
+  };
+  
+  const [currentPrompt, setCurrentPrompt] = useState(getCyberPrompt());
   const [history, setHistory] = useState<string[]>([]);
   const [historyIndex, setHistoryIndex] = useState(-1);
   const [currentLang, setCurrentLang] = useState<'ja' | 'en'>('ja');
   const [commandContext, setCommandContext] = useState('');
   const [isPasswordInput, setIsPasswordInput] = useState(false);
+  const [achievements, setAchievements] = useState<Set<string>>(new Set());
+  const [score, setScore] = useState(0);
+  const [gameState, setGameState] = useState<any>(null);
   
   const terminalRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
@@ -52,8 +63,9 @@ const CLIEmulator: React.FC<CLIEmulatorProps> = ({ initialOutput = [] }) => {
   };
 
   const handleCommand = (command: string) => {
-    // Show the command in output with special marker
-    addToOutput(`\x01${currentPrompt} ${isPasswordInput ? '*'.repeat(command.length) : command}`);
+    // Show the command in output with special marker - strip control characters for display
+    const cleanPrompt = currentPrompt.replace(/\x02/g, '').replace(/\x03/g, '');
+    addToOutput(`\x01${cleanPrompt} ${isPasswordInput ? '*'.repeat(command.length) : command}`);
     
     // Add to history if not password
     if (!isPasswordInput && command.trim()) {
@@ -64,11 +76,11 @@ const CLIEmulator: React.FC<CLIEmulatorProps> = ({ initialOutput = [] }) => {
     // Handle interactive contexts
     if (commandContext === 'sudo_password') {
       if (command) {
-        addToOutput(currentLang === 'ja' ? '権限がありません。ナイストライ！ 😏' : 'Permission denied. Nice try! 😏');
+        addToOutput('\x02[ERROR]\x02 ' + (currentLang === 'ja' ? '権限がありません。ナイストライ！ 😏' : 'Permission denied. Nice try! 😏'));
       }
       setCommandContext('');
       setIsPasswordInput(false);
-      setCurrentPrompt('guest@pinkietech:~$');
+      setCurrentPrompt(getCyberPrompt());
     } else if (commandContext === 'mail_subject') {
       if (command) {
         addToOutput(['', currentLang === 'ja' ? '本文を入力してください (Ctrl+Dで送信, Ctrl+Cでキャンセル):' : 'Enter message body (Ctrl+D to send, Ctrl+C to cancel):', '']);
@@ -77,7 +89,7 @@ const CLIEmulator: React.FC<CLIEmulatorProps> = ({ initialOutput = [] }) => {
       } else {
         addToOutput([currentLang === 'ja' ? 'メール作成をキャンセルしました' : 'Mail composition cancelled']);
         setCommandContext('');
-        setCurrentPrompt('guest@pinkietech:~$');
+        setCurrentPrompt(getCyberPrompt());
       }
     } else if (commandContext === 'mail_body') {
       if (command.toLowerCase() === ':send' || command.toLowerCase() === ':s') {
@@ -86,11 +98,82 @@ const CLIEmulator: React.FC<CLIEmulatorProps> = ({ initialOutput = [] }) => {
           addToOutput([currentLang === 'ja' ? '✓ メールを送信しました' : '✓ Email sent successfully', '']);
         }, 500);
         setCommandContext('');
-        setCurrentPrompt('guest@pinkietech:~$');
+        setCurrentPrompt(getCyberPrompt());
       } else {
         // Continue collecting message body
         addToOutput('');
         setCurrentPrompt('>');
+      }
+    } else if (commandContext === 'guess_game') {
+      const guess = parseInt(command);
+      if (isNaN(guess)) {
+        addToOutput(currentLang === 'ja' ? '数字を入力してください' : 'Please enter a number');
+      } else if (guess < gameState.target) {
+        gameState.attempts++;
+        addToOutput('\x03[HINT]\x03 ' + (currentLang === 'ja' ? 'もっと大きい数です ↑' : 'Too low! ↑'));
+      } else if (guess > gameState.target) {
+        gameState.attempts++;
+        addToOutput('\x03[HINT]\x03 ' + (currentLang === 'ja' ? 'もっと小さい数です ↓' : 'Too high! ↓'));
+      } else {
+        const points = Math.max(10, 50 - gameState.attempts * 5);
+        addToOutput(['', 
+          '\x02[SUCCESS]\x02 ' + (currentLang === 'ja' ? `正解！ ${gameState.attempts}回で当てました！` : `Correct! You got it in ${gameState.attempts} attempts!`),
+          '\x03+' + points + 'pts\x03',
+          ''
+        ]);
+        setScore(prev => prev + points);
+        setCommandContext('');
+        setCurrentPrompt(getCyberPrompt());
+        setGameState(null);
+        
+        if (gameState.attempts <= 5) {
+          unlockAchievement('lucky', currentLang === 'ja' ? 'ラッキー' : 'Lucky', 15);
+        }
+      }
+    } else if (commandContext === 'quiz_game') {
+      const answer = command.toLowerCase();
+      const correctAnswer = gameState.questions[gameState.currentQuestion].answer.toLowerCase();
+      
+      if (answer === correctAnswer || answer === correctAnswer[0]) {
+        addToOutput(['\x02[CORRECT]\x02 ' + (currentLang === 'ja' ? '正解！' : 'Correct!'), '']);
+        gameState.score += 10;
+        gameState.currentQuestion++;
+        
+        if (gameState.currentQuestion < gameState.questions.length) {
+          const q = gameState.questions[gameState.currentQuestion];
+          addToOutput([`Q${gameState.currentQuestion + 1}: ${q.question}`, '', ...q.options, '']);
+        } else {
+          addToOutput(['',
+            currentLang === 'ja' ? 'クイズ終了！' : 'Quiz completed!',
+            currentLang === 'ja' ? `スコア: ${gameState.score}/${gameState.questions.length * 10}` : `Score: ${gameState.score}/${gameState.questions.length * 10}`,
+            ''
+          ]);
+          setScore(prev => prev + gameState.score);
+          if (gameState.score === gameState.questions.length * 10) {
+            unlockAchievement('genius', currentLang === 'ja' ? '天才' : 'Genius', 30);
+          }
+          setCommandContext('');
+          setCurrentPrompt(getCyberPrompt());
+          setGameState(null);
+        }
+      } else {
+        addToOutput(['\x02[WRONG]\x02 ' + (currentLang === 'ja' ? '不正解...' : 'Incorrect...'), '']);
+        gameState.currentQuestion++;
+        
+        if (gameState.currentQuestion < gameState.questions.length) {
+          const q = gameState.questions[gameState.currentQuestion];
+          addToOutput([`Q${gameState.currentQuestion + 1}: ${q.question}`, '', ...q.options, '']);
+        } else {
+          addToOutput(['',
+            currentLang === 'ja' ? 'クイズ終了！' : 'Quiz completed!',
+            currentLang === 'ja' ? `スコア: ${gameState.score}/${gameState.questions.length * 10}` : `Score: ${gameState.score}/${gameState.questions.length * 10}`,
+            ''
+          ]);
+          setScore(prev => prev + gameState.score);
+          setCommandContext('');
+          setCurrentPrompt(getCyberPrompt());
+          setGameState(null);
+        }
       }
     } else if (commandContext === 'exit_confirm') {
       if (command.toLowerCase() === 'y' || command.toLowerCase() === 'yes') {
@@ -98,7 +181,7 @@ const CLIEmulator: React.FC<CLIEmulatorProps> = ({ initialOutput = [] }) => {
         setTimeout(() => window.location.reload(), 1000);
       } else {
         setCommandContext('');
-        setCurrentPrompt('guest@pinkietech:~$');
+        setCurrentPrompt(getCyberPrompt());
       }
     } else {
       // Normal command processing
@@ -165,7 +248,7 @@ const CLIEmulator: React.FC<CLIEmulatorProps> = ({ initialOutput = [] }) => {
     } else if (lowerCommand === 'pwd') {
       addToOutput('/home/guest');
     } else if (lowerCommand === 'ls') {
-      addToOutput('README.md  projects/  documents/  .config/');
+      showAvailableCommands();
     } else if (lowerCommand === 'date') {
       addToOutput(new Date().toString());
     } else if (lowerCommand.startsWith('echo ')) {
@@ -175,33 +258,49 @@ const CLIEmulator: React.FC<CLIEmulatorProps> = ({ initialOutput = [] }) => {
     } else if (lowerCommand === 'banner') {
       showBanner();
     } else if (lowerCommand === 'readme') {
-      handleCat('README.md');
+      showReadme();
+    } else if (lowerCommand === 'cat') {
+      showCat();
     } else if (lowerCommand.startsWith('cat ')) {
-      handleCat(command.substring(4).trim());
+      showCat();
     } else if (lowerCommand === 'repo' || lowerCommand === 'repository') {
       addToOutput(['', currentLang === 'ja' ? 'GitHubリポジトリを開いています...' : 'Opening GitHub repository...', '']);
       window.open('https://github.com/w-pinkietech', '_blank');
       addToOutput(currentLang === 'ja' ? '→ https://github.com/w-pinkietech' : '→ https://github.com/w-pinkietech');
+    } else if (lowerCommand === 'fuck') {
+      showPinkieYou();
+      unlockAchievement('rebel', currentLang === 'ja' ? '反逆者' : 'Rebel', 20);
     } else if (lowerCommand === 'hack' || lowerCommand === 'hack the planet') {
-      addToOutput(['', 'ACCESS DENIED', '', currentLang === 'ja' ? '冗談です！好奇心旺盛な方、大歓迎です。' : 'Just kidding! We appreciate your curiosity.']);
+      addToOutput(['', '\x02[ACCESS DENIED]\x02', '', currentLang === 'ja' ? '\x03> 冗談です！好奇心旺盛な方、大歓迎です。\x03' : '\x03> Just kidding! We appreciate your curiosity.\x03']);
+      unlockAchievement('hacker', currentLang === 'ja' ? 'ハッカー志望' : 'Wannabe Hacker', 10);
+    } else if (lowerCommand === 'game' || lowerCommand === 'games') {
+      showGameMenu();
+    } else if (lowerCommand === 'game 1' || lowerCommand === 'game guess' || lowerCommand === 'guess') {
+      startGuessGame();
+    } else if (lowerCommand === 'game 2' || lowerCommand === 'game quiz' || lowerCommand === 'quiz') {
+      startQuizGame();
+    } else if (lowerCommand === 'game 3' || lowerCommand === 'game typing' || lowerCommand === 'typing') {
+      addToOutput(['', currentLang === 'ja' ? '準備中...' : 'Coming soon...', '']);
+    } else if (lowerCommand === 'achievements' || lowerCommand === 'achievement') {
+      showAchievements();
+    } else if (lowerCommand === 'score') {
+      addToOutput(['', currentLang === 'ja' ? `現在のスコア: ${score}点` : `Current score: ${score} points`, '']);
     } else if (command.trim()) {
       addToOutput([
-        `-bash: ${command}: ${currentLang === 'ja' ? 'コマンドが見つかりません' : 'command not found'}`,
-        currentLang === 'ja' ? '「help」で利用可能なコマンドを確認' : 'Type "help" for available commands'
+        `\x02[ERROR]\x02 ${command}: ${currentLang === 'ja' ? 'コマンドが見つかりません' : 'command not found'}`,
+        `\x03${currentLang === 'ja' ? '> 「help」で利用可能なコマンドを確認' : '> Type "help" for available commands'}\x03`
       ]);
     }
   };
 
   const showHelp = () => {
     const lines = [''];
-    lines.push('═══════════════════════════════════════════════════════');
-    
-    const title = currentLang === 'ja' ? '利用可能なコマンド一覧' : 'Available Commands';
-    lines.push('                    ' + title);
-    lines.push('═══════════════════════════════════════════════════════');
+    lines.push('\x03╔════════════════════════════════════════════════════════╗\x03');
+    lines.push('\x03║              \x03' + (currentLang === 'ja' ? '\x02利用可能なコマンド一覧\x02' : '\x02Available Commands\x02') + '\x03              ║\x03');
+    lines.push('\x03╚════════════════════════════════════════════════════════╝\x03');
     lines.push('');
     
-    const navTitle = currentLang === 'ja' ? 'ナビゲーション:' : 'Navigation:';
+    const navTitle = currentLang === 'ja' ? '\x02【ナビゲーション】\x02' : '\x02[Navigation]\x02';
     lines.push(navTitle);
     lines.push('');
     
@@ -220,7 +319,7 @@ const CLIEmulator: React.FC<CLIEmulatorProps> = ({ initialOutput = [] }) => {
     
     lines.push('');
     
-    const sysTitle = currentLang === 'ja' ? 'システム:' : 'System:';
+    const sysTitle = currentLang === 'ja' ? '\x02【システム】\x02' : '\x02[System]\x02';
     lines.push(sysTitle);
     lines.push('');
     
@@ -229,8 +328,8 @@ const CLIEmulator: React.FC<CLIEmulatorProps> = ({ initialOutput = [] }) => {
       { cmd: 'help', desc: currentLang === 'ja' ? 'ヘルプを表示' : 'Show help' },
       { cmd: 'whoami', desc: currentLang === 'ja' ? '現在のユーザー' : 'Current user' },
       { cmd: 'pwd', desc: currentLang === 'ja' ? '現在のディレクトリ' : 'Working directory' },
-      { cmd: 'ls', desc: currentLang === 'ja' ? 'ファイル一覧' : 'List files' },
-      { cmd: 'cat', desc: currentLang === 'ja' ? 'ファイル表示' : 'Display file' },
+      { cmd: 'ls', desc: currentLang === 'ja' ? 'コマンド一覧' : 'List commands' },
+      { cmd: 'cat', desc: currentLang === 'ja' ? '猫を表示' : 'Show cat' },
       { cmd: 'readme', desc: currentLang === 'ja' ? 'README表示' : 'Show README' },
       { cmd: 'neofetch', desc: currentLang === 'ja' ? 'システム情報' : 'System info' },
       { cmd: 'banner', desc: currentLang === 'ja' ? 'ロゴ表示' : 'Show logo' },
@@ -244,7 +343,7 @@ const CLIEmulator: React.FC<CLIEmulatorProps> = ({ initialOutput = [] }) => {
     });
     
     lines.push('');
-    lines.push('═══════════════════════════════════════════════════════');
+    lines.push('\x03──────────────────────────────────────────────────────────\x03');
     lines.push('');
     
     addToOutput(lines);
@@ -456,68 +555,267 @@ const CLIEmulator: React.FC<CLIEmulatorProps> = ({ initialOutput = [] }) => {
 
   const showBanner = () => {
     const lines = [''];
-    lines.push('██████╗ ██╗███╗   ██╗██╗  ██╗██╗███████╗████████╗███████╗ ██████╗██╗  ██╗');
-    lines.push('██╔══██╗██║████╗  ██║██║ ██╔╝██║██╔════╝╚══██╔══╝██╔════╝██╔════╝██║  ██║');
-    lines.push('██████╔╝██║██╔██╗ ██║█████╔╝ ██║█████╗     ██║   █████╗  ██║     ███████║');
-    lines.push('██╔═══╝ ██║██║╚██╗██║██╔═██╗ ██║██╔══╝     ██║   ██╔══╝  ██║     ██╔══██║');
-    lines.push('██║     ██║██║ ╚████║██║  ██╗██║███████╗   ██║   ███████╗╚██████╗██║  ██║');
-    lines.push('╚═╝     ╚═╝╚═╝  ╚═══╝╚═╝  ╚═╝╚═╝╚══════╝   ╚═╝   ╚══════╝ ╚═════╝╚═╝  ╚═╝');
+    lines.push('\x02██████╗ ██╗███╗   ██╗██╗  ██╗██╗███████╗████████╗███████╗ ██████╗██╗  ██╗\x02');
+    lines.push('\x02██╔══██╗██║████╗  ██║██║ ██╔╝██║██╔════╝╚══██╔══╝██╔════╝██╔════╝██║  ██║\x02');
+    lines.push('\x02██████╔╝██║██╔██╗ ██║█████╔╝ ██║█████╗     ██║   █████╗  ██║     ███████║\x02');
+    lines.push('\x02██╔═══╝ ██║██║╚██╗██║██╔═██╗ ██║██╔══╝     ██║   ██╔══╝  ██║     ██╔══██║\x02');
+    lines.push('\x02██║     ██║██║ ╚████║██║  ██╗██║███████╗   ██║   ███████╗╚██████╗██║  ██║\x02');
+    lines.push('\x02╚═╝     ╚═╝╚═╝  ╚═══╝╚═╝  ╚═╝╚═╝╚══════╝   ╚═╝   ╚══════╝ ╚═════╝╚═╝  ╚═╝\x02');
     lines.push('');
-    lines.push('                       AI Innovation from Japan');
+    lines.push('\x03                       AI Innovation from Japan\x03');
     lines.push('');
     addToOutput(lines);
   };
 
   const showNeofetch = () => {
     const lines = [''];
-    lines.push('       ___      ___');
-    lines.push('      /  /\\    /  /\\\\     guest@pinkietech');
-    lines.push('     /  /::\\  /  /::\\\\    ----------------');
-    lines.push('    /  /:/\\:\\  /:/\\:\\\\   OS: PinkieOS 1.0 LTS');
-    lines.push('   /  /:/~/:/  /:/~/:/    Kernel: 6.1.0-pinkie');
-    lines.push('  /__/:/ /:/  /:/ /:/     Uptime: 42 days');
-    lines.push('  \\  \\:\\/:/  /:/ /:/      Shell: pinkiesh 1.0');
-    lines.push('   \\  \\::/  /:/ /:/       Terminal: PinkieTerm');
-    lines.push('    \\  \\:\\/:/ /:/         CPU: Neural Core i9');
-    lines.push('     \\  \\::/ /:/          Memory: ∞ GB');
-    lines.push('      \\__\\/ /:/           ');
-    lines.push('        /__/:/            ');
-    lines.push('        \\__\\/             ');
+    lines.push('\x03    ▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄\x03');
+    lines.push('\x03   ████████████████████████████\x03    \x02guest@pinkietech\x02');
+    lines.push('\x03  ██▀░░░░░░░░░░░░░░░░░░░░░░░▀██\x03    ----------------');
+    lines.push('\x03  ██░░▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄░░██\x03    OS: PinkieOS 2077');
+    lines.push('\x03  ██░░██████████████████████░░██\x03    Kernel: 6.1.0-cyber');
+    lines.push('\x03  ██░░██┌─┐┬┌┐┌┬┌─┬┌─┐████░░██\x03    Shell: neuroshell v2');
+    lines.push('\x03  ██░░██├─┘│││├┴┐│├┤ ████░░██\x03    Terminal: CyberTerm');
+    lines.push('\x03  ██░░██┴  ┴┘└┘┴ ┴┴└─┘████░░██\x03    CPU: Neural Core X');
+    lines.push('\x03  ██░░██████████████████████░░██\x03    GPU: RTX 9090 Ti');
+    lines.push('\x03  ██░░██▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀██░░██\x03    RAM: 256GB DDR7');
+    lines.push('\x03  ██░░░░░░░░░░░░░░░░░░░░░░░░██\x03    Uptime: ∞');
+    lines.push('\x03  ██▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄██\x03    ');
+    lines.push('\x03   ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀\x03     ');
     lines.push('');
     addToOutput(lines);
   };
 
-  const handleCat = (filename: string) => {
-    if (filename === 'README.md' || filename === 'readme.md') {
-      const lines = [''];
-      if (currentLang === 'ja') {
-        lines.push('# PinkieTech - 日本発AIイノベーション企業');
-        lines.push('');
-        lines.push('## 会社概要');
-        lines.push('PinkieTechは日本の最先端AI技術企業として、');
-        lines.push('ビジネスを変革するソリューションを開発しています。');
-        lines.push('');
-        lines.push('## 私たちの価値観');
-        lines.push('- **革新**: AIの可能性を追求');
-        lines.push('- **倫理**: 責任あるAI開発');
-        lines.push('- **卓越**: 世界水準のソリューション提供');
-      } else {
-        lines.push('# PinkieTech - AI Innovation Company from Japan');
-        lines.push('');
-        lines.push('## About Us');
-        lines.push('PinkieTech is at the forefront of AI innovation,');
-        lines.push('developing solutions that transform businesses.');
-        lines.push('');
-        lines.push('## Our Values');
-        lines.push('- **Innovation**: Pushing the boundaries of AI');
-        lines.push('- **Ethics**: Responsible AI development');
-        lines.push('- **Excellence**: Delivering world-class solutions');
+  const showAvailableCommands = () => {
+    const commands = [
+      'about', 'achievements', 'banner', 'cat', 'clear', 'contact', 
+      'date', 'echo', 'exit', 'game', 'help', 'lang', 
+      'logout', 'ls', 'mail', 'neofetch', 'pwd', 'quit', 
+      'readme', 'repo', 'score', 'services', 'team', 'whoami', 'works'
+    ].sort();
+    
+    // Format in columns (4 columns)
+    const lines = [''];
+    const colWidth = 15;
+    const cols = 4;
+    
+    for (let i = 0; i < commands.length; i += cols) {
+      let line = '';
+      for (let j = 0; j < cols && i + j < commands.length; j++) {
+        line += commands[i + j].padEnd(colWidth);
       }
-      lines.push('');
-      addToOutput(lines);
-    } else {
-      addToOutput(`cat: ${filename}: No such file or directory`);
+      lines.push(line.trim());
     }
+    
+    lines.push('');
+    lines.push(currentLang === 'ja' ? '※ 「help」で詳細を表示' : '※ Type "help" for details');
+    lines.push('');
+    
+    addToOutput(lines);
+  };
+
+  const showPinkieYou = () => {
+    const lines = [''];
+    lines.push('████████████████████████████████████████████████████████████');
+    lines.push('█                                                          █');
+    lines.push('█  ██████╗ ██╗███╗   ██╗██╗  ██╗██╗███████╗               █');
+    lines.push('█  ██╔══██╗██║████╗  ██║██║ ██╔╝██║██╔════╝               █');
+    lines.push('█  ██████╔╝██║██╔██╗ ██║█████╔╝ ██║█████╗                 █');
+    lines.push('█  ██╔═══╝ ██║██║╚██╗██║██╔═██╗ ██║██╔══╝                 █');
+    lines.push('█  ██║     ██║██║ ╚████║██║  ██╗██║███████╗               █');
+    lines.push('█  ╚═╝     ╚═╝╚═╝  ╚═══╝╚═╝  ╚═╝╚═╝╚══════╝               █');
+    lines.push('█                                                          █');
+    lines.push('█  ██╗   ██╗ ██████╗ ██╗   ██╗██╗██╗██╗                   █');
+    lines.push('█  ╚██╗ ██╔╝██╔═══██╗██║   ██║██║██║██║                   █');
+    lines.push('█   ╚████╔╝ ██║   ██║██║   ██║██║██║██║                   █');
+    lines.push('█    ╚██╔╝  ██║   ██║██║   ██║╚═╝╚═╝╚═╝                   █');
+    lines.push('█     ██║   ╚██████╔╝╚██████╔╝██╗██╗██╗                   █');
+    lines.push('█     ╚═╝    ╚═════╝  ╚═════╝ ╚═╝╚═╝╚═╝                   █');
+    lines.push('█                                                          █');
+    lines.push('████████████████████████████████████████████████████████████');
+    lines.push('');
+    lines.push('                    ¯\\_(ツ)_/¯');
+    lines.push('');
+    lines.push(currentLang === 'ja' ? '        愛を込めて、PinkieTechより ♥' : '        With love from PinkieTech ♥');
+    lines.push('');
+    addToOutput(lines);
+  };
+
+  const unlockAchievement = (id: string, name: string, points: number) => {
+    if (!achievements.has(id)) {
+      setAchievements(prev => new Set(prev).add(id));
+      setScore(prev => prev + points);
+      addToOutput(['', 
+        '\x03━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\x03',
+        '\x02🏆 ' + (currentLang === 'ja' ? 'アチーブメント解除！' : 'ACHIEVEMENT UNLOCKED!') + ' 🏆\x02',
+        '\x03   ' + name + ' (+' + points + 'pts)\x03',
+        '\x03━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\x03',
+        ''
+      ]);
+    }
+  };
+
+  const showAchievements = () => {
+    const allAchievements = [
+      { id: 'firstCommand', name: currentLang === 'ja' ? '初心者' : 'Beginner', points: 5, unlocked: true },
+      { id: 'hacker', name: currentLang === 'ja' ? 'ハッカー志望' : 'Wannabe Hacker', points: 10, unlocked: achievements.has('hacker') },
+      { id: 'rebel', name: currentLang === 'ja' ? '反逆者' : 'Rebel', points: 20, unlocked: achievements.has('rebel') },
+      { id: 'explorer', name: currentLang === 'ja' ? '探検家' : 'Explorer', points: 15, unlocked: achievements.has('explorer') },
+      { id: 'gamer', name: currentLang === 'ja' ? 'ゲーマー' : 'Gamer', points: 10, unlocked: achievements.has('gamer') },
+      { id: 'master', name: currentLang === 'ja' ? 'マスター' : 'Master', points: 50, unlocked: achievements.has('master') },
+    ];
+
+    const lines = [''];
+    lines.push('═══════════════════════════════════════════════════════');
+    lines.push('                  🏆 ACHIEVEMENTS 🏆                   ');
+    lines.push('═══════════════════════════════════════════════════════');
+    lines.push('');
+    
+    allAchievements.forEach(achievement => {
+      const status = achievement.unlocked ? '✓' : '?';
+      const name = achievement.unlocked ? achievement.name : '???';
+      lines.push(`  [${status}] ${name.padEnd(20)} ${achievement.points}pts`);
+    });
+    
+    lines.push('');
+    lines.push('─────────────────────────────────────────────────────');
+    lines.push(`  ${currentLang === 'ja' ? '合計スコア' : 'Total Score'}: ${score}pts`);
+    lines.push('═══════════════════════════════════════════════════════');
+    lines.push('');
+    
+    addToOutput(lines);
+  };
+
+  const showGameMenu = () => {
+    const lines = [''];
+    lines.push('╔════════════════════════════════════════════════════════╗');
+    lines.push('║                    GAME CENTER                         ║');
+    lines.push('╚════════════════════════════════════════════════════════╝');
+    lines.push('');
+    lines.push(currentLang === 'ja' ? '利用可能なゲーム:' : 'Available games:');
+    lines.push('');
+    lines.push('  1. guess    - ' + (currentLang === 'ja' ? '数当てゲーム' : 'Number guessing game'));
+    lines.push('  2. quiz     - ' + (currentLang === 'ja' ? 'AI/テッククイズ' : 'AI/Tech quiz'));
+    lines.push('  3. typing   - ' + (currentLang === 'ja' ? 'タイピングゲーム' : 'Typing game'));
+    lines.push('');
+    lines.push(currentLang === 'ja' ? '「game <番号>」でゲームを開始' : 'Type "game <number>" to start');
+    lines.push('');
+    
+    addToOutput(lines);
+    unlockAchievement('gamer', currentLang === 'ja' ? 'ゲーマー' : 'Gamer', 10);
+  };
+
+  const startGuessGame = () => {
+    const target = Math.floor(Math.random() * 100) + 1;
+    setGameState({ target, attempts: 1 });
+    setCommandContext('guess_game');
+    setCurrentPrompt(currentLang === 'ja' ? '数字>' : 'Number>');
+    
+    addToOutput(['',
+      '╔════════════════════════════════════════════════════════╗',
+      '║                  ' + (currentLang === 'ja' ? '数当てゲーム' : 'NUMBER GUESSING GAME') + '                    ║',
+      '╚════════════════════════════════════════════════════════╝',
+      '',
+      currentLang === 'ja' ? '1から100までの数字を当ててください！' : 'Guess a number between 1 and 100!',
+      currentLang === 'ja' ? '「exit」でゲームを終了' : 'Type "exit" to quit the game',
+      ''
+    ]);
+  };
+
+  const startQuizGame = () => {
+    const questions = currentLang === 'ja' ? [
+      {
+        question: 'AIの正式名称は？',
+        options: ['A) Artificial Intelligence', 'B) Advanced Internet', 'C) Automated Information'],
+        answer: 'A'
+      },
+      {
+        question: 'ChatGPTを開発した会社は？',
+        options: ['A) Google', 'B) OpenAI', 'C) Microsoft'],
+        answer: 'B'
+      },
+      {
+        question: 'Pythonの作者は？',
+        options: ['A) James Gosling', 'B) Bjarne Stroustrup', 'C) Guido van Rossum'],
+        answer: 'C'
+      }
+    ] : [
+      {
+        question: 'What does AI stand for?',
+        options: ['A) Artificial Intelligence', 'B) Advanced Internet', 'C) Automated Information'],
+        answer: 'A'
+      },
+      {
+        question: 'Which company developed ChatGPT?',
+        options: ['A) Google', 'B) OpenAI', 'C) Microsoft'],
+        answer: 'B'
+      },
+      {
+        question: 'Who created Python?',
+        options: ['A) James Gosling', 'B) Bjarne Stroustrup', 'C) Guido van Rossum'],
+        answer: 'C'
+      }
+    ];
+    
+    setGameState({ questions, currentQuestion: 0, score: 0 });
+    setCommandContext('quiz_game');
+    setCurrentPrompt(currentLang === 'ja' ? '回答>' : 'Answer>');
+    
+    addToOutput(['',
+      '╔════════════════════════════════════════════════════════╗',
+      '║                    TECH QUIZ                           ║',
+      '╚════════════════════════════════════════════════════════╝',
+      '',
+      currentLang === 'ja' ? '「A」「B」「C」で回答してください' : 'Answer with A, B, or C',
+      '',
+      `Q1: ${questions[0].question}`,
+      '',
+      ...questions[0].options,
+      ''
+    ]);
+  };
+
+  const showCat = () => {
+    const lines = [''];
+    lines.push('\x03    ╱|、\x03');
+    lines.push('\x02   (˚ˎ 。7  \x02');
+    lines.push('\x02    |、˜〵   \x02');
+    lines.push('\x02   じしˍ,)ノ \x02');
+    lines.push('');
+    lines.push('\x03  ' + (currentLang === 'ja' ? 'にゃ〜ん' : 'nyaa~') + '\x03');
+    lines.push('');
+    lines.push('  ' + (currentLang === 'ja' ? '< サイバー猫です >' : '< cyber cat >'));
+    lines.push('');
+    addToOutput(lines);
+  };
+
+  const showReadme = () => {
+    const lines = [''];
+    if (currentLang === 'ja') {
+      lines.push('# PinkieTech - 日本発AIイノベーション企業');
+      lines.push('');
+      lines.push('## 会社概要');
+      lines.push('PinkieTechは日本の最先端AI技術企業として、');
+      lines.push('ビジネスを変革するソリューションを開発しています。');
+      lines.push('');
+      lines.push('## 私たちの価値観');
+      lines.push('- **革新**: AIの可能性を追求');
+      lines.push('- **倫理**: 責任あるAI開発');
+      lines.push('- **卓越**: 世界水準のソリューション提供');
+    } else {
+      lines.push('# PinkieTech - AI Innovation Company from Japan');
+      lines.push('');
+      lines.push('## About Us');
+      lines.push('PinkieTech is at the forefront of AI innovation,');
+      lines.push('developing solutions that transform businesses.');
+      lines.push('');
+      lines.push('## Our Values');
+      lines.push('- **Innovation**: Pushing the boundaries of AI');
+      lines.push('- **Ethics**: Responsible AI development');
+      lines.push('- **Excellence**: Delivering world-class solutions');
+    }
+    lines.push('');
+    addToOutput(lines);
   };
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
@@ -529,12 +827,13 @@ const CLIEmulator: React.FC<CLIEmulatorProps> = ({ initialOutput = [] }) => {
     } else if (e.key === 'Tab') {
       e.preventDefault();
       if (!commandContext && currentInput.trim()) {
-        // Get all available commands
+        // Get all available commands (including hidden ones for tab completion)
         const availableCommands = [
           'help', 'clear', 'about', 'services', 'works', 'projects', 'contact', 'team',
           'whoami', 'pwd', 'ls', 'date', 'echo', 'neofetch', 'info', 'cat', 'readme',
           'banner', 'repo', 'repository', 'lang', 'language', 'mail', 'sudo', 'exit', 
-          'quit', 'logout', 'hack'
+          'quit', 'logout', 'hack', 'fuck', 'game', 'games', 'guess', 'quiz', 
+          'achievements', 'achievement', 'score'
         ];
         
         const matches = availableCommands.filter(cmd => 
@@ -574,15 +873,16 @@ const CLIEmulator: React.FC<CLIEmulatorProps> = ({ initialOutput = [] }) => {
       setOutput([]);
     } else if (e.ctrlKey && e.key === 'c') {
       e.preventDefault();
-      // Always show the current input line with ^C
-      addToOutput(`\x01${currentPrompt} ${currentInput}^C`);
+      // Always show the current input line with ^C - strip control characters
+      const cleanPrompt = currentPrompt.replace(/\x02/g, '').replace(/\x03/g, '');
+      addToOutput(`\x01${cleanPrompt} ${currentInput}^C`);
       
       if (commandContext) {
         if (commandContext === 'mail_subject' || commandContext === 'mail_body') {
           addToOutput(currentLang === 'ja' ? 'メール作成をキャンセルしました' : 'Mail composition cancelled');
         }
         setCommandContext('');
-        setCurrentPrompt('guest@pinkietech:~$');
+        setCurrentPrompt(getCyberPrompt());
         setIsPasswordInput(false);
       }
       
@@ -596,7 +896,7 @@ const CLIEmulator: React.FC<CLIEmulatorProps> = ({ initialOutput = [] }) => {
           addToOutput([currentLang === 'ja' ? '✓ メールを送信しました' : '✓ Email sent successfully', '']);
         }, 500);
         setCommandContext('');
-        setCurrentPrompt('guest@pinkietech:~$');
+        setCurrentPrompt(getCyberPrompt());
         setCurrentInput('');
       }
     }
@@ -606,12 +906,14 @@ const CLIEmulator: React.FC<CLIEmulatorProps> = ({ initialOutput = [] }) => {
     <div
       ref={terminalRef}
       className={cn(
-        'w-full h-full bg-gray-950 text-pink-400 font-mono text-sm p-4 overflow-y-auto overflow-x-hidden',
+        'w-full h-full bg-gray-950 text-pink-400 font-mono text-sm p-4 overflow-y-auto overflow-x-hidden custom-scrollbar',
         'relative'
       )}
       style={{
         fontFamily: '"Fira Code", "Cascadia Code", "JetBrains Mono", monospace',
-        background: 'radial-gradient(ellipse at center, #1a0a14 0%, #000000 100%)',
+        background: 'linear-gradient(135deg, #0a0a0a 0%, #1a0a1a 50%, #0a0a0a 100%)',
+        backgroundSize: '400% 400%',
+        animation: 'gradient 15s ease infinite',
       }}
       onClick={() => inputRef.current?.focus()}
     >
@@ -619,6 +921,24 @@ const CLIEmulator: React.FC<CLIEmulatorProps> = ({ initialOutput = [] }) => {
       <div className="pointer-events-none absolute inset-0 opacity-50" 
         style={{
           background: 'repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(236, 72, 153, 0.03) 2px, rgba(236, 72, 153, 0.03) 4px)',
+        }}
+      />
+      
+      {/* Cyber grid overlay - more subtle */}
+      <div className="pointer-events-none absolute inset-0 opacity-5"
+        style={{
+          backgroundImage: `
+            linear-gradient(rgba(236, 72, 153, 0.2) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(236, 72, 153, 0.2) 1px, transparent 1px)
+          `,
+          backgroundSize: '80px 80px',
+        }}
+      />
+      
+      {/* Vignette effect - softer */}
+      <div className="pointer-events-none absolute inset-0"
+        style={{
+          background: 'radial-gradient(circle at center, transparent 40%, rgba(0, 0, 0, 0.3) 100%)',
         }}
       />
       
@@ -630,24 +950,50 @@ const CLIEmulator: React.FC<CLIEmulatorProps> = ({ initialOutput = [] }) => {
                                line.includes('├') || line.includes('┤') || line.includes('─') || line.includes('│') ||
                                line.includes('█') || line.includes('╗') || line.includes('╚') || line.includes('╔');
           
+          // Special markers for different styles
+          const isUserInput = line.startsWith('\x01');
+          const isCyberGlow = line.includes('\x02');
+          const isCyanGlow = line.includes('\x03');
+          
+          let cleanLine = line;
+          let className = 'whitespace-pre font-mono transition-all duration-300 ';
+          
+          if (isUserInput) {
+            cleanLine = line.substring(1);
+            className += 'text-pink-300';
+          } else if (isCyberGlow) {
+            cleanLine = line.replace(/\x02/g, '');
+            className += 'text-pink-500 cyber-glow-pink';
+          } else if (isCyanGlow) {
+            cleanLine = line.replace(/\x03/g, '');
+            className += 'text-cyan-400 cyber-glow-cyan';
+          } else if (hasBoxDrawing) {
+            className += 'text-pink-400/90';
+          } else {
+            className += 'text-pink-400/90 whitespace-pre-wrap break-words';
+          }
+          
           return (
-            <div key={index} className={line.startsWith('\x01') 
-              ? 'text-pink-300 whitespace-pre font-mono' 
-              : hasBoxDrawing 
-                ? 'text-pink-400/90 whitespace-pre font-mono'
-                : 'text-pink-400/90 whitespace-pre-wrap break-words font-mono'}>
-              {line.startsWith('\x01') ? line.substring(1) : line}
+            <div key={index} className={className}>
+              {cleanLine}
             </div>
           );
         })}
         
         {/* Current input line */}
-        <div className="flex items-center">
-          <span className="text-pink-300 mr-2 font-bold">{currentPrompt}</span>
+        <div className="flex items-center group">
+          <span className="text-pink-300 mr-2 font-bold transition-all duration-300" 
+                dangerouslySetInnerHTML={{ __html: currentPrompt.includes('\x02') ? 
+                  currentPrompt
+                    .replace(/\x02([^\x02]*)\x02/g, '<span class="cyber-glow-pink">$1</span>')
+                    .replace(/\x03([^\x03]*)\x03/g, '<span class="cyber-glow-cyan">$1</span>') 
+                  : currentPrompt 
+                }}
+          />
           <input
             ref={inputRef}
             type={isPasswordInput ? 'password' : 'text'}
-            className="flex-grow bg-transparent outline-none text-pink-300 caret-pink-300 terminal-glow"
+            className="flex-grow bg-transparent outline-none text-pink-300 caret-transparent transition-all duration-300"
             value={currentInput}
             onChange={(e) => setCurrentInput(e.target.value)}
             onKeyDown={handleKeyDown}
@@ -655,7 +1001,10 @@ const CLIEmulator: React.FC<CLIEmulatorProps> = ({ initialOutput = [] }) => {
             autoCapitalize="off"
             autoComplete="off"
           />
-          <span className="text-pink-300 ml-0.5 animate-pulse">▌</span>
+          <span className="text-pink-400 ml-0.5" style={{
+            textShadow: '0 0 8px rgba(236, 72, 153, 0.6)',
+            animation: 'blink 1.2s infinite ease-in-out',
+          }}>▌</span>
         </div>
       </div>
     </div>
