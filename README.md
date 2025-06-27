@@ -68,7 +68,13 @@ PinkieTech株式会社は、日本の製造業にOSSとAIの力を融合させ�
 
 ## ライセンス
 
-このプロジェクトは適切なライセンスの下で公開されています。
+このプロジェクトは [MIT License](LICENSE) の下で公開されています。
+
+## コントリビューション
+
+バグ報告、機能要求、改善提案など、コミュニティからのフィードバックを歓迎します！
+- [Issues](https://github.com/w-pinkietech/w-pinkietech.github.io/issues) - バグ報告や機能要求
+- [Pull Requests](https://github.com/w-pinkietech/w-pinkietech.github.io/pulls) - 改善提案
 
 ---
 
