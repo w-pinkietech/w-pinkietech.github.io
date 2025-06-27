@@ -344,37 +344,57 @@ const CLIEmulator: React.FC<CLIEmulatorProps> = ({ initialOutput = [] }) => {
     if (currentLang === 'ja') {
       lines.push('==================[ サービス一覧 ]==================');
       lines.push('');
-      lines.push('[1] AIコンサルティング');
-      lines.push('    └─ AI導入戦略の立案');
-      lines.push('    └─ 技術評価とロードマップ作成');
-      lines.push('    └─ ROI分析とビジネスケース開発');
+      lines.push('[1] 製造業DX支援');
+      lines.push('    └─ OSS活用による工場見える化');
+      lines.push('    └─ GitHubベースの開発プロセス導入');
+      lines.push('    └─ 製造データのデジタル化・標準化');
       lines.push('');
-      lines.push('[2] カスタムAI開発');
-      lines.push('    └─ 機械学習モデル構築');
-      lines.push('    └─ 自然言語処理（日本語特化）');
-      lines.push('    └─ 画像認識・コンピュータビジョン');
+      lines.push('[2] IoT導入支援');
+      lines.push('    └─ センサーデータ収集・可視化システム');
+      lines.push('    └─ リアルタイム監視ダッシュボード構築');
+      lines.push('    └─ 製造業以外でもデータ見える化をお手伝い');
       lines.push('');
-      lines.push('[3] AI統合・実装');
-      lines.push('    └─ API開発とデプロイメント');
-      lines.push('    └─ クラウドインフラ構築');
-      lines.push('    └─ パフォーマンス最適化');
+      lines.push('[3] OSS開発');
+      lines.push('    └─ 製造業向けOSSツール開発');
+      lines.push('    └─ 既存OSSのカスタマイズ・改良');
+      lines.push('    └─ オープンソースプロジェクトへの貢献');
+      lines.push('');
+      lines.push('[4] 技術研修・教育');
+      lines.push('    └─ OSS活用研修（GitHub、現代的な開発手法）');
+      lines.push('    └─ AI技術基礎研修');
+      lines.push('    └─ IoTシステム構築研修');
+      lines.push('    └─ 最新IT技術・ツール活用研修');
+      lines.push('');
+      lines.push('[5] OSSコミュニティ構築');
+      lines.push('    └─ 技術勉強会・ワークショップ開催');
+      lines.push('    └─ 製造業×OSS知識共有');
     } else {
       lines.push('==================[ OUR SERVICES ]==================');
       lines.push('');
-      lines.push('[1] AI Consulting');
-      lines.push('    └─ Strategic AI implementation planning');
-      lines.push('    └─ Technology assessment and roadmap');
-      lines.push('    └─ ROI analysis and business case development');
+      lines.push('[1] Manufacturing DX Support');
+      lines.push('    └─ Factory visualization using OSS');
+      lines.push('    └─ GitHub-based development process adoption');
+      lines.push('    └─ Manufacturing data digitization & standardization');
       lines.push('');
-      lines.push('[2] Custom AI Development');
-      lines.push('    └─ Machine Learning models');
-      lines.push('    └─ Natural Language Processing');
-      lines.push('    └─ Computer Vision solutions');
+      lines.push('[2] IoT Implementation Support');
+      lines.push('    └─ Sensor data collection & visualization systems');
+      lines.push('    └─ Real-time monitoring dashboard development');
+      lines.push('    └─ Data visualization support beyond manufacturing');
       lines.push('');
-      lines.push('[3] AI Integration');
-      lines.push('    └─ API development and deployment');
-      lines.push('    └─ Cloud infrastructure setup');
-      lines.push('    └─ Performance optimization');
+      lines.push('[3] OSS Development');
+      lines.push('    └─ Manufacturing-focused OSS tool development');
+      lines.push('    └─ Customization & improvement of existing OSS');
+      lines.push('    └─ Contribution to open source projects');
+      lines.push('');
+      lines.push('[4] Technical Training & Education');
+      lines.push('    └─ OSS utilization training (GitHub, modern dev practices)');
+      lines.push('    └─ AI technology fundamentals training');
+      lines.push('    └─ IoT system development training');
+      lines.push('    └─ Latest IT technology & tool utilization training');
+      lines.push('');
+      lines.push('[5] OSS Community Building');
+      lines.push('    └─ Technical study sessions & workshops');
+      lines.push('    └─ Manufacturing × OSS knowledge sharing');
     }
     lines.push('');
     addToOutput(lines);
@@ -383,39 +403,49 @@ const CLIEmulator: React.FC<CLIEmulatorProps> = ({ initialOutput = [] }) => {
   const showWorks = () => {
     const lines = [''];
     if (currentLang === 'ja') {
-      lines.push('==================[ 実績・事例 ]==================');
+      lines.push('==================[ 活動実績・取組み ]==================');
       lines.push('');
-      lines.push('PROJECT_001: EC向けAIアシスタント');
-      lines.push('├─ ステータス: 完了');
-      lines.push('├─ クライアント: 大手ECサイト運営企業');
-      lines.push('└─ 成果: コンバージョン率45%向上');
-      lines.push('');
-      lines.push('PROJECT_002: 医療診断支援AI');
+      lines.push('PROJECT_001: OSS活動・公開');
       lines.push('├─ ステータス: 進行中');
-      lines.push('├─ クライアント: 国内医療機関ネットワーク');
-      lines.push('└─ 成果: 早期発見精度92%達成');
+      lines.push('├─ 内容: GitHub上でのOSSプロジェクト公開');
+      lines.push('└─ 成果: ドキュメント整備、コミュニティ貢献');
       lines.push('');
-      lines.push('PROJECT_003: 金融不正検知システム');
+      lines.push('PROJECT_002: 北九州OSS工場見える化参加');
       lines.push('├─ ステータス: 完了');
-      lines.push('├─ クライアント: メガバンク');
-      lines.push('└─ 成果: 年間2.5億円の不正防止');
+      lines.push('├─ 内容: 地域OSS活動への参加・学習');
+      lines.push('└─ 成果: 製造業の現状把握、課題発見');
+      lines.push('');
+      lines.push('PROJECT_003: 製造業向けDXソリューション開発');
+      lines.push('├─ ステータス: 計画中');
+      lines.push('├─ 内容: OSS活用による工場データ可視化');
+      lines.push('└─ 目標: 中小製造業の情報格差解消');
+      lines.push('');
+      lines.push('PROJECT_004: 技術研修プログラム開発');
+      lines.push('├─ ステータス: 準備中');
+      lines.push('├─ 内容: OSS・AI・IoT技術研修カリキュラム作成');
+      lines.push('└─ 目標: 製造業従事者のスキルアップ支援');
     } else {
-      lines.push('==================[ RECENT PROJECTS ]==================');
+      lines.push('==================[ ACTIVITIES & PROJECTS ]==================');
       lines.push('');
-      lines.push('PROJECT_001: E-Commerce AI Assistant');
-      lines.push('├─ Status: COMPLETED');
-      lines.push('├─ Client: Major E-commerce Platform');
-      lines.push('└─ Result: 45% increase in conversion rate');
-      lines.push('');
-      lines.push('PROJECT_002: Medical Diagnosis AI');
+      lines.push('PROJECT_001: OSS Activities & Publication');
       lines.push('├─ Status: IN_PROGRESS');
-      lines.push('├─ Client: Healthcare Network');
-      lines.push('└─ Result: 92% accuracy in early detection');
+      lines.push('├─ Content: OSS project publication on GitHub');
+      lines.push('└─ Result: Documentation improvement, community contribution');
       lines.push('');
-      lines.push('PROJECT_003: Financial Fraud Detection');
+      lines.push('PROJECT_002: Kitakyushu OSS Factory Visualization Participation');
       lines.push('├─ Status: COMPLETED');
-      lines.push('├─ Client: Major Bank');
-      lines.push('└─ Result: $2.3M saved in prevented fraud');
+      lines.push('├─ Content: Participation & learning in local OSS activities');
+      lines.push('└─ Result: Understanding manufacturing industry, issue identification');
+      lines.push('');
+      lines.push('PROJECT_003: Manufacturing DX Solution Development');
+      lines.push('├─ Status: PLANNING');
+      lines.push('├─ Content: Factory data visualization using OSS');
+      lines.push('└─ Goal: Bridging information gap for SME manufacturers');
+      lines.push('');
+      lines.push('PROJECT_004: Technical Training Program Development');
+      lines.push('├─ Status: PREPARING');
+      lines.push('├─ Content: OSS/AI/IoT technology training curriculum');
+      lines.push('└─ Goal: Skill enhancement support for manufacturing workers');
     }
     lines.push('');
     addToOutput(lines);
@@ -432,7 +462,7 @@ const CLIEmulator: React.FC<CLIEmulatorProps> = ({ initialOutput = [] }) => {
       lines.push('X (Twitter): @pinkietech');
       lines.push('GitHub:      https://github.com/w-pinkietech');
       lines.push('');
-      lines.push('所在地: 〒806-0047 福岡県北九州市八幡西区塔野１丁目１４‐２２');
+      lines.push('所在地: 〒806-0047 福岡県北九州市八幡西区塔野１丁目１４‐２２ (https://www.google.com/maps/place/1-ch%C5%8Dme-14-22+T%C5%8Dno,+Yahatanishi+Ward,+Kitakyushu,+Fukuoka+807-0085,+Japan/@33.824228,130.737943,16z/|GoogleMap)');
       lines.push('');
       lines.push('※ お気軽にDMでお声がけください');
     } else {
@@ -444,7 +474,7 @@ const CLIEmulator: React.FC<CLIEmulatorProps> = ({ initialOutput = [] }) => {
       lines.push('X (Twitter): @pinkietech');
       lines.push('GitHub:      https://github.com/w-pinkietech');
       lines.push('');
-      lines.push('Location: 1-14-22 Tono, Yahatanishi-ku, Kitakyushu-shi, Fukuoka 806-0047, Japan');
+      lines.push('Location: 1-14-22 Tono, Yahatanishi-ku, Kitakyushu-shi, Fukuoka 806-0047, Japan (https://www.google.com/maps/place/1-ch%C5%8Dme-14-22+T%C5%8Dno,+Yahatanishi+Ward,+Kitakyushu,+Fukuoka+807-0085,+Japan/@33.824228,130.737943,16z/|GoogleMap)');
       lines.push('');
       lines.push('※ Feel free to reach out via DM');
     }
@@ -919,35 +949,61 @@ const CLIEmulator: React.FC<CLIEmulatorProps> = ({ initialOutput = [] }) => {
           
           // Check for URLs and make them clickable (exclude user input lines and email-like patterns)
           const urlRegex = /(https?:\/\/[^\s]+)/g;
+          const customLinkRegex = /\((https?:\/\/[^|)]+)\|([^)]+)\)/g;
           const twitterRegex = /(?:^|\s)(@[a-zA-Z0-9_]+)(?=\s|$)/g;
           const hasUrl = urlRegex.test(cleanLine);
+          const hasCustomLink = customLinkRegex.test(cleanLine);
           const hasTwitter = !isUserInput && !cleanLine.includes('guest@') && twitterRegex.test(cleanLine);
           
-          if (hasUrl || hasTwitter) {
+          if (hasUrl || hasCustomLink || hasTwitter) {
             let processedLine = cleanLine;
             const elements = [];
             let lastIndex = 0;
             
-            // Process URLs
-            let urlMatch;
-            urlRegex.lastIndex = 0;
-            while ((urlMatch = urlRegex.exec(cleanLine)) !== null) {
-              if (urlMatch.index > lastIndex) {
-                elements.push(processedLine.slice(lastIndex, urlMatch.index));
+            // Process custom links first (URL|DisplayText)
+            let customLinkMatch;
+            customLinkRegex.lastIndex = 0;
+            while ((customLinkMatch = customLinkRegex.exec(cleanLine)) !== null) {
+              if (customLinkMatch.index > lastIndex) {
+                elements.push(processedLine.slice(lastIndex, customLinkMatch.index));
               }
               elements.push(
                 <a 
-                  key={`url-${urlMatch.index}`}
-                  href={urlMatch[0]}
+                  key={`custom-${customLinkMatch.index}`}
+                  href={customLinkMatch[1]}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-cyan-400 hover:text-cyan-300 underline cursor-pointer cyber-glow-cyan"
                   onClick={(e) => e.stopPropagation()}
                 >
-                  {urlMatch[0]}
+                  {customLinkMatch[2]}
                 </a>
               );
-              lastIndex = urlMatch.index + urlMatch[0].length;
+              lastIndex = customLinkMatch.index + customLinkMatch[0].length;
+            }
+            
+            // Process regular URLs (only if no custom links were processed)
+            if (!hasCustomLink) {
+              let urlMatch;
+              urlRegex.lastIndex = 0;
+              while ((urlMatch = urlRegex.exec(cleanLine)) !== null) {
+                if (urlMatch.index > lastIndex) {
+                  elements.push(processedLine.slice(lastIndex, urlMatch.index));
+                }
+                elements.push(
+                  <a 
+                    key={`url-${urlMatch.index}`}
+                    href={urlMatch[0]}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-cyan-400 hover:text-cyan-300 underline cursor-pointer cyber-glow-cyan"
+                    onClick={(e) => e.stopPropagation()}
+                  >
+                    {urlMatch[0]}
+                  </a>
+                );
+                lastIndex = urlMatch.index + urlMatch[0].length;
+              }
             }
             
             // Process Twitter handles (only if not in user input and not guest@)
