@@ -66,29 +66,6 @@ const CLIEmulator: React.FC<CLIEmulatorProps> = ({ initialOutput = [] }) => {
       setCommandContext('');
       setIsPasswordInput(false);
       setCurrentPrompt(getCyberPrompt());
-    } else if (commandContext === 'mail_subject') {
-      if (command) {
-        addToOutput(['', currentLang === 'ja' ? '本文を入力してください (Ctrl+Dで送信, Ctrl+Cでキャンセル):' : 'Enter message body (Ctrl+D to send, Ctrl+C to cancel):', '']);
-        setCurrentPrompt('>');
-        setCommandContext('mail_body');
-      } else {
-        addToOutput([currentLang === 'ja' ? 'メール作成をキャンセルしました' : 'Mail composition cancelled']);
-        setCommandContext('');
-        setCurrentPrompt(getCyberPrompt());
-      }
-    } else if (commandContext === 'mail_body') {
-      if (command.toLowerCase() === ':send' || command.toLowerCase() === ':s') {
-        addToOutput(['', currentLang === 'ja' ? '送信中...' : 'Sending...']);
-        setTimeout(() => {
-          addToOutput([currentLang === 'ja' ? '✓ メールを送信しました' : '✓ Email sent successfully', '']);
-        }, 500);
-        setCommandContext('');
-        setCurrentPrompt(getCyberPrompt());
-      } else {
-        // Continue collecting message body
-        addToOutput('');
-        setCurrentPrompt('>');
-      }
     } else if (commandContext === 'guess_game') {
       const guess = parseInt(command);
       if (isNaN(guess)) {
@@ -198,19 +175,6 @@ const CLIEmulator: React.FC<CLIEmulatorProps> = ({ initialOutput = [] }) => {
       setCommandContext('sudo_password');
       setIsPasswordInput(true);
       setCurrentPrompt('[sudo] password');
-    } else if (lowerCommand === 'mail') {
-      addToOutput([
-        '',
-        '╔══════════════════════════════════════════╗',
-        '║        ' + (currentLang === 'ja' ? 'メールクライアント v1.0' : 'Mail Client v1.0') + '        ║',
-        '╚══════════════════════════════════════════╝',
-        '',
-        currentLang === 'ja' ? '宛先: info@pinkietech.jp' : 'To: info@pinkietech.jp',
-        currentLang === 'ja' ? '件名を入力してください:' : 'Enter subject:',
-        ''
-      ]);
-      setCommandContext('mail_subject');
-      setCurrentPrompt(currentLang === 'ja' ? '件名>' : 'Subject>');
     } else if (lowerCommand === 'exit' || lowerCommand === 'quit' || lowerCommand === 'logout') {
       addToOutput([
         '',
@@ -319,7 +283,6 @@ const CLIEmulator: React.FC<CLIEmulatorProps> = ({ initialOutput = [] }) => {
       { cmd: 'neofetch', desc: currentLang === 'ja' ? 'システム情報' : 'System info' },
       { cmd: 'banner', desc: currentLang === 'ja' ? 'ロゴ表示' : 'Show logo' },
       { cmd: 'lang', desc: currentLang === 'ja' ? '言語切替' : 'Change language' },
-      { cmd: 'mail', desc: currentLang === 'ja' ? 'メール送信' : 'Send email' },
       { cmd: 'exit', desc: currentLang === 'ja' ? '終了' : 'Exit' },
     ];
     
@@ -579,7 +542,7 @@ const CLIEmulator: React.FC<CLIEmulatorProps> = ({ initialOutput = [] }) => {
     const commands = [
       'about', 'achievements', 'banner', 'cat', 'clear', 'contact', 
       'date', 'echo', 'exit', 'game', 'help', 'lang', 
-      'logout', 'ls', 'mail', 'neofetch', 'pwd', 'quit', 
+      'logout', 'ls', 'neofetch', 'pwd', 'quit', 
       'readme', 'repo', 'score', 'services', 'team', 'whoami', 'works'
     ].sort();
     
@@ -824,7 +787,7 @@ const CLIEmulator: React.FC<CLIEmulatorProps> = ({ initialOutput = [] }) => {
         const availableCommands = [
           'help', 'clear', 'about', 'services', 'works', 'projects', 'contact', 'team',
           'whoami', 'pwd', 'ls', 'date', 'echo', 'neofetch', 'info', 'cat', 'readme',
-          'banner', 'repo', 'repository', 'lang', 'language', 'mail', 'sudo', 'exit', 
+          'banner', 'repo', 'repository', 'lang', 'language', 'sudo', 'exit', 
           'quit', 'logout', 'hack', 'fuck', 'game', 'games', 'guess', 'quiz', 
           'achievements', 'achievement', 'score'
         ];
@@ -871,9 +834,6 @@ const CLIEmulator: React.FC<CLIEmulatorProps> = ({ initialOutput = [] }) => {
       addToOutput(`\x01${cleanPrompt} ${currentInput}^C`);
       
       if (commandContext) {
-        if (commandContext === 'mail_subject' || commandContext === 'mail_body') {
-          addToOutput(currentLang === 'ja' ? 'メール作成をキャンセルしました' : 'Mail composition cancelled');
-        }
         setCommandContext('');
         setCurrentPrompt(getCyberPrompt());
         setIsPasswordInput(false);
@@ -883,15 +843,6 @@ const CLIEmulator: React.FC<CLIEmulatorProps> = ({ initialOutput = [] }) => {
       setCurrentInput('');
     } else if (e.ctrlKey && e.key === 'd') {
       e.preventDefault();
-      if (commandContext === 'mail_body') {
-        addToOutput(['^D', '', currentLang === 'ja' ? '送信中...' : 'Sending...']);
-        setTimeout(() => {
-          addToOutput([currentLang === 'ja' ? '✓ メールを送信しました' : '✓ Email sent successfully', '']);
-        }, 500);
-        setCommandContext('');
-        setCurrentPrompt(getCyberPrompt());
-        setCurrentInput('');
-      }
     }
   };
 
