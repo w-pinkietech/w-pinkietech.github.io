@@ -1,9 +1,7 @@
 import { type FC } from 'react';
 import CLIEmulator from '../components/CLIEmulator';
-import { useTranslation } from 'react-i18next';
 
 const Home: FC = () => {
-  const { t } = useTranslation();
 
   const asciiArt = [
     '\x03[BOOT] PinkieOS 2077 Cyber Edition\x03',

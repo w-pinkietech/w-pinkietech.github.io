@@ -1,5 +1,4 @@
-import React, { useState, useRef, useEffect, useCallback } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useState, useRef, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { cn } from '../lib/utils';
 
@@ -30,8 +29,7 @@ const CLIEmulator: React.FC<CLIEmulatorProps> = ({ initialOutput = [] }) => {
   
   const terminalRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
-  const navigate = useNavigate();
-  const { t, i18n } = useTranslation();
+  const { i18n } = useTranslation();
 
   // Focus input and scroll to bottom
   useEffect(() => {
@@ -43,19 +41,6 @@ const CLIEmulator: React.FC<CLIEmulatorProps> = ({ initialOutput = [] }) => {
     }
   }, [output]);
 
-  // Helper function to pad string considering full-width characters
-  const padString = (str: string, targetLength: number): string => {
-    let currentLength = 0;
-    for (const char of str) {
-      if (char.match(/[\u3000-\u303f\u3040-\u309f\u30a0-\u30ff\u4e00-\u9faf\u3400-\u4dbf]/)) {
-        currentLength += 2;
-      } else {
-        currentLength += 1;
-      }
-    }
-    const padding = targetLength - currentLength;
-    return str + ' '.repeat(Math.max(0, padding));
-  };
 
   const addToOutput = (lines: string | string[]) => {
     const newLines = Array.isArray(lines) ? lines : [lines];
@@ -616,27 +601,31 @@ const CLIEmulator: React.FC<CLIEmulatorProps> = ({ initialOutput = [] }) => {
 
   const showPinkieYou = () => {
     const lines = [''];
-    lines.push('████████████████████████████████████████████████████████████');
-    lines.push('█                                                          █');
-    lines.push('█  ██████╗ ██╗███╗   ██╗██╗  ██╗██╗███████╗               █');
-    lines.push('█  ██╔══██╗██║████╗  ██║██║ ██╔╝██║██╔════╝               █');
-    lines.push('█  ██████╔╝██║██╔██╗ ██║█████╔╝ ██║█████╗                 █');
-    lines.push('█  ██╔═══╝ ██║██║╚██╗██║██╔═██╗ ██║██╔══╝                 █');
-    lines.push('█  ██║     ██║██║ ╚████║██║  ██╗██║███████╗               █');
-    lines.push('█  ╚═╝     ╚═╝╚═╝  ╚═══╝╚═╝  ╚═╝╚═╝╚══════╝               █');
-    lines.push('█                                                          █');
-    lines.push('█  ██╗   ██╗ ██████╗ ██╗   ██╗██╗██╗██╗                   █');
-    lines.push('█  ╚██╗ ██╔╝██╔═══██╗██║   ██║██║██║██║                   █');
-    lines.push('█   ╚████╔╝ ██║   ██║██║   ██║██║██║██║                   █');
-    lines.push('█    ╚██╔╝  ██║   ██║██║   ██║╚═╝╚═╝╚═╝                   █');
-    lines.push('█     ██║   ╚██████╔╝╚██████╔╝██╗██╗██╗                   █');
-    lines.push('█     ╚═╝    ╚═════╝  ╚═════╝ ╚═╝╚═╝╚═╝                   █');
-    lines.push('█                                                          █');
-    lines.push('████████████████████████████████████████████████████████████');
+    lines.push('\x02[SYSTEM BREACH DETECTED]\x02');
+    lines.push('\x03[WARNING] Unauthorized command execution\x03');
     lines.push('');
-    lines.push('                    ¯\\_(ツ)_/¯');
+    lines.push('\x02▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓\x02');
+    lines.push('\x02▓\x02                                                          \x02▓\x02');
+    lines.push('\x02▓  \x03██████╗ ██╗███╗   ██╗██╗  ██╗██╗███████╗\x03               \x02▓\x02');
+    lines.push('\x02▓  \x03██╔══██╗██║████╗  ██║██║ ██╔╝██║██╔════╝\x03               \x02▓\x02');
+    lines.push('\x02▓  \x03██████╔╝██║██╔██╗ ██║█████╔╝ ██║█████╗\x03                 \x02▓\x02');
+    lines.push('\x02▓  \x03██╔═══╝ ██║██║╚██╗██║██╔═██╗ ██║██╔══╝\x03                 \x02▓\x02');
+    lines.push('\x02▓  \x03██║     ██║██║ ╚████║██║  ██╗██║███████╗\x03               \x02▓\x02');
+    lines.push('\x02▓  \x03╚═╝     ╚═╝╚═╝  ╚═══╝╚═╝  ╚═╝╚═╝╚══════╝\x03               \x02▓\x02');
+    lines.push('\x02▓\x02                                                          \x02▓\x02');
+    lines.push('\x02▓  \x02██╗   ██╗ ██████╗ ██╗   ██╗██╗██╗██╗\x02                   \x02▓\x02');
+    lines.push('\x02▓  \x02╚██╗ ██╔╝██╔═══██╗██║   ██║██║██║██║\x02                   \x02▓\x02');
+    lines.push('\x02▓   \x02╚████╔╝ ██║   ██║██║   ██║██║██║██║\x02                   \x02▓\x02');
+    lines.push('\x02▓    \x02╚██╔╝  ██║   ██║██║   ██║╚═╝╚═╝╚═╝\x02                   \x02▓\x02');
+    lines.push('\x02▓     \x02██║   ╚██████╔╝╚██████╔╝██╗██╗██╗\x02                   \x02▓\x02');
+    lines.push('\x02▓     \x02╚═╝    ╚═════╝  ╚═════╝ ╚═╝╚═╝╚═╝\x02                   \x02▓\x02');
+    lines.push('\x02▓\x02                                                          \x02▓\x02');
+    lines.push('\x02▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓\x02');
     lines.push('');
-    lines.push(currentLang === 'ja' ? '        愛を込めて、PinkieTechより ♥' : '        With love from PinkieTech ♥');
+    lines.push('\x03          ╭∩╮（︶︿︶）╭∩╮\x03');
+    lines.push('');
+    lines.push('\x02[SYSTEM] Connection terminated by PinkieOS Security\x02');
+    lines.push('\x03' + (currentLang === 'ja' ? '愛を込めて、PinkieTech Cyber Division より ♥' : 'With love from PinkieTech Cyber Division ♥') + '\x03');
     lines.push('');
     addToOutput(lines);
   };
