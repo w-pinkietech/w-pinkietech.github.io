@@ -969,45 +969,71 @@ const CLIEmulator: React.FC<CLIEmulatorProps> = ({ initialOutput = [] }) => {
             className += 'text-pink-400/90 whitespace-pre-wrap break-words';
           }
           
-          // Check for URLs and make them clickable
-          const urlRegex = /(https?:\/\/[^\s]+|@[a-zA-Z0-9_]+)/g;
+          // Check for URLs and make them clickable (exclude user input lines and email-like patterns)
+          const urlRegex = /(https?:\/\/[^\s]+)/g;
+          const twitterRegex = /(?:^|\s)(@[a-zA-Z0-9_]+)(?=\s|$)/g;
           const hasUrl = urlRegex.test(cleanLine);
+          const hasTwitter = !isUserInput && !cleanLine.includes('guest@') && twitterRegex.test(cleanLine);
           
-          if (hasUrl) {
-            const parts = cleanLine.split(urlRegex);
+          if (hasUrl || hasTwitter) {
+            let processedLine = cleanLine;
+            const elements = [];
+            let lastIndex = 0;
+            
+            // Process URLs
+            let urlMatch;
+            urlRegex.lastIndex = 0;
+            while ((urlMatch = urlRegex.exec(cleanLine)) !== null) {
+              if (urlMatch.index > lastIndex) {
+                elements.push(processedLine.slice(lastIndex, urlMatch.index));
+              }
+              elements.push(
+                <a 
+                  key={`url-${urlMatch.index}`}
+                  href={urlMatch[0]}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-cyan-400 hover:text-cyan-300 underline cursor-pointer cyber-glow-cyan"
+                  onClick={(e) => e.stopPropagation()}
+                >
+                  {urlMatch[0]}
+                </a>
+              );
+              lastIndex = urlMatch.index + urlMatch[0].length;
+            }
+            
+            // Process Twitter handles (only if not in user input and not guest@)
+            if (hasTwitter) {
+              let twitterMatch;
+              twitterRegex.lastIndex = 0;
+              while ((twitterMatch = twitterRegex.exec(cleanLine)) !== null) {
+                const username = twitterMatch[1].slice(1);
+                if (twitterMatch.index > lastIndex) {
+                  elements.push(processedLine.slice(lastIndex, twitterMatch.index));
+                }
+                elements.push(
+                  <a 
+                    key={`twitter-${twitterMatch.index}`}
+                    href={`https://x.com/${username}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-cyan-400 hover:text-cyan-300 underline cursor-pointer cyber-glow-cyan"
+                    onClick={(e) => e.stopPropagation()}
+                  >
+                    {twitterMatch[1]}
+                  </a>
+                );
+                lastIndex = twitterMatch.index + twitterMatch[0].length;
+              }
+            }
+            
+            if (lastIndex < cleanLine.length) {
+              elements.push(processedLine.slice(lastIndex));
+            }
+            
             return (
               <div key={index} className={className}>
-                {parts.map((part, partIndex) => {
-                  if (part.match(/https?:\/\/[^\s]+/)) {
-                    return (
-                      <a 
-                        key={partIndex}
-                        href={part}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="text-cyan-400 hover:text-cyan-300 underline cursor-pointer cyber-glow-cyan"
-                        onClick={(e) => e.stopPropagation()}
-                      >
-                        {part}
-                      </a>
-                    );
-                  } else if (part.match(/@[a-zA-Z0-9_]+/)) {
-                    const username = part.slice(1);
-                    return (
-                      <a 
-                        key={partIndex}
-                        href={`https://x.com/${username}`}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="text-cyan-400 hover:text-cyan-300 underline cursor-pointer cyber-glow-cyan"
-                        onClick={(e) => e.stopPropagation()}
-                      >
-                        {part}
-                      </a>
-                    );
-                  }
-                  return part;
-                })}
+                {elements}
               </div>
             );
           }
