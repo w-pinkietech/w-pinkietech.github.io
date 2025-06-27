@@ -900,7 +900,7 @@ const CLIEmulator: React.FC<CLIEmulatorProps> = ({ initialOutput = [] }) => {
           setCurrentInput(matches[0]);
         } else if (matches.length > 1) {
           // Multiple matches - show them
-          const cleanPrompt = currentPrompt.replace(/\\x02/g, '').replace(/\\x03/g, '');
+          const cleanPrompt = currentPrompt.replace(/\x02/g, '').replace(/\x03/g, '');
           addToOutput(`\x01${cleanPrompt} ${currentInput}`);
           addToOutput('');
           addToOutput(matches.join('  '));
