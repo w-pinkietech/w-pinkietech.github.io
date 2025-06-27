@@ -168,8 +168,8 @@ const CLIEmulator: React.FC<CLIEmulatorProps> = ({ initialOutput = [] }) => {
       showWorks();
     } else if (lowerCommand === 'contact') {
       showContact();
-    } else if (lowerCommand === 'team') {
-      showTeam();
+    } else if (lowerCommand === 'legal') {
+      showLegal();
     } else if (lowerCommand === 'sudo' || lowerCommand.startsWith('sudo ')) {
       addToOutput('[sudo] ' + (currentLang === 'ja' ? 'guestのパスワード: ' : 'password for guest: '));
       setCommandContext('sudo_password');
@@ -258,7 +258,7 @@ const CLIEmulator: React.FC<CLIEmulatorProps> = ({ initialOutput = [] }) => {
       { cmd: 'services', desc: currentLang === 'ja' ? 'サービス一覧' : 'Our services' },
       { cmd: 'works', desc: currentLang === 'ja' ? '実績・事例' : 'Projects' },
       { cmd: 'contact', desc: currentLang === 'ja' ? 'お問い合わせ' : 'Contact us' },
-      { cmd: 'team', desc: currentLang === 'ja' ? 'チームメンバー' : 'Team members' },
+      { cmd: 'legal', desc: currentLang === 'ja' ? '法的情報' : 'Legal information' },
       { cmd: 'repo', desc: currentLang === 'ja' ? 'GitHub' : 'GitHub repo' },
     ];
     
@@ -302,36 +302,25 @@ const CLIEmulator: React.FC<CLIEmulatorProps> = ({ initialOutput = [] }) => {
     if (currentLang === 'ja') {
       lines.push('==================[ PinkieTechについて ]==================');
       lines.push('');
-      lines.push('PinkieTechは2025年に設立された企業です。');
+      lines.push('【基本情報】');
+      lines.push('会社名: PinkieTech株式会社');
+      lines.push('設立日: 2025年01月17日');
+      lines.push('代表者: 渡部健太');
+      lines.push('資本金: 5,000,000円');
       lines.push('');
-      lines.push('創業のきっかけ:');
-      lines.push('北九州でのOSSによる工場の見える化活動への参加でした。');
-      lines.push('OSS活動をしているにも関わらずGitHubを使わず、zipや');
-      lines.push('イメージファイルでの配布が行われており、情報格差を感じました。');
-      lines.push('');
-      lines.push('さらに日本の産業構造について学びました。大企業は約70%を');
-      lines.push('外注していますが、設計などの知識は上流の大企業のみが抱え、');
-      lines.push('中小企業の多くは量産に関するノウハウしか持たないため、');
-      lines.push('付加価値を産みにくい構造になっています。');
-      lines.push('');
-      lines.push('この現状を変えるにはソフトウェアの力が必要だと確信し、');
-      lines.push('モノづくり × OSS × AIの融合に取り組んでいます。');
-      lines.push('');
+      lines.push('【ミッション】');
+      lines.push('モノづくり × OSS × AIの融合に取り組み、');
       lines.push('日本の中小製造業に新たな可能性を開拓することを目指しています。');
     } else {
       lines.push('==================[ ABOUT PINKIETECH ]==================');
       lines.push('');
-      lines.push('PinkieTech was founded in 2025.');
+      lines.push('【Company Information】');
+      lines.push('Company: PinkieTech Co., Ltd.');
+      lines.push('Founded: January 17, 2025');
+      lines.push('CEO: Kenta Watanabe');
+      lines.push('Capital: 5,000,000 JPY');
       lines.push('');
-      lines.push('Our Origin Story:');
-      lines.push('It started with participation in OSS-based factory visualization');
-      lines.push('activities in Kitakyushu. Coming from the IT/AI world,');
-      lines.push('I was shocked by the different tools and mindsets in manufacturing.');
-      lines.push('');
-      lines.push('I learned about Japan\'s industrial structure where SMEs');
-      lines.push('struggle to create added value. I realized software power');
-      lines.push('is needed to change this reality.');
-      lines.push('');
+      lines.push('【Mission】');
       lines.push('We focus on Manufacturing × OSS × AI fusion to open new');
       lines.push('possibilities for Japanese small and medium manufacturers.');
     }
@@ -482,42 +471,96 @@ const CLIEmulator: React.FC<CLIEmulatorProps> = ({ initialOutput = [] }) => {
     addToOutput(lines);
   };
 
-  const showTeam = () => {
+  const showLegal = () => {
     const lines = [''];
     if (currentLang === 'ja') {
-      lines.push('==================[ チームメンバー ]==================');
+      lines.push('==================[ 法的情報 ]==================');
       lines.push('');
-      lines.push('代表取締役CEO');
-      lines.push('├─ 氏名: 山田 太郎');
-      lines.push('├─ 経歴: 元Google Japan AI研究部門');
-      lines.push('└─ 専門: 深層学習、自然言語処理');
+      lines.push('【プライバシーポリシー】');
       lines.push('');
-      lines.push('取締役CTO');
-      lines.push('├─ 氏名: 鈴木 花子');
-      lines.push('├─ 経歴: 元楽天技術研究所');
-      lines.push('└─ 専門: ML インフラ、大規模システム');
+      lines.push('1. 個人情報の取得について');
+      lines.push('   当社では、お客様からお問い合わせをいただく際に、');
+      lines.push('   お名前、連絡先等の個人情報を取得いたします。');
       lines.push('');
-      lines.push('エンジニアリング部長');
-      lines.push('├─ 氏名: 田中 健一');
-      lines.push('├─ 経歴: 元Microsoft Japan');
-      lines.push('└─ 専門: コンピュータビジョン、ロボティクス');
+      lines.push('2. 個人情報の利用目的');
+      lines.push('   ・お客様からのお問い合わせへの対応');
+      lines.push('   ・サービス提供に関する連絡');
+      lines.push('   ・その他、お客様との円滑なコミュニケーション');
+      lines.push('');
+      lines.push('3. 個人情報の第三者提供');
+      lines.push('   法令に基づく場合を除き、ご本人の同意なく');
+      lines.push('   第三者に個人情報を提供することはありません。');
+      lines.push('');
+      lines.push('4. 個人情報の管理');
+      lines.push('   適切な安全管理措置を講じ、個人情報の漏洩、');
+      lines.push('   滅失又は毀損の防止に努めます。');
+      lines.push('');
+      lines.push('【利用規約】');
+      lines.push('');
+      lines.push('1. 本規約について');
+      lines.push('   本規約は、PinkieTech株式会社が提供するサービスの');
+      lines.push('   利用条件を定めるものです。');
+      lines.push('');
+      lines.push('2. サービスの利用');
+      lines.push('   ・サービスは現状有姿で提供されます');
+      lines.push('   ・法令に違反する行為は禁止します');
+      lines.push('   ・当社の業務に支障をきたす行為は禁止します');
+      lines.push('');
+      lines.push('3. 免責事項');
+      lines.push('   当社は、サービスの利用によって生じた');
+      lines.push('   いかなる損害についても責任を負いません。');
+      lines.push('');
+      lines.push('【特定商取引法に基づく表記】');
+      lines.push('');
+      lines.push('事業者名: PinkieTech株式会社');
+      lines.push('代表者:   渡部健太');
+      lines.push('所在地:   〒806-0047 福岡県北九州市八幡西区塔野１丁目１４‐２２');
+      lines.push('連絡先:   X(Twitter) @pinkietech のDMにてお問い合わせください');
+      lines.push('事業内容: 製造業DX支援、IoT導入支援、OSS開発、技術研修・教育');
     } else {
-      lines.push('==================[ TEAM MEMBERS ]==================');
+      lines.push('==================[ LEGAL INFORMATION ]==================');
       lines.push('');
-      lines.push('CEO & Founder');
-      lines.push('├─ Name: Taro Yamada');
-      lines.push('├─ Background: Ex-Google Japan AI Research');
-      lines.push('└─ Expertise: Deep Learning, NLP');
+      lines.push('【Privacy Policy】');
       lines.push('');
-      lines.push('CTO');
-      lines.push('├─ Name: Hanako Suzuki');
-      lines.push('├─ Background: Ex-Rakuten Institute of Technology');
-      lines.push('└─ Expertise: ML Infrastructure, Scalability');
+      lines.push('1. Collection of Personal Information');
+      lines.push('   We collect personal information such as your name and');
+      lines.push('   contact details when you make inquiries.');
       lines.push('');
-      lines.push('VP of Engineering');
-      lines.push('├─ Name: Kenichi Tanaka');
-      lines.push('├─ Background: Ex-Microsoft Japan');
-      lines.push('└─ Expertise: Computer Vision, Robotics');
+      lines.push('2. Purpose of Use');
+      lines.push('   ・Responding to customer inquiries');
+      lines.push('   ・Service-related communications');
+      lines.push('   ・Other smooth communication with customers');
+      lines.push('');
+      lines.push('3. Third Party Disclosure');
+      lines.push('   We do not provide personal information to third parties');
+      lines.push('   without consent, except as required by law.');
+      lines.push('');
+      lines.push('4. Information Management');
+      lines.push('   We implement appropriate security measures to prevent');
+      lines.push('   leakage, loss, or damage of personal information.');
+      lines.push('');
+      lines.push('【Terms of Service】');
+      lines.push('');
+      lines.push('1. About These Terms');
+      lines.push('   These terms define the conditions for using services');
+      lines.push('   provided by PinkieTech Co., Ltd.');
+      lines.push('');
+      lines.push('2. Service Usage');
+      lines.push('   ・Services are provided as-is');
+      lines.push('   ・Activities violating laws are prohibited');
+      lines.push('   ・Activities disrupting our business are prohibited');
+      lines.push('');
+      lines.push('3. Disclaimer');
+      lines.push('   We are not liable for any damages arising from');
+      lines.push('   the use of our services.');
+      lines.push('');
+      lines.push('【Commercial Transaction Act Notice】');
+      lines.push('');
+      lines.push('Business Name: PinkieTech Co., Ltd.');
+      lines.push('Representative: Kenta Watanabe');
+      lines.push('Address: 1-14-22 Tono, Yahatanishi-ku, Kitakyushu-shi, Fukuoka 806-0047, Japan');
+      lines.push('Contact: Please contact via DM on X(Twitter) @pinkietech');
+      lines.push('Business: Manufacturing DX support, IoT implementation, OSS development, Technical training');
     }
     lines.push('');
     addToOutput(lines);
@@ -571,9 +614,9 @@ const CLIEmulator: React.FC<CLIEmulatorProps> = ({ initialOutput = [] }) => {
   const showAvailableCommands = () => {
     const commands = [
       'about', 'achievements', 'banner', 'cat', 'clear', 'contact', 
-      'date', 'echo', 'exit', 'game', 'help', 'lang', 
+      'date', 'echo', 'exit', 'game', 'help', 'lang', 'legal', 
       'logout', 'ls', 'neofetch', 'pwd', 'quit', 
-      'readme', 'repo', 'score', 'services', 'team', 'whoami', 'works'
+      'readme', 'repo', 'score', 'services', 'whoami', 'works'
     ].sort();
     
     // Format in columns (4 columns)
@@ -815,7 +858,7 @@ const CLIEmulator: React.FC<CLIEmulatorProps> = ({ initialOutput = [] }) => {
       if (!commandContext && currentInput.trim()) {
         // Get all available commands (including hidden ones for tab completion)
         const availableCommands = [
-          'help', 'clear', 'about', 'services', 'works', 'projects', 'contact', 'team',
+          'help', 'clear', 'about', 'services', 'works', 'projects', 'contact', 'legal',
           'whoami', 'pwd', 'ls', 'date', 'echo', 'neofetch', 'info', 'cat', 'readme',
           'banner', 'repo', 'repository', 'lang', 'language', 'sudo', 'exit', 
           'quit', 'logout', 'hack', 'fuck', 'game', 'games', 'guess', 'quiz', 
