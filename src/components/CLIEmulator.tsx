@@ -350,147 +350,242 @@ const CLIEmulator: React.FC<CLIEmulatorProps> = ({ initialOutput = [] }) => {
   };
 
   const showHelp = () => {
+    const isMobile = window.innerWidth < 640;
     const lines = [''];
-    lines.push('\x03╔════════════════════════════════════════════════════════╗\x03');
-    lines.push('\x03║              \x03' + (currentLang === 'ja' ? '\x02利用可能なコマンド一覧\x02' : '\x02Available Commands\x02') + '\x03              ║\x03');
-    lines.push('\x03╚════════════════════════════════════════════════════════╝\x03');
-    lines.push('');
     
-    const navTitle = currentLang === 'ja' ? '\x02【ナビゲーション】\x02' : '\x02[Navigation]\x02';
-    lines.push(navTitle);
-    lines.push('');
-    
-    const commands = [
-      { cmd: 'about', desc: currentLang === 'ja' ? '会社概要' : 'About us' },
-      { cmd: 'services', desc: currentLang === 'ja' ? 'サービス一覧' : 'Our services' },
-      { cmd: 'works', desc: currentLang === 'ja' ? '実績・事例' : 'Projects' },
-      { cmd: 'contact', desc: currentLang === 'ja' ? 'お問い合わせ' : 'Contact us' },
-      { cmd: 'legal', desc: currentLang === 'ja' ? '法的情報' : 'Legal information' },
-      { cmd: 'repo', desc: currentLang === 'ja' ? 'GitHub' : 'GitHub repo' },
-    ];
-    
-    commands.forEach(({ cmd, desc }) => {
-      lines.push(`  ${cmd.padEnd(11)} - ${desc}`);
-    });
-    
-    lines.push('');
-    
-    const sysTitle = currentLang === 'ja' ? '\x02【システム】\x02' : '\x02[System]\x02';
-    lines.push(sysTitle);
-    lines.push('');
-    
-    const sysCommands = [
-      { cmd: 'clear', desc: currentLang === 'ja' ? '画面をクリア' : 'Clear screen' },
-      { cmd: 'help', desc: currentLang === 'ja' ? 'ヘルプを表示' : 'Show help' },
-      { cmd: 'whoami', desc: currentLang === 'ja' ? '現在のユーザー' : 'Current user' },
-      { cmd: 'pwd', desc: currentLang === 'ja' ? '現在のディレクトリ' : 'Working directory' },
-      { cmd: 'ls', desc: currentLang === 'ja' ? 'コマンド一覧' : 'List commands' },
-      { cmd: 'cat', desc: currentLang === 'ja' ? '猫を表示' : 'Show cat' },
-      { cmd: 'readme', desc: currentLang === 'ja' ? 'README表示' : 'Show README' },
-      { cmd: 'neofetch', desc: currentLang === 'ja' ? 'システム情報' : 'System info' },
-      { cmd: 'banner', desc: currentLang === 'ja' ? 'ロゴ表示' : 'Show logo' },
-      { cmd: 'lang', desc: currentLang === 'ja' ? '言語切替' : 'Change language' },
-      { cmd: 'exit', desc: currentLang === 'ja' ? '終了' : 'Exit' },
-    ];
-    
-    sysCommands.forEach(({ cmd, desc }) => {
-      lines.push(`  ${cmd.padEnd(11)} - ${desc}`);
-    });
-    
-    lines.push('');
-    lines.push('\x03──────────────────────────────────────────────────────────\x03');
+    if (isMobile) {
+      lines.push('\x03=====[ コマンド一覧 ]=====\x03');
+      lines.push('');
+      lines.push('\x02【基本】\x02');
+      lines.push('about    - 会社概要');
+      lines.push('services - サービス');
+      lines.push('works    - 実績');
+      lines.push('contact  - 連絡先');
+      lines.push('legal    - 法的情報');
+      lines.push('');
+      lines.push('\x02【その他】\x02');
+      lines.push('clear  - 画面クリア');
+      lines.push('lang   - 言語切替');
+      lines.push('cat    - 猫表示');
+      lines.push('repo   - GitHub');
+    } else {
+      lines.push('\x03╔════════════════════════════════════════════════════════╗\x03');
+      lines.push('\x03║              \x03' + (currentLang === 'ja' ? '\x02利用可能なコマンド一覧\x02' : '\x02Available Commands\x02') + '\x03              ║\x03');
+      lines.push('\x03╚════════════════════════════════════════════════════════╝\x03');
+      lines.push('');
+      
+      const navTitle = currentLang === 'ja' ? '\x02【ナビゲーション】\x02' : '\x02[Navigation]\x02';
+      lines.push(navTitle);
+      lines.push('');
+      
+      const commands = [
+        { cmd: 'about', desc: currentLang === 'ja' ? '会社概要' : 'About us' },
+        { cmd: 'services', desc: currentLang === 'ja' ? 'サービス一覧' : 'Our services' },
+        { cmd: 'works', desc: currentLang === 'ja' ? '実績・事例' : 'Projects' },
+        { cmd: 'contact', desc: currentLang === 'ja' ? 'お問い合わせ' : 'Contact us' },
+        { cmd: 'legal', desc: currentLang === 'ja' ? '法的情報' : 'Legal information' },
+        { cmd: 'repo', desc: currentLang === 'ja' ? 'GitHub' : 'GitHub repo' },
+      ];
+      
+      commands.forEach(({ cmd, desc }) => {
+        lines.push(`  ${cmd.padEnd(11)} - ${desc}`);
+      });
+      
+      lines.push('');
+      
+      const sysTitle = currentLang === 'ja' ? '\x02【システム】\x02' : '\x02[System]\x02';
+      lines.push(sysTitle);
+      lines.push('');
+      
+      const sysCommands = [
+        { cmd: 'clear', desc: currentLang === 'ja' ? '画面をクリア' : 'Clear screen' },
+        { cmd: 'help', desc: currentLang === 'ja' ? 'ヘルプを表示' : 'Show help' },
+        { cmd: 'whoami', desc: currentLang === 'ja' ? '現在のユーザー' : 'Current user' },
+        { cmd: 'pwd', desc: currentLang === 'ja' ? '現在のディレクトリ' : 'Working directory' },
+        { cmd: 'ls', desc: currentLang === 'ja' ? 'コマンド一覧' : 'List commands' },
+        { cmd: 'cat', desc: currentLang === 'ja' ? '猫を表示' : 'Show cat' },
+        { cmd: 'readme', desc: currentLang === 'ja' ? 'README表示' : 'Show README' },
+        { cmd: 'neofetch', desc: currentLang === 'ja' ? 'システム情報' : 'System info' },
+        { cmd: 'banner', desc: currentLang === 'ja' ? 'ロゴ表示' : 'Show logo' },
+        { cmd: 'lang', desc: currentLang === 'ja' ? '言語切替' : 'Change language' },
+        { cmd: 'exit', desc: currentLang === 'ja' ? '終了' : 'Exit' },
+      ];
+      
+      sysCommands.forEach(({ cmd, desc }) => {
+        lines.push(`  ${cmd.padEnd(11)} - ${desc}`);
+      });
+      
+      lines.push('');
+      lines.push('\x03──────────────────────────────────────────────────────────\x03');
+    }
     lines.push('');
     
     addToOutput(lines);
   };
 
   const showAbout = () => {
+    const isMobile = window.innerWidth < 640;
     const lines = [''];
+    
     if (currentLang === 'ja') {
-      lines.push('==================[ PinkieTechについて ]==================');
-      lines.push('');
-      lines.push('【基本情報】');
-      lines.push('会社名: PinkieTech株式会社');
-      lines.push('設立日: 2025年01月17日');
-      lines.push('代表者: 渡部健太');
-      lines.push('資本金: 5,000,000円');
-      lines.push('');
-      lines.push('【ミッション】');
-      lines.push('モノづくり × OSS × AIの融合に取り組み、');
-      lines.push('日本の中小製造業に新たな可能性を開拓することを目指しています。');
+      if (isMobile) {
+        lines.push('=====[ 会社概要 ]=====');
+        lines.push('');
+        lines.push('会社名: PinkieTech株式会社');
+        lines.push('設立: 2025/01/17');
+        lines.push('代表: 渡部健太');
+        lines.push('資本金: 500万円');
+        lines.push('');
+        lines.push('【ミッション】');
+        lines.push('モノづくり × OSS × AI');
+        lines.push('中小製造業の新たな可能性を開拓');
+      } else {
+        lines.push('==================[ PinkieTechについて ]==================');
+        lines.push('');
+        lines.push('【基本情報】');
+        lines.push('会社名: PinkieTech株式会社');
+        lines.push('設立日: 2025年01月17日');
+        lines.push('代表者: 渡部健太');
+        lines.push('資本金: 5,000,000円');
+        lines.push('');
+        lines.push('【ミッション】');
+        lines.push('モノづくり × OSS × AIの融合に取り組み、');
+        lines.push('日本の中小製造業に新たな可能性を開拓することを目指しています。');
+      }
     } else {
-      lines.push('==================[ ABOUT PINKIETECH ]==================');
-      lines.push('');
-      lines.push('【Company Information】');
-      lines.push('Company: PinkieTech Co., Ltd.');
-      lines.push('Founded: January 17, 2025');
-      lines.push('CEO: Kenta Watanabe');
-      lines.push('Capital: 5,000,000 JPY');
-      lines.push('');
-      lines.push('【Mission】');
-      lines.push('We focus on Manufacturing × OSS × AI fusion to open new');
-      lines.push('possibilities for Japanese small and medium manufacturers.');
+      if (isMobile) {
+        lines.push('=====[ ABOUT ]=====');
+        lines.push('');
+        lines.push('Company: PinkieTech Co., Ltd.');
+        lines.push('Founded: Jan 17, 2025');
+        lines.push('CEO: Kenta Watanabe');
+        lines.push('Capital: 5M JPY');
+        lines.push('');
+        lines.push('【Mission】');
+        lines.push('Manufacturing × OSS × AI');
+        lines.push('New possibilities for SME');
+      } else {
+        lines.push('==================[ ABOUT PINKIETECH ]==================');
+        lines.push('');
+        lines.push('【Company Information】');
+        lines.push('Company: PinkieTech Co., Ltd.');
+        lines.push('Founded: January 17, 2025');
+        lines.push('CEO: Kenta Watanabe');
+        lines.push('Capital: 5,000,000 JPY');
+        lines.push('');
+        lines.push('【Mission】');
+        lines.push('We focus on Manufacturing × OSS × AI fusion to open new');
+        lines.push('possibilities for Japanese small and medium manufacturers.');
+      }
     }
     lines.push('');
     addToOutput(lines);
   };
 
   const showServices = () => {
+    const isMobile = window.innerWidth < 640;
     const lines = [''];
+    
     if (currentLang === 'ja') {
-      lines.push('==================[ サービス一覧 ]==================');
-      lines.push('');
-      lines.push('[1] 製造業DX支援');
-      lines.push('    └─ OSS活用による工場見える化');
-      lines.push('    └─ GitHubベースの開発プロセス導入');
-      lines.push('    └─ 製造データのデジタル化・標準化');
-      lines.push('');
-      lines.push('[2] IoT導入支援');
-      lines.push('    └─ センサーデータ収集・可視化システム');
-      lines.push('    └─ リアルタイム監視ダッシュボード構築');
-      lines.push('    └─ 製造業以外でもデータ見える化をお手伝い');
-      lines.push('');
-      lines.push('[3] OSS開発');
-      lines.push('    └─ 製造業向けOSSツール開発');
-      lines.push('    └─ 既存OSSのカスタマイズ・改良');
-      lines.push('    └─ オープンソースプロジェクトへの貢献');
-      lines.push('');
-      lines.push('[4] 技術研修・教育');
-      lines.push('    └─ OSS活用研修（GitHub、現代的な開発手法）');
-      lines.push('    └─ AI技術基礎研修');
-      lines.push('    └─ IoTシステム構築研修');
-      lines.push('    └─ 最新IT技術・ツール活用研修');
-      lines.push('');
-      lines.push('[5] OSSコミュニティ構築');
-      lines.push('    └─ 技術勉強会・ワークショップ開催');
-      lines.push('    └─ 製造業×OSS知識共有');
+      if (isMobile) {
+        lines.push('=====[ サービス ]=====');
+        lines.push('');
+        lines.push('[1] 製造業DX支援');
+        lines.push('• 工場見える化');
+        lines.push('• GitHub導入支援');
+        lines.push('• データ標準化');
+        lines.push('');
+        lines.push('[2] IoT導入支援');
+        lines.push('• センサーデータ収集');
+        lines.push('• 監視ダッシュボード');
+        lines.push('• データ見える化');
+        lines.push('');
+        lines.push('[3] OSS開発');
+        lines.push('• 製造業向けツール開発');
+        lines.push('• OSSカスタマイズ');
+        lines.push('');
+        lines.push('[4] 技術研修');
+        lines.push('• OSS活用研修');
+        lines.push('• AI技術研修');
+        lines.push('• IoT研修');
+      } else {
+        lines.push('==================[ サービス一覧 ]==================');
+        lines.push('');
+        lines.push('[1] 製造業DX支援');
+        lines.push('    └─ OSS活用による工場見える化');
+        lines.push('    └─ GitHubベースの開発プロセス導入');
+        lines.push('    └─ 製造データのデジタル化・標準化');
+        lines.push('');
+        lines.push('[2] IoT導入支援');
+        lines.push('    └─ センサーデータ収集・可視化システム');
+        lines.push('    └─ リアルタイム監視ダッシュボード構築');
+        lines.push('    └─ 製造業以外でもデータ見える化をお手伝い');
+        lines.push('');
+        lines.push('[3] OSS開発');
+        lines.push('    └─ 製造業向けOSSツール開発');
+        lines.push('    └─ 既存OSSのカスタマイズ・改良');
+        lines.push('    └─ オープンソースプロジェクトへの貢献');
+        lines.push('');
+        lines.push('[4] 技術研修・教育');
+        lines.push('    └─ OSS活用研修（GitHub、現代的な開発手法）');
+        lines.push('    └─ AI技術基礎研修');
+        lines.push('    └─ IoTシステム構築研修');
+        lines.push('    └─ 最新IT技術・ツール活用研修');
+        lines.push('');
+        lines.push('[5] OSSコミュニティ構築');
+        lines.push('    └─ 技術勉強会・ワークショップ開催');
+        lines.push('    └─ 製造業×OSS知識共有');
+      }
     } else {
-      lines.push('==================[ OUR SERVICES ]==================');
-      lines.push('');
-      lines.push('[1] Manufacturing DX Support');
-      lines.push('    └─ Factory visualization using OSS');
-      lines.push('    └─ GitHub-based development process adoption');
-      lines.push('    └─ Manufacturing data digitization & standardization');
-      lines.push('');
-      lines.push('[2] IoT Implementation Support');
-      lines.push('    └─ Sensor data collection & visualization systems');
-      lines.push('    └─ Real-time monitoring dashboard development');
-      lines.push('    └─ Data visualization support beyond manufacturing');
-      lines.push('');
-      lines.push('[3] OSS Development');
-      lines.push('    └─ Manufacturing-focused OSS tool development');
-      lines.push('    └─ Customization & improvement of existing OSS');
-      lines.push('    └─ Contribution to open source projects');
-      lines.push('');
-      lines.push('[4] Technical Training & Education');
-      lines.push('    └─ OSS utilization training (GitHub, modern dev practices)');
-      lines.push('    └─ AI technology fundamentals training');
-      lines.push('    └─ IoT system development training');
-      lines.push('    └─ Latest IT technology & tool utilization training');
-      lines.push('');
-      lines.push('[5] OSS Community Building');
-      lines.push('    └─ Technical study sessions & workshops');
-      lines.push('    └─ Manufacturing × OSS knowledge sharing');
+      if (isMobile) {
+        lines.push('=====[ SERVICES ]=====');
+        lines.push('');
+        lines.push('[1] Manufacturing DX');
+        lines.push('• Factory visualization');
+        lines.push('• GitHub adoption');
+        lines.push('• Data standardization');
+        lines.push('');
+        lines.push('[2] IoT Implementation');
+        lines.push('• Sensor data collection');
+        lines.push('• Monitoring dashboard');
+        lines.push('• Data visualization');
+        lines.push('');
+        lines.push('[3] OSS Development');
+        lines.push('• Manufacturing tools');
+        lines.push('• OSS customization');
+        lines.push('');
+        lines.push('[4] Technical Training');
+        lines.push('• OSS training');
+        lines.push('• AI training');
+        lines.push('• IoT training');
+      } else {
+        lines.push('==================[ OUR SERVICES ]==================');
+        lines.push('');
+        lines.push('[1] Manufacturing DX Support');
+        lines.push('    └─ Factory visualization using OSS');
+        lines.push('    └─ GitHub-based development process adoption');
+        lines.push('    └─ Manufacturing data digitization & standardization');
+        lines.push('');
+        lines.push('[2] IoT Implementation Support');
+        lines.push('    └─ Sensor data collection & visualization systems');
+        lines.push('    └─ Real-time monitoring dashboard development');
+        lines.push('    └─ Data visualization support beyond manufacturing');
+        lines.push('');
+        lines.push('[3] OSS Development');
+        lines.push('    └─ Manufacturing-focused OSS tool development');
+        lines.push('    └─ Customization & improvement of existing OSS');
+        lines.push('    └─ Contribution to open source projects');
+        lines.push('');
+        lines.push('[4] Technical Training & Education');
+        lines.push('    └─ OSS utilization training (GitHub, modern dev practices)');
+        lines.push('    └─ AI technology fundamentals training');
+        lines.push('    └─ IoT system development training');
+        lines.push('    └─ Latest IT technology & tool utilization training');
+        lines.push('');
+        lines.push('[5] OSS Community Building');
+        lines.push('    └─ Technical study sessions & workshops');
+        lines.push('    └─ Manufacturing × OSS knowledge sharing');
+      }
     }
     lines.push('');
     addToOutput(lines);
