@@ -36,11 +36,11 @@ const CLIEmulator: React.FC<CLIEmulatorProps> = ({ initialOutput = [] }) => {
     
     if (currentLang === 'ja') {
       return [
-        '\x03[BOOT] PinkieOS ver.0.0.1 - Manufacturing × OSS × AI\x03',
-        '\x02[INIT] Japanese Monozukuri Spirit... [OK]\x02',
-        '\x02[INIT] Open Source Philosophy... [OK]\x02',
-        '\x02[INIT] AI Innovation Engine... [OK]\x02',
-        '\x03[VISION] Bringing OSS and AI power to Japanese manufacturing\x03',
+        isMobile ? '\x03[BOOT] PinkieOS v0.0.1\x03' : '\x03[BOOT] PinkieOS ver.0.0.1 - Manufacturing × OSS × AI\x03',
+        isMobile ? '\x02[INIT] Monozukuri... [OK]\x02' : '\x02[INIT] Japanese Monozukuri Spirit... [OK]\x02',
+        isMobile ? '\x02[INIT] Open Source... [OK]\x02' : '\x02[INIT] Open Source Philosophy... [OK]\x02',
+        isMobile ? '\x02[INIT] AI Engine... [OK]\x02' : '\x02[INIT] AI Innovation Engine... [OK]\x02',
+        isMobile ? '\x03[VISION] OSS × AI for Manufacturing\x03' : '\x03[VISION] Bringing OSS and AI power to Japanese manufacturing\x03',
         isMobile ? '\x03[MISSION] Technical innovation in manufacturing\x03' : '\x03[MISSION] Driving technical innovation in manufacturing industry\x03',
         isMobile ? '\x03[VALUES] Quality • Open Source • AI\x03' : '\x03[VALUES] Quality craftsmanship • Open Source • AI democratization\x03',
         isMobile ? '\x02[GOAL] Traditional × Digital fusion\x02' : '\x02[GOAL] Fusion of traditional craftsmanship with digital technology\x02',
@@ -81,11 +81,11 @@ const CLIEmulator: React.FC<CLIEmulatorProps> = ({ initialOutput = [] }) => {
       ];
     } else {
       return [
-        '\x03[BOOT] PinkieOS ver.0.0.1 - Manufacturing × OSS × AI\x03',
-        '\x02[INIT] Japanese Monozukuri Spirit... [OK]\x02',
-        '\x02[INIT] Open Source Philosophy... [OK]\x02',
-        '\x02[INIT] AI Innovation Engine... [OK]\x02',
-        '\x03[VISION] Bringing OSS and AI power to Japanese manufacturing\x03',
+        isMobile ? '\x03[BOOT] PinkieOS v0.0.1\x03' : '\x03[BOOT] PinkieOS ver.0.0.1 - Manufacturing × OSS × AI\x03',
+        isMobile ? '\x02[INIT] Monozukuri... [OK]\x02' : '\x02[INIT] Japanese Monozukuri Spirit... [OK]\x02',
+        isMobile ? '\x02[INIT] Open Source... [OK]\x02' : '\x02[INIT] Open Source Philosophy... [OK]\x02',
+        isMobile ? '\x02[INIT] AI Engine... [OK]\x02' : '\x02[INIT] AI Innovation Engine... [OK]\x02',
+        isMobile ? '\x03[VISION] OSS × AI for Manufacturing\x03' : '\x03[VISION] Bringing OSS and AI power to Japanese manufacturing\x03',
         isMobile ? '\x03[MISSION] Technical innovation in manufacturing\x03' : '\x03[MISSION] Driving technical innovation in manufacturing industry\x03',
         isMobile ? '\x03[VALUES] Quality • Open Source • AI\x03' : '\x03[VALUES] Quality craftsmanship • Open Source • AI democratization\x03',
         isMobile ? '\x02[GOAL] Traditional × Digital fusion\x02' : '\x02[GOAL] Fusion of traditional craftsmanship with digital technology\x02',
@@ -136,8 +136,16 @@ const CLIEmulator: React.FC<CLIEmulatorProps> = ({ initialOutput = [] }) => {
     if (inputRef.current) {
       inputRef.current.focus();
     }
+    // Smooth scroll to bottom with a small delay to ensure content is rendered
     if (terminalRef.current) {
-      terminalRef.current.scrollTop = terminalRef.current.scrollHeight;
+      setTimeout(() => {
+        if (terminalRef.current) {
+          terminalRef.current.scrollTo({
+            top: terminalRef.current.scrollHeight,
+            behavior: 'smooth'
+          });
+        }
+      }, 50);
     }
   }, [output]);
 
@@ -152,6 +160,16 @@ const CLIEmulator: React.FC<CLIEmulatorProps> = ({ initialOutput = [] }) => {
   const addToOutput = (lines: string | string[]) => {
     const newLines = Array.isArray(lines) ? lines : [lines];
     setOutput(prev => [...prev, ...newLines]);
+    
+    // Force scroll to bottom after adding new content
+    setTimeout(() => {
+      if (terminalRef.current) {
+        terminalRef.current.scrollTo({
+          top: terminalRef.current.scrollHeight,
+          behavior: 'smooth'
+        });
+      }
+    }, 10);
   };
 
   const handleCommand = (command: string) => {
@@ -1289,9 +1307,11 @@ const CLIEmulator: React.FC<CLIEmulatorProps> = ({ initialOutput = [] }) => {
       className={cn(
         'w-full h-full bg-gray-950 text-pink-400 font-mono p-2 sm:p-4 overflow-y-auto overflow-x-hidden custom-scrollbar',
         'relative text-xs sm:text-sm',
-        'min-h-screen' // Ensure full height on mobile
+        'min-h-screen scroll-smooth' // Ensure full height on mobile and smooth scrolling
       )}
       style={{
+        scrollbarGutter: 'stable both-edges',
+        WebkitOverflowScrolling: 'touch', // Better mobile scrolling
         fontFamily: '"Fira Code", "Cascadia Code", "JetBrains Mono", monospace',
         background: 'linear-gradient(135deg, #0a0a0a 0%, #1a0a1a 50%, #0a0a0a 100%)',
         backgroundSize: '400% 400%',
