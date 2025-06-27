@@ -4,10 +4,14 @@ import CLIEmulator from '../components/CLIEmulator';
 const Home: FC = () => {
 
   const asciiArt = [
-    '\x03[BOOT] PinkieOS 2077 Cyber Edition\x03',
-    '\x02[INIT] Neural Core X... [OK]\x02',
-    '\x02[INIT] Quantum Memory... [OK]\x02',
-    '\x02[INIT] Cyber Defense System... [OK]\x02',
+    '\x03[BOOT] PinkieOS ver.0.0.1 - AI Innovation Platform\x03',
+    '\x02[INIT] 自然言語処理エンジン... [OK]\x02',
+    '\x02[INIT] 機械学習モデル展開... [OK]\x02',
+    '\x02[INIT] クライアント接続確立... [OK]\x02',
+    '\x02[INIT] AIコンサルティングAPI... [OK]\x02',
+    '\x03[INFO] 医療診断支援AI: 稼働中 (精度92%)\x03',
+    '\x03[INFO] EC向けレコメンド: 45社導入済み\x03',
+    '\x03[INFO] 金融不正検知: 2.5億円の損失防止中\x03',
     '',
     '\x02██████╗ ██╗███╗   ██╗██╗  ██╗██╗███████╗████████╗███████╗ ██████╗██╗  ██╗\x02',
     '\x02██╔══██╗██║████╗  ██║██║ ██╔╝██║██╔════╝╚══██╔══╝██╔════╝██╔════╝██║  ██║\x02',
