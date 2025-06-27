@@ -74,8 +74,8 @@ const CLIEmulator: React.FC<CLIEmulatorProps> = ({ initialOutput = [] }) => {
         '',
         'Last login: ' + new Date().toLocaleString('ja-JP'),
         '',
-        isMobile ? '「neofetch」でシステム情報を表示 / Run \'neofetch\' for system info' : '「neofetch」でシステム情報を表示 / Run \'neofetch\' for system info',
-        isMobile ? '「help」で利用可能なコマンドを表示 / Type \'help\' for commands' : '「help」で利用可能なコマンドを表示 / Type \'help\' for commands',
+        isMobile ? '「help」でコマンド一覧' : '「neofetch」でシステム情報を表示 / Run \'neofetch\' for system info',
+        isMobile ? '「lang」で言語切替' : '「help」で利用可能なコマンドを表示 / Type \'help\' for commands',
         ...(isMobile ? [] : ['「lang」で言語切替 / Type \'lang\' to change language']),
         '',
       ];
@@ -119,8 +119,8 @@ const CLIEmulator: React.FC<CLIEmulatorProps> = ({ initialOutput = [] }) => {
         '',
         'Last login: ' + new Date().toLocaleString('en-US'),
         '',
-        isMobile ? '「neofetch」でシステム情報を表示 / Run \'neofetch\' for system info' : '「neofetch」でシステム情報を表示 / Run \'neofetch\' for system info',
-        isMobile ? '「help」で利用可能なコマンドを表示 / Type \'help\' for commands' : '「help」で利用可能なコマンドを表示 / Type \'help\' for commands',
+        isMobile ? '「help」でコマンド一覧' : '「neofetch」でシステム情報を表示 / Run \'neofetch\' for system info',
+        isMobile ? '「lang」で言語切替' : '「help」で利用可能なコマンドを表示 / Type \'help\' for commands',
         ...(isMobile ? [] : ['「lang」で言語切替 / Type \'lang\' to change language']),
         '',
       ];
