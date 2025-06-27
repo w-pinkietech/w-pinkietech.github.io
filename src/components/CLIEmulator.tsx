@@ -950,8 +950,9 @@ const CLIEmulator: React.FC<CLIEmulatorProps> = ({ initialOutput = [] }) => {
     <div
       ref={terminalRef}
       className={cn(
-        'w-full h-full bg-gray-950 text-pink-400 font-mono text-sm p-4 overflow-y-auto overflow-x-hidden custom-scrollbar',
-        'relative'
+        'w-full h-full bg-gray-950 text-pink-400 font-mono p-2 sm:p-4 overflow-y-auto overflow-x-hidden custom-scrollbar',
+        'relative text-xs sm:text-sm',
+        'min-h-screen' // Ensure full height on mobile
       )}
       style={{
         fontFamily: '"Fira Code", "Cascadia Code", "JetBrains Mono", monospace',
@@ -1132,13 +1133,16 @@ const CLIEmulator: React.FC<CLIEmulatorProps> = ({ initialOutput = [] }) => {
           <input
             ref={inputRef}
             type={isPasswordInput ? 'password' : 'text'}
-            className="flex-grow bg-transparent outline-none text-pink-300 caret-transparent transition-all duration-300"
+            className="flex-grow bg-transparent outline-none text-pink-300 caret-transparent transition-all duration-300 text-base sm:text-sm"
             value={currentInput}
             onChange={(e) => setCurrentInput(e.target.value)}
             onKeyDown={handleKeyDown}
             spellCheck="false"
             autoCapitalize="off"
             autoComplete="off"
+            autoCorrect="off"
+            inputMode="text"
+            style={{ fontSize: '16px' }} // Prevent zoom on iOS
           />
           <span className="text-pink-400 ml-0.5" style={{
             textShadow: '0 0 8px rgba(236, 72, 153, 0.6)',

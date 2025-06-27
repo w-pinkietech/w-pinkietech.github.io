@@ -3,7 +3,7 @@ import { Outlet } from 'react-router-dom'
 
 const RootLayout: FC = () => {
   return (
-    <div className="h-screen overflow-hidden bg-black">
+    <div className="min-h-screen bg-black overflow-x-hidden">
       <Outlet />
     </div>
   )
