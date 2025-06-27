@@ -469,8 +469,7 @@ const CLIEmulator: React.FC<CLIEmulatorProps> = ({ initialOutput = [] }) => {
       lines.push('X (Twitter): @pinkietech');
       lines.push('GitHub:      https://github.com/w-pinkietech');
       lines.push('');
-      lines.push('所在地:');
-      lines.push('〒806-0047 福岡県北九州市八幡西区塔野１丁目１４‐２２');
+      lines.push('所在地: 〒806-0047 福岡県北九州市八幡西区塔野１丁目１４‐２２');
       lines.push('');
       lines.push('※ お気軽にDMでお声がけください');
     } else {
@@ -482,9 +481,7 @@ const CLIEmulator: React.FC<CLIEmulatorProps> = ({ initialOutput = [] }) => {
       lines.push('X (Twitter): @pinkietech');
       lines.push('GitHub:      https://github.com/w-pinkietech');
       lines.push('');
-      lines.push('Location:');
-      lines.push('1-14-22 Tono, Yahatanishi-ku, Kitakyushu-shi');
-      lines.push('Fukuoka 806-0047, Japan');
+      lines.push('Location: 1-14-22 Tono, Yahatanishi-ku, Kitakyushu-shi, Fukuoka 806-0047, Japan');
       lines.push('');
       lines.push('※ Feel free to reach out via DM');
     }
