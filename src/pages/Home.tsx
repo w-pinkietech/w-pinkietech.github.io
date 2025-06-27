@@ -4,14 +4,14 @@ import CLIEmulator from '../components/CLIEmulator';
 const Home: FC = () => {
 
   const asciiArt = [
-    '\x03[起動] PinkieOS ver.0.0.1 - モノづくり × OSS × AI\x03',
-    '\x02[初期化] 日本のモノづくり精神... [完了]\x02',
-    '\x02[初期化] オープンソース哲学... [完了]\x02',
-    '\x02[初期化] AI革新エンジン... [完了]\x02',
-    '\x03[ビジョン] 日本のモノづくりにOSSとAIの力を\x03',
-    '\x03[ミッション] 製造業界に技術革新を推進\x03',
-    '\x03[価値観] 品質へのこだわり・オープンソース・AI民主化\x03',
-    '\x02[目標] 伝統的な匠の技術とデジタルの融合\x02',
+    '\x03[BOOT] PinkieOS ver.0.0.1 - Manufacturing × OSS × AI\x03',
+    '\x02[INIT] Japanese Monozukuri Spirit... [OK]\x02',
+    '\x02[INIT] Open Source Philosophy... [OK]\x02',
+    '\x02[INIT] AI Innovation Engine... [OK]\x02',
+    '\x03[VISION] Bringing OSS and AI power to Japanese manufacturing\x03',
+    '\x03[MISSION] Driving technical innovation in manufacturing industry\x03',
+    '\x03[VALUES] Quality craftsmanship • Open Source • AI democratization\x03',
+    '\x02[GOAL] Fusion of traditional craftsmanship with digital technology\x02',
     '',
     '\x02██████╗ ██╗███╗   ██╗██╗  ██╗██╗███████╗████████╗███████╗ ██████╗██╗  ██╗\x02',
     '\x02██╔══██╗██║████╗  ██║██║ ██╔╝██║██╔════╝╚══██╔══╝██╔════╝██╔════╝██║  ██║\x02',
