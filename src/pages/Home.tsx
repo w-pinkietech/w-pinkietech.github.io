@@ -4,14 +4,14 @@ import CLIEmulator from '../components/CLIEmulator';
 const Home: FC = () => {
 
   const asciiArt = [
-    '\x03[BOOT] PinkieOS ver.0.0.1 - AI Innovation Platform\x03',
-    '\x02[INIT] Core Values Loading... [OK]\x02',
-    '\x02[INIT] Mission Statement... [OK]\x02',
-    '\x02[INIT] Vision 2030... [OK]\x02',
-    '\x03[VISION] AIテクノロジーの民主化\x03',
-    '\x03[MISSION] 革新的なソリューションでビジネスを変革\x03',
-    '\x03[VALUES] 倫理的AI開発・継続的学習・顧客第一\x03',
-    '\x02[GOAL] 日本から世界へ、AIで社会課題を解決\x02',
+    '\x03[BOOT] PinkieOS ver.0.0.1 - Manufacturing × OSS × AI\x03',
+    '\x02[INIT] Japanese Monozukuri Spirit... [OK]\x02',
+    '\x02[INIT] Open Source Philosophy... [OK]\x02',
+    '\x02[INIT] AI Innovation Engine... [OK]\x02',
+    '\x03[VISION] 日本のモノづくりにOSSとAIの力を\x03',
+    '\x03[MISSION] 製造業界にオープンイノベーションを創出\x03',
+    '\x03[VALUES] 品質へのこだわり・オープンソース・AI民主化\x03',
+    '\x02[GOAL] 伝統的な匠の技術とデジタルの融合\x02',
     '',
     '\x02██████╗ ██╗███╗   ██╗██╗  ██╗██╗███████╗████████╗███████╗ ██████╗██╗  ██╗\x02',
     '\x02██╔══██╗██║████╗  ██║██║ ██╔╝██║██╔════╝╚══██╔══╝██╔════╝██╔════╝██║  ██║\x02',
