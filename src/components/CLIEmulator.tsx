@@ -969,6 +969,49 @@ const CLIEmulator: React.FC<CLIEmulatorProps> = ({ initialOutput = [] }) => {
             className += 'text-pink-400/90 whitespace-pre-wrap break-words';
           }
           
+          // Check for URLs and make them clickable
+          const urlRegex = /(https?:\/\/[^\s]+|@[a-zA-Z0-9_]+)/g;
+          const hasUrl = urlRegex.test(cleanLine);
+          
+          if (hasUrl) {
+            const parts = cleanLine.split(urlRegex);
+            return (
+              <div key={index} className={className}>
+                {parts.map((part, partIndex) => {
+                  if (part.match(/https?:\/\/[^\s]+/)) {
+                    return (
+                      <a 
+                        key={partIndex}
+                        href={part}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-cyan-400 hover:text-cyan-300 underline cursor-pointer cyber-glow-cyan"
+                        onClick={(e) => e.stopPropagation()}
+                      >
+                        {part}
+                      </a>
+                    );
+                  } else if (part.match(/@[a-zA-Z0-9_]+/)) {
+                    const username = part.slice(1);
+                    return (
+                      <a 
+                        key={partIndex}
+                        href={`https://x.com/${username}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-cyan-400 hover:text-cyan-300 underline cursor-pointer cyber-glow-cyan"
+                        onClick={(e) => e.stopPropagation()}
+                      >
+                        {part}
+                      </a>
+                    );
+                  }
+                  return part;
+                })}
+              </div>
+            );
+          }
+          
           return (
             <div key={index} className={className}>
               {cleanLine}
