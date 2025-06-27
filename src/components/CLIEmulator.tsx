@@ -7,7 +7,6 @@ interface CLIEmulatorProps {
 }
 
 const CLIEmulator: React.FC<CLIEmulatorProps> = ({ initialOutput = [] }) => {
-  const [output, setOutput] = useState<string[]>(initialOutput);
   const [currentInput, setCurrentInput] = useState('');
   const getCyberPrompt = () => {
     const user = '\x02guest\x02';
@@ -31,6 +30,107 @@ const CLIEmulator: React.FC<CLIEmulatorProps> = ({ initialOutput = [] }) => {
   const inputRef = useRef<HTMLInputElement>(null);
   const { i18n } = useTranslation();
 
+  // Generate boot sequence based on current language and screen size
+  const generateBootSequence = () => {
+    const isMobile = window.innerWidth < 640;
+    
+    if (currentLang === 'ja') {
+      return [
+        '\x03[起動] PinkieOS ver.0.0.1 - モノづくり × OSS × AI\x03',
+        '\x02[初期化] 日本のモノづくり精神... [OK]\x02',
+        '\x02[初期化] オープンソース哲学... [OK]\x02',
+        '\x02[初期化] AI革新エンジン... [OK]\x02',
+        '\x03[ビジョン] 日本の製造業にOSSとAIの力を融合\x03',
+        isMobile ? '\x03[ミッション] 製造業の技術革新\x03' : '\x03[ミッション] 製造業界の技術革新を推進\x03',
+        isMobile ? '\x03[価値観] 品質 • オープンソース • AI\x03' : '\x03[価値観] 品質の追求 • オープンソース • AI民主化\x03',
+        isMobile ? '\x02[目標] 伝統 × デジタル融合\x02' : '\x02[目標] 伝統的職人技とデジタル技術の融合\x02',
+        '',
+        ...(isMobile ? [
+          '\x02██████╗ ██╗███╗   ██╗██╗  ██╗██╗███████╗\x02',
+          '\x02██╔══██╗██║████╗  ██║██║ ██╔╝██║██╔════╝\x02',
+          '\x02██████╔╝██║██╔██╗ ██║█████╔╝ ██║█████╗  \x02',
+          '\x02██╔═══╝ ██║██║╚██╗██║██╔═██╗ ██║██╔══╝  \x02',
+          '\x02██║     ██║██║ ╚████║██║  ██╗██║███████╗\x02',
+          '\x02╚═╝     ╚═╝╚═╝  ╚═══╝╚═╝  ╚═╝╚═╝╚══════╝\x02',
+          '',
+          '\x03████████╗███████╗ ██████╗██╗  ██╗\x02',
+          '\x03╚══██╔══╝██╔════╝██╔════╝██║  ██║\x02',
+          '\x03   ██║   █████╗  ██║     ███████║\x02',
+          '\x03   ██║   ██╔══╝  ██║     ██╔══██║\x02',
+          '\x03   ██║   ███████╗╚██████╗██║  ██║\x02',
+          '\x03   ╚═╝   ╚══════╝ ╚═════╝╚═╝  ╚═╝\x02',
+        ] : [
+          '\x02██████╗ ██╗███╗   ██╗██╗  ██╗██╗███████╗████████╗███████╗ ██████╗██╗  ██╗\x02',
+          '\x02██╔══██╗██║████╗  ██║██║ ██╔╝██║██╔════╝╚══██╔══╝██╔════╝██╔════╝██║  ██║\x02',
+          '\x02██████╔╝██║██╔██╗ ██║█████╔╝ ██║█████╗     ██║   █████╗  ██║     ███████║\x02',
+          '\x02██╔═══╝ ██║██║╚██╗██║██╔═██╗ ██║██╔══╝     ██║   ██╔══╝  ██║     ██╔══██║\x02',
+          '\x02██║     ██║██║ ╚████║██║  ██╗██║███████╗   ██║   ███████╗╚██████╗██║  ██║\x02',
+          '\x02╚═╝     ╚═╝╚═╝  ╚═══╝╚═╝  ╚═╝╚═╝╚══════╝   ╚═╝   ╚══════╝ ╚═════╝╚═╝  ╚═╝\x02',
+        ]),
+        '',
+        isMobile ? '\x03    日本発AIイノベーション 2025\x03' : '\x03                       日本発AIイノベーション 2025\x03',
+        '',
+        isMobile ? '\x03=====[ システム準備完了 ]=====\x03' : '\x03===============[ システム準備完了 ]===============\x03',
+        '',
+        '最終ログイン: ' + new Date().toLocaleString('ja-JP'),
+        '',
+        isMobile ? '「help」でコマンド一覧' : '「neofetch」でシステム情報を表示',
+        isMobile ? '「lang」で言語切替' : '「help」で利用可能なコマンドを表示',
+        ...(isMobile ? [] : ['「lang」で言語切替']),
+        '',
+      ];
+    } else {
+      return [
+        '\x03[BOOT] PinkieOS ver.0.0.1 - Manufacturing × OSS × AI\x03',
+        '\x02[INIT] Japanese Monozukuri Spirit... [OK]\x02',
+        '\x02[INIT] Open Source Philosophy... [OK]\x02',
+        '\x02[INIT] AI Innovation Engine... [OK]\x02',
+        '\x03[VISION] Bringing OSS and AI power to Japanese manufacturing\x03',
+        isMobile ? '\x03[MISSION] Technical innovation in manufacturing\x03' : '\x03[MISSION] Driving technical innovation in manufacturing industry\x03',
+        isMobile ? '\x03[VALUES] Quality • Open Source • AI\x03' : '\x03[VALUES] Quality craftsmanship • Open Source • AI democratization\x03',
+        isMobile ? '\x02[GOAL] Traditional × Digital fusion\x02' : '\x02[GOAL] Fusion of traditional craftsmanship with digital technology\x02',
+        '',
+        ...(isMobile ? [
+          '\x02██████╗ ██╗███╗   ██╗██╗  ██╗██╗███████╗\x02',
+          '\x02██╔══██╗██║████╗  ██║██║ ██╔╝██║██╔════╝\x02',
+          '\x02██████╔╝██║██╔██╗ ██║█████╔╝ ██║█████╗  \x02',
+          '\x02██╔═══╝ ██║██║╚██╗██║██╔═██╗ ██║██╔══╝  \x02',
+          '\x02██║     ██║██║ ╚████║██║  ██╗██║███████╗\x02',
+          '\x02╚═╝     ╚═╝╚═╝  ╚═══╝╚═╝  ╚═╝╚═╝╚══════╝\x02',
+          '',
+          '\x03████████╗███████╗ ██████╗██╗  ██╗\x02',
+          '\x03╚══██╔══╝██╔════╝██╔════╝██║  ██║\x02',
+          '\x03   ██║   █████╗  ██║     ███████║\x02',
+          '\x03   ██║   ██╔══╝  ██║     ██╔══██║\x02',
+          '\x03   ██║   ███████╗╚██████╗██║  ██║\x02',
+          '\x03   ╚═╝   ╚══════╝ ╚═════╝╚═╝  ╚═╝\x02',
+        ] : [
+          '\x02██████╗ ██╗███╗   ██╗██╗  ██╗██╗███████╗████████╗███████╗ ██████╗██╗  ██╗\x02',
+          '\x02██╔══██╗██║████╗  ██║██║ ██╔╝██║██╔════╝╚══██╔══╝██╔════╝██╔════╝██║  ██║\x02',
+          '\x02██████╔╝██║██╔██╗ ██║█████╔╝ ██║█████╗     ██║   █████╗  ██║     ███████║\x02',
+          '\x02██╔═══╝ ██║██║╚██╗██║██╔═██╗ ██║██╔══╝     ██║   ██╔══╝  ██║     ██╔══██║\x02',
+          '\x02██║     ██║██║ ╚████║██║  ██╗██║███████╗   ██║   ███████╗╚██████╗██║  ██║\x02',
+          '\x02╚═╝     ╚═╝╚═╝  ╚═══╝╚═╝  ╚═╝╚═╝╚══════╝   ╚═╝   ╚══════╝ ╚═════╝╚═╝  ╚═╝\x02',
+        ]),
+        '',
+        isMobile ? '\x03    AI Innovation from Japan 2025\x03' : '\x03                       AI Innovation from Japan 2025\x03',
+        '',
+        isMobile ? '\x03=====[ SYSTEM READY ]=====\x03' : '\x03===============[ SYSTEM READY ]===============\x03',
+        '',
+        'Last login: ' + new Date().toLocaleString('en-US'),
+        '',
+        isMobile ? 'Type "help" for commands' : 'Run "neofetch" for system info',
+        isMobile ? 'Type "lang" to change language' : 'Type "help" for available commands',
+        ...(isMobile ? [] : ['Type "lang" to change language']),
+        '',
+      ];
+    }
+  };
+
+  const [output, setOutput] = useState<string[]>(() => {
+    return initialOutput.length > 0 ? initialOutput : generateBootSequence();
+  });
+
   // Focus input and scroll to bottom
   useEffect(() => {
     if (inputRef.current) {
@@ -40,6 +140,13 @@ const CLIEmulator: React.FC<CLIEmulatorProps> = ({ initialOutput = [] }) => {
       terminalRef.current.scrollTop = terminalRef.current.scrollHeight;
     }
   }, [output]);
+
+  // Update boot sequence when language changes
+  useEffect(() => {
+    if (initialOutput.length === 0) {
+      setOutput(generateBootSequence());
+    }
+  }, [currentLang]);
 
 
   const addToOutput = (lines: string | string[]) => {
