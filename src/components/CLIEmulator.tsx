@@ -1329,7 +1329,7 @@ const CLIEmulator: React.FC<CLIEmulatorProps> = ({ initialOutput = [] }) => {
       ref={terminalRef}
       className={cn(
         'w-full bg-gray-950 text-pink-400 font-mono p-2 sm:p-4 overflow-y-auto overflow-x-auto custom-scrollbar',
-        'relative break-words whitespace-pre-wrap',
+        'relative',
         'min-h-screen h-screen scroll-smooth', // Fix height conflicts
         window.innerWidth < 640 ? 'text-xs' : 'text-sm' // Dynamic responsive text size
       )}
