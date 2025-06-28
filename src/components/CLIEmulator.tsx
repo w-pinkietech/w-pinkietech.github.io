@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect, useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import { cn } from '../lib/utils';
 
@@ -31,7 +31,7 @@ const CLIEmulator: React.FC<CLIEmulatorProps> = ({ initialOutput = [] }) => {
   const { i18n } = useTranslation();
 
   // Generate boot sequence based on current language and screen size
-  const generateBootSequence = () => {
+  const generateBootSequence = useCallback(() => {
     const isMobile = window.innerWidth < 640;
     
     if (currentLang === 'ja') {
@@ -85,10 +85,13 @@ const CLIEmulator: React.FC<CLIEmulatorProps> = ({ initialOutput = [] }) => {
         isMobile ? '\x02[INIT] Monozukuri... [OK]\x02' : '\x02[INIT] Japanese Monozukuri Spirit... [OK]\x02',
         isMobile ? '\x02[INIT] Open Source... [OK]\x02' : '\x02[INIT] Open Source Philosophy... [OK]\x02',
         isMobile ? '\x02[INIT] AI Engine... [OK]\x02' : '\x02[INIT] AI Innovation Engine... [OK]\x02',
-        isMobile ? '\x03[VISION] OSS × AI for Manufacturing\x03' : '\x03[VISION] Bringing OSS and AI power to Japanese manufacturing\x03',
-        isMobile ? '\x03[MISSION] Technical innovation in manufacturing\x03' : '\x03[MISSION] Driving technical innovation in manufacturing industry\x03',
-        isMobile ? '\x03[VALUES] Quality • Open Source • AI\x03' : '\x03[VALUES] Quality craftsmanship • Open Source • AI democratization\x03',
-        isMobile ? '\x02[GOAL] Traditional × Digital fusion\x02' : '\x02[GOAL] Fusion of traditional craftsmanship with digital technology\x02',
+        isMobile ? '\x03[VISION] OSS × AI for\x03' : '\x03[VISION] Bringing OSS and AI power to Japanese manufacturing\x03',
+        ...(isMobile ? ['\x03Manufacturing\x03'] : []),
+        isMobile ? '\x03[MISSION] Tech innovation\x03' : '\x03[MISSION] Driving technical innovation in manufacturing industry\x03',
+        ...(isMobile ? ['\x03in manufacturing\x03'] : []),
+        isMobile ? '\x03[VALUES] Quality • OSS • AI\x03' : '\x03[VALUES] Quality craftsmanship • Open Source • AI democratization\x03',
+        isMobile ? '\x02[GOAL] Traditional ×\x02' : '\x02[GOAL] Fusion of traditional craftsmanship with digital technology\x02',
+        ...(isMobile ? ['\x02Digital fusion\x02'] : []),
         '',
         ...(isMobile ? [
           '\x02██████╗ ██╗███╗   ██╗██╗  ██╗██╗███████╗\x02',
@@ -125,52 +128,72 @@ const CLIEmulator: React.FC<CLIEmulatorProps> = ({ initialOutput = [] }) => {
         '',
       ];
     }
-  };
+  }, [currentLang]);
 
   const [output, setOutput] = useState<string[]>(() => {
     return initialOutput.length > 0 ? initialOutput : generateBootSequence();
   });
+
+  // Handle window resize to regenerate boot sequence for responsive display
+  useEffect(() => {
+    let resizeTimeout: NodeJS.Timeout;
+    
+    const handleResize = () => {
+      // Debounce resize events
+      clearTimeout(resizeTimeout);
+      resizeTimeout = setTimeout(() => {
+        // Only regenerate if we're still showing the initial boot sequence
+        if (initialOutput.length === 0 && output.length <= 20) {
+          setOutput(generateBootSequence());
+        }
+      }, 250);
+    };
+
+    window.addEventListener('resize', handleResize);
+    return () => {
+      window.removeEventListener('resize', handleResize);
+      clearTimeout(resizeTimeout);
+    };
+  }, [generateBootSequence, output.length, initialOutput.length]);
+
+  // Enhanced scroll to bottom with proper timing for mobile
+  const scrollToBottom = useCallback((immediate = false) => {
+    if (terminalRef.current) {
+      const element = terminalRef.current;
+      element.scrollTop = element.scrollHeight;
+      console.log('Scrolled to bottom:', element.scrollTop, element.scrollHeight);
+    }
+  }, []);
 
   // Focus input and scroll to bottom
   useEffect(() => {
     if (inputRef.current) {
       inputRef.current.focus();
     }
-    // Smooth scroll to bottom with a small delay to ensure content is rendered
-    if (terminalRef.current) {
-      setTimeout(() => {
-        if (terminalRef.current) {
-          terminalRef.current.scrollTo({
-            top: terminalRef.current.scrollHeight,
-            behavior: 'smooth'
-          });
-        }
-      }, 50);
-    }
-  }, [output]);
+    
+    // Force immediate scroll on every output change
+    setTimeout(() => {
+      scrollToBottom(true);
+    }, 50);
+  }, [output, scrollToBottom]);
 
   // Update boot sequence when language changes
   useEffect(() => {
     if (initialOutput.length === 0) {
       setOutput(generateBootSequence());
     }
-  }, [currentLang]);
+  }, [currentLang, generateBootSequence, initialOutput.length]);
 
 
-  const addToOutput = (lines: string | string[]) => {
+  const addToOutput = useCallback((lines: string | string[]) => {
     const newLines = Array.isArray(lines) ? lines : [lines];
     setOutput(prev => [...prev, ...newLines]);
     
-    // Force scroll to bottom after adding new content
+    // Force scroll immediately after state update
     setTimeout(() => {
-      if (terminalRef.current) {
-        terminalRef.current.scrollTo({
-          top: terminalRef.current.scrollHeight,
-          behavior: 'smooth'
-        });
-      }
+      scrollToBottom(true);
     }, 10);
-  };
+  }, [scrollToBottom]);
 
   const handleCommand = (command: string) => {
     // Show the command in output with special marker - strip control characters for display
@@ -1305,9 +1328,10 @@ const CLIEmulator: React.FC<CLIEmulatorProps> = ({ initialOutput = [] }) => {
     <div
       ref={terminalRef}
       className={cn(
-        'w-full h-full bg-gray-950 text-pink-400 font-mono p-2 sm:p-4 overflow-y-auto overflow-x-hidden custom-scrollbar',
-        'relative text-xs sm:text-sm',
-        'min-h-screen scroll-smooth' // Ensure full height on mobile and smooth scrolling
+        'w-full bg-gray-950 text-pink-400 font-mono p-2 sm:p-4 overflow-y-auto overflow-x-hidden custom-scrollbar',
+        'relative break-words whitespace-pre-wrap',
+        'min-h-screen h-screen scroll-smooth', // Fix height conflicts
+        window.innerWidth < 640 ? 'text-xs' : 'text-sm' // Dynamic responsive text size
       )}
       style={{
         scrollbarGutter: 'stable both-edges',
@@ -1370,7 +1394,7 @@ const CLIEmulator: React.FC<CLIEmulatorProps> = ({ initialOutput = [] }) => {
             cleanLine = line.replace(/\x03/g, '');
             className += 'text-cyan-400 cyber-glow-cyan';
           } else if (hasBoxDrawing) {
-            className += 'text-pink-400/90';
+            className += 'text-pink-400/90 whitespace-nowrap overflow-x-auto';
           } else {
             className += 'text-pink-400/90 whitespace-pre-wrap break-words';
           }
@@ -1464,14 +1488,14 @@ const CLIEmulator: React.FC<CLIEmulatorProps> = ({ initialOutput = [] }) => {
             }
             
             return (
-              <div key={index} className={className}>
+              <div key={index} className={cn(className, 'break-words whitespace-pre-wrap overflow-wrap-anywhere')}>
                 {elements}
               </div>
             );
           }
           
           return (
-            <div key={index} className={className}>
+            <div key={index} className={cn(className, 'break-words whitespace-pre-wrap overflow-wrap-anywhere')}>
               {cleanLine}
             </div>
           );
@@ -1490,16 +1514,24 @@ const CLIEmulator: React.FC<CLIEmulatorProps> = ({ initialOutput = [] }) => {
           <input
             ref={inputRef}
             type={isPasswordInput ? 'password' : 'text'}
-            className="flex-grow bg-transparent outline-none text-pink-300 caret-transparent transition-all duration-300 text-base sm:text-sm"
+            className="flex-grow bg-transparent outline-none text-pink-300 caret-transparent transition-all duration-300"
             value={currentInput}
             onChange={(e) => setCurrentInput(e.target.value)}
             onKeyDown={handleKeyDown}
+            onFocus={() => {
+              // Auto-scroll when input gets focus (especially on mobile with virtual keyboard)
+              setTimeout(() => {
+                scrollToBottom();
+              }, 300); // Delay to account for virtual keyboard animation
+            }}
             spellCheck="false"
             autoCapitalize="off"
             autoComplete="off"
             autoCorrect="off"
             inputMode="text"
-            style={{ fontSize: '16px' }} // Prevent zoom on iOS
+            style={{ 
+              fontSize: window.innerWidth < 640 ? '16px' : '14px' // Responsive font size, prevent iOS zoom on mobile
+            }}
           />
           <span className="text-pink-400 ml-0.5" style={{
             textShadow: '0 0 8px rgba(236, 72, 153, 0.6)',
