@@ -157,7 +157,7 @@ const CLIEmulator: React.FC<CLIEmulatorProps> = ({ initialOutput = [] }) => {
   }, [generateBootSequence, output.length, initialOutput.length]);
 
   // Enhanced scroll to bottom with proper timing for mobile
-  const scrollToBottom = useCallback((immediate = false) => {
+  const scrollToBottom = useCallback(() => {
     if (terminalRef.current) {
       const element = terminalRef.current;
       element.scrollTop = element.scrollHeight;
@@ -173,7 +173,7 @@ const CLIEmulator: React.FC<CLIEmulatorProps> = ({ initialOutput = [] }) => {
     
     // Force immediate scroll on every output change
     setTimeout(() => {
-      scrollToBottom(true);
+      scrollToBottom();
     }, 50);
   }, [output, scrollToBottom]);
 
@@ -191,7 +191,7 @@ const CLIEmulator: React.FC<CLIEmulatorProps> = ({ initialOutput = [] }) => {
     
     // Force scroll immediately after state update
     setTimeout(() => {
-      scrollToBottom(true);
+      scrollToBottom();
     }, 10);
   }, [scrollToBottom]);
 
