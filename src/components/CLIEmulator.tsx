@@ -1376,6 +1376,9 @@ const CLIEmulator: React.FC<CLIEmulatorProps> = ({ initialOutput = [] }) => {
                                line.includes('├') || line.includes('┤') || line.includes('─') || line.includes('│') ||
                                line.includes('█') || line.includes('╗') || line.includes('╚') || line.includes('╔');
           
+          // Check if this is part of the initial boot display (first ~30 lines)
+          const isInitialDisplay = index < 30 && !line.startsWith('\x01');
+          
           // Special markers for different styles
           const isUserInput = line.startsWith('\x01');
           const isCyberGlow = line.includes('\x02');
@@ -1393,7 +1396,7 @@ const CLIEmulator: React.FC<CLIEmulatorProps> = ({ initialOutput = [] }) => {
           } else if (isCyanGlow) {
             cleanLine = line.replace(/\x03/g, '');
             className += 'text-cyan-400 cyber-glow-cyan';
-          } else if (hasBoxDrawing) {
+          } else if (hasBoxDrawing || isInitialDisplay) {
             className += 'text-pink-400/90 whitespace-nowrap overflow-x-auto font-mono text-[10px]';
           } else {
             className += 'text-pink-400/90 whitespace-pre-wrap break-words';
@@ -1488,14 +1491,20 @@ const CLIEmulator: React.FC<CLIEmulatorProps> = ({ initialOutput = [] }) => {
             }
             
             return (
-              <div key={index} className={cn(className, 'break-words whitespace-pre-wrap overflow-wrap-anywhere')}>
+              <div key={index} className={cn(
+                className, 
+                (hasBoxDrawing || isInitialDisplay) ? 'whitespace-nowrap overflow-x-auto' : 'break-words whitespace-pre-wrap overflow-wrap-anywhere'
+              )}>
                 {elements}
               </div>
             );
           }
           
           return (
-            <div key={index} className={cn(className, 'break-words whitespace-pre-wrap overflow-wrap-anywhere')}>
+            <div key={index} className={cn(
+              className, 
+              (hasBoxDrawing || isInitialDisplay) ? 'whitespace-nowrap overflow-x-auto' : 'break-words whitespace-pre-wrap overflow-wrap-anywhere'
+            )}>
               {cleanLine}
             </div>
           );
