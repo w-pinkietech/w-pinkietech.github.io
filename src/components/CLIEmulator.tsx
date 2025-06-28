@@ -1394,7 +1394,7 @@ const CLIEmulator: React.FC<CLIEmulatorProps> = ({ initialOutput = [] }) => {
             cleanLine = line.replace(/\x03/g, '');
             className += 'text-cyan-400 cyber-glow-cyan';
           } else if (hasBoxDrawing) {
-            className += 'text-pink-400/90 whitespace-nowrap overflow-x-auto font-mono text-xs';
+            className += 'text-pink-400/90 whitespace-nowrap overflow-x-auto font-mono text-[10px]';
           } else {
             className += 'text-pink-400/90 whitespace-pre-wrap break-words';
           }
