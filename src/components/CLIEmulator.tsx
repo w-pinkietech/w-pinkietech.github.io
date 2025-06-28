@@ -1328,7 +1328,7 @@ const CLIEmulator: React.FC<CLIEmulatorProps> = ({ initialOutput = [] }) => {
     <div
       ref={terminalRef}
       className={cn(
-        'w-full bg-gray-950 text-pink-400 font-mono p-2 sm:p-4 overflow-y-auto overflow-x-hidden custom-scrollbar',
+        'w-full bg-gray-950 text-pink-400 font-mono p-2 sm:p-4 overflow-y-auto overflow-x-auto custom-scrollbar',
         'relative break-words whitespace-pre-wrap',
         'min-h-screen h-screen scroll-smooth', // Fix height conflicts
         window.innerWidth < 640 ? 'text-xs' : 'text-sm' // Dynamic responsive text size
@@ -1394,7 +1394,7 @@ const CLIEmulator: React.FC<CLIEmulatorProps> = ({ initialOutput = [] }) => {
             cleanLine = line.replace(/\x03/g, '');
             className += 'text-cyan-400 cyber-glow-cyan';
           } else if (hasBoxDrawing) {
-            className += 'text-pink-400/90 whitespace-nowrap overflow-x-auto';
+            className += 'text-pink-400/90 whitespace-nowrap overflow-x-auto font-mono text-xs';
           } else {
             className += 'text-pink-400/90 whitespace-pre-wrap break-words';
           }
