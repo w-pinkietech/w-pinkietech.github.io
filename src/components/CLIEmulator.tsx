@@ -1396,8 +1396,10 @@ const CLIEmulator: React.FC<CLIEmulatorProps> = ({ initialOutput = [] }) => {
           } else if (isCyanGlow) {
             cleanLine = line.replace(/\x03/g, '');
             className += 'text-cyan-400 cyber-glow-cyan';
-          } else if (hasBoxDrawing || isInitialDisplay) {
-            className += 'text-pink-400/90 whitespace-nowrap overflow-x-auto font-mono text-[10px]';
+          } else if (hasBoxDrawing) {
+            className += 'text-pink-400/90 whitespace-nowrap overflow-x-auto font-mono text-[8px] leading-none';
+          } else if (isInitialDisplay) {
+            className += 'text-pink-400/90 whitespace-nowrap overflow-x-auto';
           } else {
             className += 'text-pink-400/90 whitespace-pre-wrap break-words';
           }
@@ -1493,7 +1495,7 @@ const CLIEmulator: React.FC<CLIEmulatorProps> = ({ initialOutput = [] }) => {
             return (
               <div key={index} className={cn(
                 className, 
-                (hasBoxDrawing || isInitialDisplay) ? 'whitespace-nowrap overflow-x-auto' : 'break-words whitespace-pre-wrap overflow-wrap-anywhere'
+                hasBoxDrawing ? 'whitespace-nowrap overflow-x-auto' : (isInitialDisplay ? 'whitespace-nowrap overflow-x-auto' : 'break-words whitespace-pre-wrap overflow-wrap-anywhere')
               )}>
                 {elements}
               </div>
@@ -1503,7 +1505,7 @@ const CLIEmulator: React.FC<CLIEmulatorProps> = ({ initialOutput = [] }) => {
           return (
             <div key={index} className={cn(
               className, 
-              (hasBoxDrawing || isInitialDisplay) ? 'whitespace-nowrap overflow-x-auto' : 'break-words whitespace-pre-wrap overflow-wrap-anywhere'
+              hasBoxDrawing ? 'whitespace-nowrap overflow-x-auto' : (isInitialDisplay ? 'whitespace-nowrap overflow-x-auto' : 'break-words whitespace-pre-wrap overflow-wrap-anywhere')
             )}>
               {cleanLine}
             </div>
