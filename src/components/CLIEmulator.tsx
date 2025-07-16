@@ -53,12 +53,12 @@ const CLIEmulator: React.FC<CLIEmulatorProps> = ({ initialOutput = [] }) => {
           '\x02██║     ██║██║ ╚████║██║  ██╗██║███████╗\x02',
           '\x02╚═╝     ╚═╝╚═╝  ╚═══╝╚═╝  ╚═╝╚═╝╚══════╝\x02',
           '',
-          '\x03████████╗███████╗ ██████╗██╗  ██╗\x02',
-          '\x03╚══██╔══╝██╔════╝██╔════╝██║  ██║\x02',
-          '\x03   ██║   █████╗  ██║     ███████║\x02',
-          '\x03   ██║   ██╔══╝  ██║     ██╔══██║\x02',
-          '\x03   ██║   ███████╗╚██████╗██║  ██║\x02',
-          '\x03   ╚═╝   ╚══════╝ ╚═════╝╚═╝  ╚═╝\x02',
+          '\x03████████╗███████╗ ██████╗██╗  ██╗\x03',
+          '\x03╚══██╔══╝██╔════╝██╔════╝██║  ██║\x03',
+          '\x03   ██║   █████╗  ██║     ███████║\x03',
+          '\x03   ██║   ██╔══╝  ██║     ██╔══██║\x03',
+          '\x03   ██║   ███████╗╚██████╗██║  ██║\x03',
+          '\x03   ╚═╝   ╚══════╝ ╚═════╝╚═╝  ╚═╝\x03',
         ] : [
           '\x02██████╗ ██╗███╗   ██╗██╗  ██╗██╗███████╗████████╗███████╗ ██████╗██╗  ██╗\x02',
           '\x02██╔══██╗██║████╗  ██║██║ ██╔╝██║██╔════╝╚══██╔══╝██╔════╝██╔════╝██║  ██║\x02',
@@ -101,12 +101,12 @@ const CLIEmulator: React.FC<CLIEmulatorProps> = ({ initialOutput = [] }) => {
           '\x02██║     ██║██║ ╚████║██║  ██╗██║███████╗\x02',
           '\x02╚═╝     ╚═╝╚═╝  ╚═══╝╚═╝  ╚═╝╚═╝╚══════╝\x02',
           '',
-          '\x03████████╗███████╗ ██████╗██╗  ██╗\x02',
-          '\x03╚══██╔══╝██╔════╝██╔════╝██║  ██║\x02',
-          '\x03   ██║   █████╗  ██║     ███████║\x02',
-          '\x03   ██║   ██╔══╝  ██║     ██╔══██║\x02',
-          '\x03   ██║   ███████╗╚██████╗██║  ██║\x02',
-          '\x03   ╚═╝   ╚══════╝ ╚═════╝╚═╝  ╚═╝\x02',
+          '\x03████████╗███████╗ ██████╗██╗  ██╗\x03',
+          '\x03╚══██╔══╝██╔════╝██╔════╝██║  ██║\x03',
+          '\x03   ██║   █████╗  ██║     ███████║\x03',
+          '\x03   ██║   ██╔══╝  ██║     ██╔══██║\x03',
+          '\x03   ██║   ███████╗╚██████╗██║  ██║\x03',
+          '\x03   ╚═╝   ╚══════╝ ╚═════╝╚═╝  ╚═╝\x03',
         ] : [
           '\x02██████╗ ██╗███╗   ██╗██╗  ██╗██╗███████╗████████╗███████╗ ██████╗██╗  ██╗\x02',
           '\x02██╔══██╗██║████╗  ██║██║ ██╔╝██║██╔════╝╚══██╔══╝██╔════╝██╔════╝██║  ██║\x02',
@@ -1390,12 +1390,23 @@ const CLIEmulator: React.FC<CLIEmulatorProps> = ({ initialOutput = [] }) => {
           if (isUserInput) {
             cleanLine = line.substring(1);
             className += 'text-pink-300';
-          } else if (isCyberGlow) {
-            cleanLine = line.replace(/\x02/g, '');
-            className += 'text-pink-500 cyber-glow-pink';
-          } else if (isCyanGlow) {
-            cleanLine = line.replace(/\x03/g, '');
-            className += 'text-cyan-400 cyber-glow-cyan';
+          } else if (isCyberGlow || isCyanGlow) {
+            // Handle mixed color markers properly
+            cleanLine = line
+              .replace(/\x02([^\x02]*)\x02/g, '<span class="cyber-glow-pink text-pink-500">$1</span>')
+              .replace(/\x03([^\x03]*)\x03/g, '<span class="cyber-glow-cyan text-cyan-400">$1</span>')
+              .replace(/\x02/g, '')
+              .replace(/\x03/g, '');
+            
+            // If we have processed markers, we need to use dangerouslySetInnerHTML
+            if (line.includes('\x02') || line.includes('\x03')) {
+              return (
+                <div key={index} className={className}>
+                  <span dangerouslySetInnerHTML={{ __html: cleanLine }} />
+                </div>
+              );
+            }
+            className += 'text-pink-400/90';
           } else if (hasBoxDrawing) {
             className += 'text-pink-400/90 whitespace-nowrap overflow-x-auto font-mono text-[8px] leading-none';
           } else if (isInitialDisplay) {
