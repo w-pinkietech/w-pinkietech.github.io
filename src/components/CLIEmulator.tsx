@@ -2,12 +2,37 @@ import React, { useState, useRef, useEffect, useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import { cn } from '../lib/utils';
 
+// Custom hook for cursor position calculation
+const useCursorPosition = (inputValue: string, cursorPosition: number) => {
+  const measureRef = useRef<HTMLSpanElement>(null);
+  const [cursorLeft, setCursorLeft] = useState(0);
+
+  useEffect(() => {
+    if (measureRef.current) {
+      const textBeforeCursor = inputValue.slice(0, cursorPosition);
+      // Handle empty input case
+      if (textBeforeCursor === '') {
+        setCursorLeft(0);
+      } else {
+        measureRef.current.textContent = textBeforeCursor;
+        setCursorLeft(measureRef.current.offsetWidth);
+      }
+    } else if (inputValue === '' || cursorPosition === 0) {
+      // Fallback for empty input
+      setCursorLeft(0);
+    }
+  }, [inputValue, cursorPosition]);
+
+  return { cursorLeft, measureRef };
+};
+
 interface CLIEmulatorProps {
   initialOutput?: string[];
 }
 
 const CLIEmulator: React.FC<CLIEmulatorProps> = ({ initialOutput = [] }) => {
   const [currentInput, setCurrentInput] = useState('');
+  const [cursorPosition, setCursorPosition] = useState(0);
   const getCyberPrompt = () => {
     const user = '\x02guest\x02';
     const at = '\x03@\x03';
@@ -29,6 +54,16 @@ const CLIEmulator: React.FC<CLIEmulatorProps> = ({ initialOutput = [] }) => {
   const terminalRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
   const { i18n } = useTranslation();
+  
+  // Reference for text measurement (now unused but kept for potential future use)
+  const measureRef = useRef<HTMLSpanElement>(null);
+
+  // Ensure cursor position is reset when input is cleared
+  useEffect(() => {
+    if (currentInput === '') {
+      setCursorPosition(0);
+    }
+  }, [currentInput]);
 
   // Generate boot sequence based on current language and screen size
   const generateBootSequence = useCallback(() => {
@@ -299,6 +334,7 @@ const CLIEmulator: React.FC<CLIEmulatorProps> = ({ initialOutput = [] }) => {
     }
 
     setCurrentInput('');
+    setCursorPosition(0);
   };
 
   const processCommand = (command: string) => {
@@ -1300,6 +1336,7 @@ const CLIEmulator: React.FC<CLIEmulatorProps> = ({ initialOutput = [] }) => {
         setHistoryIndex(newIndex);
       } else if (historyIndex === 0) {
         setCurrentInput('');
+    setCursorPosition(0);
         setHistoryIndex(-1);
       }
     } else if (e.ctrlKey && e.key === 'l') {
@@ -1319,6 +1356,7 @@ const CLIEmulator: React.FC<CLIEmulatorProps> = ({ initialOutput = [] }) => {
       
       // Clear current input
       setCurrentInput('');
+    setCursorPosition(0);
     } else if (e.ctrlKey && e.key === 'd') {
       e.preventDefault();
     }
@@ -1524,7 +1562,7 @@ const CLIEmulator: React.FC<CLIEmulatorProps> = ({ initialOutput = [] }) => {
         })}
         
         {/* Current input line */}
-        <div className="flex items-center group">
+        <div className="flex items-baseline group">
           <span className="text-pink-300 mr-2 font-bold transition-all duration-300" 
                 dangerouslySetInnerHTML={{ __html: currentPrompt.includes('\x02') ? 
                   currentPrompt
@@ -1533,32 +1571,84 @@ const CLIEmulator: React.FC<CLIEmulatorProps> = ({ initialOutput = [] }) => {
                   : currentPrompt 
                 }}
           />
-          <input
-            ref={inputRef}
-            type={isPasswordInput ? 'password' : 'text'}
-            className="flex-grow bg-transparent outline-none text-pink-300 caret-transparent transition-all duration-300"
-            value={currentInput}
-            onChange={(e) => setCurrentInput(e.target.value)}
-            onKeyDown={handleKeyDown}
-            onFocus={() => {
-              // Auto-scroll when input gets focus (especially on mobile with virtual keyboard)
-              setTimeout(() => {
-                scrollToBottom();
-              }, 300); // Delay to account for virtual keyboard animation
-            }}
-            spellCheck="false"
-            autoCapitalize="off"
-            autoComplete="off"
-            autoCorrect="off"
-            inputMode="text"
-            style={{ 
-              fontSize: window.innerWidth < 640 ? '16px' : '14px' // Responsive font size, prevent iOS zoom on mobile
-            }}
-          />
-          <span className="text-pink-400 ml-0.5" style={{
-            textShadow: '0 0 8px rgba(236, 72, 153, 0.6)',
-            animation: 'blink 1.2s infinite ease-in-out',
-          }}>▌</span>
+          <div className="relative flex-1">
+            {/* Text and cursor container */}
+            <div className="relative inline-block leading-tight">
+              {/* Hidden text measurement element */}
+              <span 
+                ref={measureRef}
+                className="invisible absolute top-0 left-0 whitespace-pre"
+                style={{ 
+                  fontSize: window.innerWidth < 640 ? '16px' : '14px',
+                  fontFamily: 'monospace'
+                }}
+              />
+              {/* Text before cursor */}
+              <span 
+                className="text-pink-300 whitespace-pre"
+                style={{ 
+                  fontSize: window.innerWidth < 640 ? '16px' : '14px',
+                  fontFamily: 'monospace'
+                }}
+              >
+                {currentInput.slice(0, cursorPosition)}
+              </span>
+              {/* Cursor */}
+              <span 
+                className="text-pink-400 inline-block" 
+                style={{
+                  textShadow: '0 0 8px rgba(236, 72, 153, 0.6)',
+                  animation: 'blink 1.2s infinite ease-in-out',
+                  fontSize: window.innerWidth < 640 ? '16px' : '14px',
+                  fontFamily: 'monospace'
+                }}
+              >
+                ▌
+              </span>
+              {/* Text after cursor */}
+              <span 
+                className="text-pink-300 whitespace-pre"
+                style={{ 
+                  fontSize: window.innerWidth < 640 ? '16px' : '14px',
+                  fontFamily: 'monospace'
+                }}
+              >
+                {currentInput.slice(cursorPosition)}
+              </span>
+            </div>
+            {/* Invisible input for text input handling */}
+            <input
+              ref={inputRef}
+              type={isPasswordInput ? 'password' : 'text'}
+              className="absolute inset-0 w-full bg-transparent outline-none text-transparent caret-transparent opacity-0"
+              value={currentInput}
+              onChange={(e) => {
+                setCurrentInput(e.target.value);
+                setCursorPosition(e.target.selectionStart || e.target.value.length);
+              }}
+              onKeyDown={handleKeyDown}
+              onFocus={() => {
+                // Auto-scroll when input gets focus (especially on mobile with virtual keyboard)
+                setTimeout(() => {
+                  scrollToBottom();
+                }, 300); // Delay to account for virtual keyboard animation
+              }}
+              onSelect={(e) => {
+                setCursorPosition(e.currentTarget.selectionStart || 0);
+              }}
+              onClick={(e) => {
+                setCursorPosition(e.currentTarget.selectionStart || 0);
+              }}
+              spellCheck="false"
+              autoCapitalize="off"
+              autoComplete="off"
+              autoCorrect="off"
+              inputMode="text"
+              style={{ 
+                fontSize: window.innerWidth < 640 ? '16px' : '14px' // Responsive font size, prevent iOS zoom on mobile
+              }}
+            />
+          </div>
         </div>
       </div>
     </div>
