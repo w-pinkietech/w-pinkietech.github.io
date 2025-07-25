@@ -55,7 +55,7 @@ const CLIEmulator: React.FC<CLIEmulatorProps> = ({ initialOutput = [] }) => {
   const terminalRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
   const { i18n } = useTranslation();
-  const { setFontSize, getFontSizeClass, settings } = useFontSize();
+  const { setFontSize, getFontSizeClass, getFontSizePixels, settings } = useFontSize();
   
   // Reference for text measurement (removed - was unused)
 
@@ -1433,7 +1433,7 @@ const CLIEmulator: React.FC<CLIEmulatorProps> = ({ initialOutput = [] }) => {
         'w-full bg-gray-950 text-pink-400 font-mono p-2 sm:p-4 overflow-y-auto overflow-x-auto custom-scrollbar',
         'relative',
         'min-h-screen h-screen scroll-smooth', // Fix height conflicts
-        getFontSizeClass(window.innerWidth < 640 ? 'text-xs' : 'text-sm') // Dynamic responsive text size with user preference
+        getFontSizeClass() // Use user's font size preference
       )}
       style={{
         scrollbarGutter: 'stable both-edges',
@@ -1643,7 +1643,7 @@ const CLIEmulator: React.FC<CLIEmulatorProps> = ({ initialOutput = [] }) => {
               <span 
                 className="text-pink-300 whitespace-pre"
                 style={{ 
-                  fontSize: window.innerWidth < 640 ? '16px' : '14px',
+                  fontSize: getFontSizePixels(),
                   fontFamily: 'monospace'
                 }}
               >
@@ -1655,7 +1655,7 @@ const CLIEmulator: React.FC<CLIEmulatorProps> = ({ initialOutput = [] }) => {
                 style={{
                   textShadow: '0 0 8px rgba(236, 72, 153, 0.6)',
                   animation: 'blink 1.2s infinite ease-in-out',
-                  fontSize: window.innerWidth < 640 ? '16px' : '14px',
+                  fontSize: getFontSizePixels(),
                   fontFamily: 'monospace'
                 }}
               >
@@ -1665,7 +1665,7 @@ const CLIEmulator: React.FC<CLIEmulatorProps> = ({ initialOutput = [] }) => {
               <span 
                 className="text-pink-300 whitespace-pre"
                 style={{ 
-                  fontSize: window.innerWidth < 640 ? '16px' : '14px',
+                  fontSize: getFontSizePixels(),
                   fontFamily: 'monospace'
                 }}
               >
@@ -1701,7 +1701,7 @@ const CLIEmulator: React.FC<CLIEmulatorProps> = ({ initialOutput = [] }) => {
               autoCorrect="off"
               inputMode="text"
               style={{ 
-                fontSize: window.innerWidth < 640 ? '16px' : '14px' // Responsive font size, prevent iOS zoom on mobile
+                fontSize: getFontSizePixels() // Use consistent font size, prevent iOS zoom on mobile
               }}
             />
           </div>

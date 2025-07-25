@@ -10,19 +10,20 @@ export interface FontSizeSettings {
 interface FontSizeContextType {
   settings: FontSizeSettings;
   setFontSize: (scale: FontSizeScale) => void;
-  getFontSizeClass: (baseSize?: string) => string;
+  getFontSizeClass: () => string;
+  getFontSizePixels: (isMobile?: boolean) => string;
   resetToDefault: () => void;
 }
 
 const FONT_SIZE_STORAGE_KEY = 'pinkietech-font-settings';
 
-const FONT_SIZE_MAP: Record<FontSizeScale, { percentage: number; class: string }> = {
-  xs: { percentage: 75, class: 'text-xs' },
-  sm: { percentage: 100, class: 'text-sm' },
-  base: { percentage: 125, class: 'text-base' },
-  lg: { percentage: 150, class: 'text-lg' },
-  xl: { percentage: 175, class: 'text-xl' },
-  max: { percentage: 200, class: 'text-2xl' }
+const FONT_SIZE_MAP: Record<FontSizeScale, { percentage: number; class: string; mobile: string; desktop: string }> = {
+  xs: { percentage: 75, class: 'text-xs', mobile: '12px', desktop: '10.5px' },
+  sm: { percentage: 100, class: 'text-sm', mobile: '16px', desktop: '14px' },
+  base: { percentage: 125, class: 'text-base', mobile: '20px', desktop: '17.5px' },
+  lg: { percentage: 150, class: 'text-lg', mobile: '24px', desktop: '21px' },
+  xl: { percentage: 175, class: 'text-xl', mobile: '28px', desktop: '24.5px' },
+  max: { percentage: 200, class: 'text-2xl', mobile: '32px', desktop: '28px' }
 };
 
 const DEFAULT_SETTINGS: FontSizeSettings = {
@@ -60,6 +61,7 @@ export const FontSizeProvider: React.FC<FontSizeProviderProps> = ({ children }) 
   const saveSettings = (newSettings: FontSizeSettings) => {
     try {
       localStorage.setItem(FONT_SIZE_STORAGE_KEY, JSON.stringify(newSettings));
+      console.log('Font settings saved:', newSettings);
     } catch (error) {
       console.warn('Failed to save font size settings:', error);
     }
@@ -67,6 +69,7 @@ export const FontSizeProvider: React.FC<FontSizeProviderProps> = ({ children }) 
 
   useEffect(() => {
     const loadedSettings = loadSettings();
+    console.log('Font settings loaded:', loadedSettings);
     setSettings(loadedSettings);
   }, []);
 
@@ -79,11 +82,16 @@ export const FontSizeProvider: React.FC<FontSizeProviderProps> = ({ children }) 
     saveSettings(newSettings);
   };
 
-  const getFontSizeClass = (baseSize?: string): string => {
-    if (baseSize) {
-      return baseSize;
-    }
+  const getFontSizeClass = (): string => {
     return FONT_SIZE_MAP[settings.scale].class;
+  };
+
+  const getFontSizePixels = (isMobile?: boolean): string => {
+    const fontMap = FONT_SIZE_MAP[settings.scale];
+    if (isMobile === undefined) {
+      isMobile = window.innerWidth < 640;
+    }
+    return isMobile ? fontMap.mobile : fontMap.desktop;
   };
 
   const resetToDefault = () => {
@@ -95,6 +103,7 @@ export const FontSizeProvider: React.FC<FontSizeProviderProps> = ({ children }) 
     settings,
     setFontSize,
     getFontSizeClass,
+    getFontSizePixels,
     resetToDefault
   };
 
