@@ -2,6 +2,7 @@ import { type FC } from 'react';
 import { createHashRouter, RouterProvider } from 'react-router-dom';
 import RootLayout from './layouts/RootLayout';
 import Home from './pages/Home';
+import { FontSizeProvider } from './contexts/FontSizeContext';
 
 // All pages now use the same CLI interface
 const router = createHashRouter([
@@ -16,7 +17,11 @@ const router = createHashRouter([
 ]);
 
 const App: FC = () => {
-  return <RouterProvider router={router} />;
+  return (
+    <FontSizeProvider>
+      <RouterProvider router={router} />
+    </FontSizeProvider>
+  );
 }
 
 export default App;

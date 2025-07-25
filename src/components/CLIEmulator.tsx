@@ -1,30 +1,31 @@
 import React, { useState, useRef, useEffect, useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import { cn } from '../lib/utils';
+import { useFontSize } from '../contexts/FontSizeContext';
 
-// Custom hook for cursor position calculation
-const useCursorPosition = (inputValue: string, cursorPosition: number) => {
-  const measureRef = useRef<HTMLSpanElement>(null);
-  const [cursorLeft, setCursorLeft] = useState(0);
+// Custom hook for cursor position calculation (currently unused but kept for future use)
+// const useCursorPosition = (inputValue: string, cursorPosition: number) => {
+//   const measureRef = useRef<HTMLSpanElement>(null);
+//   const [cursorLeft, setCursorLeft] = useState(0);
 
-  useEffect(() => {
-    if (measureRef.current) {
-      const textBeforeCursor = inputValue.slice(0, cursorPosition);
-      // Handle empty input case
-      if (textBeforeCursor === '') {
-        setCursorLeft(0);
-      } else {
-        measureRef.current.textContent = textBeforeCursor;
-        setCursorLeft(measureRef.current.offsetWidth);
-      }
-    } else if (inputValue === '' || cursorPosition === 0) {
-      // Fallback for empty input
-      setCursorLeft(0);
-    }
-  }, [inputValue, cursorPosition]);
+//   useEffect(() => {
+//     if (measureRef.current) {
+//       const textBeforeCursor = inputValue.slice(0, cursorPosition);
+//       // Handle empty input case
+//       if (textBeforeCursor === '') {
+//         setCursorLeft(0);
+//       } else {
+//         measureRef.current.textContent = textBeforeCursor;
+//         setCursorLeft(measureRef.current.offsetWidth);
+//       }
+//     } else if (inputValue === '' || cursorPosition === 0) {
+//       // Fallback for empty input
+//       setCursorLeft(0);
+//     }
+//   }, [inputValue, cursorPosition]);
 
-  return { cursorLeft, measureRef };
-};
+//   return { cursorLeft, measureRef };
+// };
 
 interface CLIEmulatorProps {
   initialOutput?: string[];
@@ -49,14 +50,14 @@ const CLIEmulator: React.FC<CLIEmulatorProps> = ({ initialOutput = [] }) => {
   const [isPasswordInput, setIsPasswordInput] = useState(false);
   const [achievements, setAchievements] = useState<Set<string>>(new Set());
   const [score, setScore] = useState(0);
-  const [gameState, setGameState] = useState<any>(null);
+  const [gameState, setGameState] = useState<any>(null); // eslint-disable-line @typescript-eslint/no-explicit-any
   
   const terminalRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
   const { i18n } = useTranslation();
+  const { setFontSize, getFontSizeClass, settings } = useFontSize();
   
-  // Reference for text measurement (now unused but kept for potential future use)
-  const measureRef = useRef<HTMLSpanElement>(null);
+  // Reference for text measurement (removed - was unused)
 
   // Ensure cursor position is reset when input is cleared
   useEffect(() => {
@@ -418,6 +419,26 @@ const CLIEmulator: React.FC<CLIEmulatorProps> = ({ initialOutput = [] }) => {
       showAchievements();
     } else if (lowerCommand === 'score') {
       addToOutput(['', currentLang === 'ja' ? `現在のスコア: ${score}点` : `Current score: ${score} points`, '']);
+    } else if (lowerCommand === 'fontsize' || lowerCommand === 'font') {
+      showFontSizeInfo();
+    } else if (lowerCommand === 'fontsize small' || lowerCommand === 'font small') {
+      setFontSize('xs');
+      addToOutput(['', currentLang === 'ja' ? 'フォントサイズを小 (75%) に設定しました' : 'Font size set to small (75%)', '']);
+    } else if (lowerCommand === 'fontsize normal' || lowerCommand === 'font normal') {
+      setFontSize('sm');
+      addToOutput(['', currentLang === 'ja' ? 'フォントサイズを標準 (100%) に設定しました' : 'Font size set to normal (100%)', '']);
+    } else if (lowerCommand === 'fontsize large' || lowerCommand === 'font large') {
+      setFontSize('base');
+      addToOutput(['', currentLang === 'ja' ? 'フォントサイズを大 (125%) に設定しました' : 'Font size set to large (125%)', '']);
+    } else if (lowerCommand === 'fontsize xlarge' || lowerCommand === 'font xlarge') {
+      setFontSize('lg');
+      addToOutput(['', currentLang === 'ja' ? 'フォントサイズを特大 (150%) に設定しました' : 'Font size set to extra large (150%)', '']);
+    } else if (lowerCommand === 'fontsize max' || lowerCommand === 'font max') {
+      setFontSize('xl');
+      addToOutput(['', currentLang === 'ja' ? 'フォントサイズを最大 (175%) に設定しました' : 'Font size set to maximum (175%)', '']);
+    } else if (lowerCommand === 'fontsize huge' || lowerCommand === 'font huge') {
+      setFontSize('max');
+      addToOutput(['', currentLang === 'ja' ? 'フォントサイズを超最大 (200%) に設定しました' : 'Font size set to huge (200%)', '']);
     } else if (command.trim()) {
       addToOutput([
         `\x02[ERROR]\x02 ${command}: ${currentLang === 'ja' ? 'コマンドが見つかりません' : 'command not found'}`,
@@ -441,10 +462,11 @@ const CLIEmulator: React.FC<CLIEmulatorProps> = ({ initialOutput = [] }) => {
       lines.push('legal    - 法的情報');
       lines.push('');
       lines.push('\x02【その他】\x02');
-      lines.push('clear  - 画面クリア');
-      lines.push('lang   - 言語切替');
-      lines.push('cat    - 猫表示');
-      lines.push('repo   - GitHub');
+      lines.push('clear    - 画面クリア');
+      lines.push('lang     - 言語切替');
+      lines.push('fontsize - フォントサイズ');
+      lines.push('cat      - 猫表示');
+      lines.push('repo     - GitHub');
     } else {
       lines.push('\x03╔════════════════════════════════════════════════════════╗\x03');
       lines.push('\x03║              \x03' + (currentLang === 'ja' ? '\x02利用可能なコマンド一覧\x02' : '\x02Available Commands\x02') + '\x03              ║\x03');
@@ -485,6 +507,7 @@ const CLIEmulator: React.FC<CLIEmulatorProps> = ({ initialOutput = [] }) => {
         { cmd: 'neofetch', desc: currentLang === 'ja' ? 'システム情報' : 'System info' },
         { cmd: 'banner', desc: currentLang === 'ja' ? 'ロゴ表示' : 'Show logo' },
         { cmd: 'lang', desc: currentLang === 'ja' ? '言語切替' : 'Change language' },
+        { cmd: 'fontsize', desc: currentLang === 'ja' ? 'フォントサイズ' : 'Font size' },
         { cmd: 'exit', desc: currentLang === 'ja' ? '終了' : 'Exit' },
       ];
       
@@ -1129,6 +1152,47 @@ const CLIEmulator: React.FC<CLIEmulatorProps> = ({ initialOutput = [] }) => {
     addToOutput(lines);
   };
 
+  const showFontSizeInfo = () => {
+    const lines = [''];
+    lines.push('╔════════════════════════════════════════════════════════╗');
+    lines.push('║              フォントサイズ設定 / Font Size             ║');
+    lines.push('╚════════════════════════════════════════════════════════╝');
+    lines.push('');
+    
+    const currentSize = settings.scale;
+    const currentPercentage = settings.percentage;
+    
+    lines.push(currentLang === 'ja' 
+      ? `現在の設定: ${currentSize} (${currentPercentage}%)`
+      : `Current setting: ${currentSize} (${currentPercentage}%)`);
+    lines.push('');
+    
+    lines.push(currentLang === 'ja' ? '利用可能なサイズ:' : 'Available sizes:');
+    lines.push('');
+    
+    const sizes = [
+      { cmd: 'fontsize small', desc: currentLang === 'ja' ? '小 (75%)' : 'small (75%)', current: currentSize === 'xs' },
+      { cmd: 'fontsize normal', desc: currentLang === 'ja' ? '標準 (100%)' : 'normal (100%)', current: currentSize === 'sm' },
+      { cmd: 'fontsize large', desc: currentLang === 'ja' ? '大 (125%)' : 'large (125%)', current: currentSize === 'base' },
+      { cmd: 'fontsize xlarge', desc: currentLang === 'ja' ? '特大 (150%)' : 'extra large (150%)', current: currentSize === 'lg' },
+      { cmd: 'fontsize max', desc: currentLang === 'ja' ? '最大 (175%)' : 'maximum (175%)', current: currentSize === 'xl' },
+      { cmd: 'fontsize huge', desc: currentLang === 'ja' ? '超最大 (200%)' : 'huge (200%)', current: currentSize === 'max' }
+    ];
+    
+    sizes.forEach(size => {
+      const marker = size.current ? '●' : '○';
+      lines.push(`  ${marker} ${size.cmd.padEnd(16)} - ${size.desc}`);
+    });
+    
+    lines.push('');
+    lines.push(currentLang === 'ja' 
+      ? '例: fontsize large (または font large)' 
+      : 'Example: fontsize large (or font large)');
+    lines.push('');
+    
+    addToOutput(lines);
+  };
+
   const showGameMenu = () => {
     const lines = [''];
     lines.push('╔════════════════════════════════════════════════════════╗');
@@ -1369,7 +1433,7 @@ const CLIEmulator: React.FC<CLIEmulatorProps> = ({ initialOutput = [] }) => {
         'w-full bg-gray-950 text-pink-400 font-mono p-2 sm:p-4 overflow-y-auto overflow-x-auto custom-scrollbar',
         'relative',
         'min-h-screen h-screen scroll-smooth', // Fix height conflicts
-        window.innerWidth < 640 ? 'text-xs' : 'text-sm' // Dynamic responsive text size
+        getFontSizeClass(window.innerWidth < 640 ? 'text-xs' : 'text-sm') // Dynamic responsive text size with user preference
       )}
       style={{
         scrollbarGutter: 'stable both-edges',
@@ -1462,7 +1526,7 @@ const CLIEmulator: React.FC<CLIEmulatorProps> = ({ initialOutput = [] }) => {
           const hasTwitter = !isUserInput && !cleanLine.includes('guest@') && twitterRegex.test(cleanLine);
           
           if (hasUrl || hasCustomLink || hasTwitter) {
-            let processedLine = cleanLine;
+            const processedLine = cleanLine;
             const elements = [];
             let lastIndex = 0;
             
@@ -1574,15 +1638,7 @@ const CLIEmulator: React.FC<CLIEmulatorProps> = ({ initialOutput = [] }) => {
           <div className="relative flex-1">
             {/* Text and cursor container */}
             <div className="relative inline-block leading-tight">
-              {/* Hidden text measurement element */}
-              <span 
-                ref={measureRef}
-                className="invisible absolute top-0 left-0 whitespace-pre"
-                style={{ 
-                  fontSize: window.innerWidth < 640 ? '16px' : '14px',
-                  fontFamily: 'monospace'
-                }}
-              />
+              {/* Hidden text measurement element - removed as unused */}
               {/* Text before cursor */}
               <span 
                 className="text-pink-300 whitespace-pre"
