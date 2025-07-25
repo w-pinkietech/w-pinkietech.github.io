@@ -421,24 +421,24 @@ const CLIEmulator: React.FC<CLIEmulatorProps> = ({ initialOutput = [] }) => {
       addToOutput(['', currentLang === 'ja' ? `現在のスコア: ${score}点` : `Current score: ${score} points`, '']);
     } else if (lowerCommand === 'fontsize' || lowerCommand === 'font') {
       showFontSizeInfo();
-    } else if (lowerCommand === 'fontsize small' || lowerCommand === 'font small') {
+    } else if (lowerCommand === 'fontsize xs' || lowerCommand === 'font xs') {
       setFontSize('xs');
-      addToOutput(['', currentLang === 'ja' ? 'フォントサイズを小 (75%) に設定しました' : 'Font size set to small (75%)', '']);
-    } else if (lowerCommand === 'fontsize normal' || lowerCommand === 'font normal') {
+      addToOutput(['', currentLang === 'ja' ? 'フォントサイズをxs (75%) に設定しました' : 'Font size set to xs (75%)', '']);
+    } else if (lowerCommand === 'fontsize sm' || lowerCommand === 'font sm') {
       setFontSize('sm');
-      addToOutput(['', currentLang === 'ja' ? 'フォントサイズを標準 (100%) に設定しました' : 'Font size set to normal (100%)', '']);
-    } else if (lowerCommand === 'fontsize large' || lowerCommand === 'font large') {
+      addToOutput(['', currentLang === 'ja' ? 'フォントサイズをsm (100%) に設定しました' : 'Font size set to sm (100%)', '']);
+    } else if (lowerCommand === 'fontsize base' || lowerCommand === 'font base') {
       setFontSize('base');
-      addToOutput(['', currentLang === 'ja' ? 'フォントサイズを大 (125%) に設定しました' : 'Font size set to large (125%)', '']);
-    } else if (lowerCommand === 'fontsize xlarge' || lowerCommand === 'font xlarge') {
+      addToOutput(['', currentLang === 'ja' ? 'フォントサイズをbase (125%) に設定しました' : 'Font size set to base (125%)', '']);
+    } else if (lowerCommand === 'fontsize lg' || lowerCommand === 'font lg') {
       setFontSize('lg');
-      addToOutput(['', currentLang === 'ja' ? 'フォントサイズを特大 (150%) に設定しました' : 'Font size set to extra large (150%)', '']);
-    } else if (lowerCommand === 'fontsize max' || lowerCommand === 'font max') {
+      addToOutput(['', currentLang === 'ja' ? 'フォントサイズをlg (150%) に設定しました' : 'Font size set to lg (150%)', '']);
+    } else if (lowerCommand === 'fontsize xl' || lowerCommand === 'font xl') {
       setFontSize('xl');
-      addToOutput(['', currentLang === 'ja' ? 'フォントサイズを最大 (175%) に設定しました' : 'Font size set to maximum (175%)', '']);
-    } else if (lowerCommand === 'fontsize huge' || lowerCommand === 'font huge') {
+      addToOutput(['', currentLang === 'ja' ? 'フォントサイズをxl (175%) に設定しました' : 'Font size set to xl (175%)', '']);
+    } else if (lowerCommand === 'fontsize max' || lowerCommand === 'font max') {
       setFontSize('max');
-      addToOutput(['', currentLang === 'ja' ? 'フォントサイズを超最大 (200%) に設定しました' : 'Font size set to huge (200%)', '']);
+      addToOutput(['', currentLang === 'ja' ? 'フォントサイズをmax (200%) に設定しました' : 'Font size set to max (200%)', '']);
     } else if (command.trim()) {
       addToOutput([
         `\x02[ERROR]\x02 ${command}: ${currentLang === 'ja' ? 'コマンドが見つかりません' : 'command not found'}`,
@@ -1171,12 +1171,12 @@ const CLIEmulator: React.FC<CLIEmulatorProps> = ({ initialOutput = [] }) => {
     lines.push('');
     
     const sizes = [
-      { cmd: 'fontsize small', desc: currentLang === 'ja' ? '小 (75%)' : 'small (75%)', current: currentSize === 'xs' },
-      { cmd: 'fontsize normal', desc: currentLang === 'ja' ? '標準 (100%)' : 'normal (100%)', current: currentSize === 'sm' },
-      { cmd: 'fontsize large', desc: currentLang === 'ja' ? '大 (125%)' : 'large (125%)', current: currentSize === 'base' },
-      { cmd: 'fontsize xlarge', desc: currentLang === 'ja' ? '特大 (150%)' : 'extra large (150%)', current: currentSize === 'lg' },
-      { cmd: 'fontsize max', desc: currentLang === 'ja' ? '最大 (175%)' : 'maximum (175%)', current: currentSize === 'xl' },
-      { cmd: 'fontsize huge', desc: currentLang === 'ja' ? '超最大 (200%)' : 'huge (200%)', current: currentSize === 'max' }
+      { cmd: 'fontsize xs', desc: currentLang === 'ja' ? 'xs (75%)' : 'xs (75%)', current: currentSize === 'xs' },
+      { cmd: 'fontsize sm', desc: currentLang === 'ja' ? 'sm (100%)' : 'sm (100%)', current: currentSize === 'sm' },
+      { cmd: 'fontsize base', desc: currentLang === 'ja' ? 'base (125%)' : 'base (125%)', current: currentSize === 'base' },
+      { cmd: 'fontsize lg', desc: currentLang === 'ja' ? 'lg (150%)' : 'lg (150%)', current: currentSize === 'lg' },
+      { cmd: 'fontsize xl', desc: currentLang === 'ja' ? 'xl (175%)' : 'xl (175%)', current: currentSize === 'xl' },
+      { cmd: 'fontsize max', desc: currentLang === 'ja' ? 'max (200%)' : 'max (200%)', current: currentSize === 'max' }
     ];
     
     sizes.forEach(size => {
@@ -1186,8 +1186,8 @@ const CLIEmulator: React.FC<CLIEmulatorProps> = ({ initialOutput = [] }) => {
     
     lines.push('');
     lines.push(currentLang === 'ja' 
-      ? '例: fontsize large (または font large)' 
-      : 'Example: fontsize large (or font large)');
+      ? '例: fontsize base (または font base)' 
+      : 'Example: fontsize base (or font base)');
     lines.push('');
     
     addToOutput(lines);

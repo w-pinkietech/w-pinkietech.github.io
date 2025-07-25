@@ -26,9 +26,13 @@ const FONT_SIZE_MAP: Record<FontSizeScale, { percentage: number; class: string; 
   max: { percentage: 200, class: 'text-2xl', mobile: '32px', desktop: '28px' }
 };
 
-const DEFAULT_SETTINGS: FontSizeSettings = {
-  scale: 'sm',
-  percentage: 100
+const getDefaultSettings = (): FontSizeSettings => {
+  const isMobile = window.innerWidth < 640;
+  const defaultScale = isMobile ? 'sm' : 'xl'; // PC: xl (24.5px), スマホ: sm (16px = normal)
+  return {
+    scale: defaultScale,
+    percentage: FONT_SIZE_MAP[defaultScale].percentage
+  };
 };
 
 const FontSizeContext = createContext<FontSizeContextType | undefined>(undefined);
@@ -38,7 +42,7 @@ interface FontSizeProviderProps {
 }
 
 export const FontSizeProvider: React.FC<FontSizeProviderProps> = ({ children }) => {
-  const [settings, setSettings] = useState<FontSizeSettings>(DEFAULT_SETTINGS);
+  const [settings, setSettings] = useState<FontSizeSettings>(getDefaultSettings());
 
   const loadSettings = (): FontSizeSettings => {
     try {
@@ -55,7 +59,7 @@ export const FontSizeProvider: React.FC<FontSizeProviderProps> = ({ children }) 
     } catch (error) {
       console.warn('Failed to load font size settings:', error);
     }
-    return DEFAULT_SETTINGS;
+    return getDefaultSettings();
   };
 
   const saveSettings = (newSettings: FontSizeSettings) => {
@@ -95,8 +99,9 @@ export const FontSizeProvider: React.FC<FontSizeProviderProps> = ({ children }) 
   };
 
   const resetToDefault = () => {
-    setSettings(DEFAULT_SETTINGS);
-    saveSettings(DEFAULT_SETTINGS);
+    const defaultSettings = getDefaultSettings();
+    setSettings(defaultSettings);
+    saveSettings(defaultSettings);
   };
 
   const contextValue: FontSizeContextType = {
