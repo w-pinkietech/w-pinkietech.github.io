@@ -154,7 +154,9 @@ const checks = [
   {
     name: 'Company profile is a dedicated, canonical and reachable page',
     pass:
-      files.companyHtml.includes('https://pinkie-tech.jp/company/') &&
+      /<link rel="canonical" href="https:\/\/pinkie-tech\.jp\/company\/" \/>/.test(
+        files.companyHtml,
+      ) &&
       files.companyHtml.includes('/src/company.tsx') &&
       files.header.includes('href="/company/"') &&
       files.footer.includes('href="/company/"') &&
