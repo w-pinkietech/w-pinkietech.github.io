@@ -124,7 +124,7 @@ const checks = [
   {
     name: 'Verifiable public work is linked without invented metrics',
     pass:
-      files.home.includes('https://github.com/w-pinkietech') &&
+      /href="https:\/\/github\.com\/w-pinkietech"/.test(files.home) &&
       files.home.includes('成果を実績らしく飾るより') &&
       !/\d+%|導入実績|顧客数/.test(files.home),
   },
