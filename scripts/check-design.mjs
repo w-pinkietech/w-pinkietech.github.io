@@ -7,14 +7,23 @@ const readText = async (path) => (await read(path)).toString('utf8')
 const digest = (content) => createHash('sha256').update(content).digest('hex')
 
 const files = {
+  companyProfile: await readText('COMPANY.md'),
   design: await readText('DESIGN.md'),
   home: await readText('src/pages/Home.tsx'),
+  company: await readText('src/pages/Company.tsx'),
+  companyContent: await readText('src/content/company.ts'),
+  logo: await readText('src/components/BrandLogo.tsx'),
+  header: await readText('src/components/SiteHeader.tsx'),
+  footer: await readText('src/components/SiteFooter.tsx'),
   css: await readText('src/index.css'),
   html: await readText('index.html'),
+  companyHtml: await readText('company/index.html'),
   readme: await readText('README.md'),
   tokens: JSON.parse(await readText('public/brand/pinkietech.tokens.json')),
   manifest: JSON.parse(await readText('public/brand/brand-bundle.json')),
 }
+
+const siteSource = [files.home, files.company, files.header, files.footer].join('\n')
 
 const bundleResults = await Promise.all(
   Object.entries(files.manifest.files).map(async ([target, metadata]) => {
@@ -69,17 +78,17 @@ const checks = [
       files.manifest.schemaVersion === 1 &&
       /^[0-9a-f]{40}$/.test(files.manifest.sourceCommit) &&
       files.manifest.sourceVersion === files.tokens.meta.version &&
-      bundleResults.length === 5 &&
+      bundleResults.length === 6 &&
       bundleResults.every((result) => result.matches),
   },
   {
     name: 'The official reverse logo asset is used',
-    pass: files.home.includes('/brand/pinkietech-logo-reverse.svg'),
+    pass: files.logo.includes('/brand/pinkietech-logo-reverse.svg'),
   },
   {
     name: 'The canonical messages stay synchronized',
     pass:
-      [files.home, files.html, files.readme].every((file) =>
+      [siteSource, files.html, files.readme].every((file) =>
         file.includes('現場の力を、技術で引き出す。'),
       ) &&
       files.html.includes('働く人の困りごとから始め、技術を使い続けられる改善へ変えていく。'),
@@ -114,22 +123,23 @@ const checks = [
   {
     name: 'Mobile navigation remains available',
     pass:
-      files.home.includes('className="mobile-menu"') &&
+      files.header.includes('className="mobile-menu"') &&
       files.css.includes('.mobile-menu {') &&
       files.css.includes('display: block;'),
   },
   {
     name: 'Mobile navigation has complete dismissal behavior',
     pass:
-      files.home.includes("document.addEventListener('pointerdown'") &&
-      files.home.includes("event.key === 'Escape'") &&
-      files.home.includes("menu.querySelector('summary')?.focus()") &&
-      files.home.includes('onClick={closeMobileMenu}'),
+      files.header.includes("document.addEventListener('pointerdown'") &&
+      files.header.includes("event.key === 'Escape'") &&
+      files.header.includes("menu.querySelector('summary')?.focus()") &&
+      files.header.includes('onClick={closeMobileMenu}'),
   },
   {
     name: 'Contact journey has an in-page destination and email fallback',
     pass:
-      (files.home.match(/href="#contact"/g) ?? []).length >= 3 &&
+      files.header.includes('${homePrefix}#contact') &&
+      files.footer.includes('/#contact') &&
       files.home.includes('id="contact"') &&
       files.home.includes('navigator.clipboard.writeText(contactEmail)') &&
       files.home.includes('className="button button-primary copy-email"') &&
@@ -139,7 +149,34 @@ const checks = [
   },
   {
     name: 'The page avoids generic card components',
-    pass: !/className=["'][^"']*\bcard\b/.test(files.home),
+    pass: !/className=["'][^"']*\bcard\b/.test(siteSource),
+  },
+  {
+    name: 'Company profile is a dedicated, canonical and reachable page',
+    pass:
+      /<link rel="canonical" href="https:\/\/pinkie-tech\.jp\/company\/" \/>/.test(
+        files.companyHtml,
+      ) &&
+      files.companyHtml.includes('/src/company.tsx') &&
+      files.header.includes('href="/company/"') &&
+      files.footer.includes('href="/company/"') &&
+      files.company.includes('companyFacts.map') &&
+      files.company.includes('companyBusiness.map'),
+  },
+  {
+    name: 'Verified company facts stay synchronized with the brand source',
+    pass: [
+      'PinkieTech株式会社',
+      '渡部健太',
+      '2025年1月17日',
+      '5,000,000円',
+      '福岡県北九州市八幡西区塔野1-14-22',
+      '現場の課題整理と継続的な改善支援',
+      'AI・IoTを活用したソフトウェアと仕組みの設計・実装',
+      'OSSの開発、活用、知識共有、コミュニティへの還元',
+    ].every(
+      (fact) => files.companyProfile.includes(fact) && files.companyContent.includes(fact),
+    ),
   },
   {
     name: 'Verifiable public work is linked without invented metrics',

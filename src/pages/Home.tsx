@@ -1,6 +1,8 @@
-import { useEffect, useRef, useState } from 'react'
+import { useState } from 'react'
 
-const contactEmail = 'contact@pinkie-tech.jp'
+import { SiteFooter } from '../components/SiteFooter'
+import { SiteHeader } from '../components/SiteHeader'
+import { contactEmail } from '../content/site'
 
 const problems = [
   {
@@ -54,52 +56,8 @@ const values = [
   ['わかりやすく、誠実に', 'できることとできないことを、専門外の人にも伝わる言葉で話す。'],
 ]
 
-function BrandLogo({ className = '' }: { className?: string }) {
-  return (
-    <img
-      className={className}
-      src="/brand/pinkietech-logo-reverse.svg"
-      alt="PinkieTech"
-      width="1408"
-      height="297"
-    />
-  )
-}
-
 function Home() {
-  const mobileMenuRef = useRef<HTMLDetailsElement>(null)
   const [copyStatus, setCopyStatus] = useState<'idle' | 'copied' | 'failed'>('idle')
-
-  const closeMobileMenu = () => {
-    if (mobileMenuRef.current) {
-      mobileMenuRef.current.open = false
-    }
-  }
-
-  useEffect(() => {
-    const handlePointerDown = (event: PointerEvent) => {
-      const menu = mobileMenuRef.current
-      if (menu?.open && event.target instanceof Node && !menu.contains(event.target)) {
-        menu.open = false
-      }
-    }
-
-    const handleKeyDown = (event: KeyboardEvent) => {
-      const menu = mobileMenuRef.current
-      if (event.key === 'Escape' && menu?.open) {
-        menu.open = false
-        menu.querySelector('summary')?.focus()
-      }
-    }
-
-    document.addEventListener('pointerdown', handlePointerDown)
-    document.addEventListener('keydown', handleKeyDown)
-
-    return () => {
-      document.removeEventListener('pointerdown', handlePointerDown)
-      document.removeEventListener('keydown', handleKeyDown)
-    }
-  }, [])
 
   const copyContactEmail = async () => {
     try {
@@ -116,30 +74,7 @@ function Home() {
         本文へ移動
       </a>
 
-      <header className="site-header">
-        <div className="container header-inner">
-          <a className="brand-link" href="#top" aria-label="PinkieTech ホーム">
-            <BrandLogo className="header-logo" />
-          </a>
-          <nav className="site-nav" aria-label="メインナビゲーション">
-            <a href="#problems">できること</a>
-            <a href="#approach">進め方</a>
-            <a href="#about">私たちについて</a>
-            <a className="nav-cta" href="#contact">
-              課題を相談する
-            </a>
-          </nav>
-          <details className="mobile-menu" ref={mobileMenuRef}>
-            <summary>メニュー</summary>
-            <nav aria-label="モバイルナビゲーション" onClick={closeMobileMenu}>
-              <a href="#problems">できること</a>
-              <a href="#approach">進め方</a>
-              <a href="#about">私たちについて</a>
-              <a href="#contact">課題を相談する</a>
-            </nav>
-          </details>
-        </div>
-      </header>
+      <SiteHeader current="home" />
 
       <main id="main-content">
         <section className="hero" id="top" aria-labelledby="hero-title">
@@ -378,24 +313,7 @@ function Home() {
         </section>
       </main>
 
-      <footer className="site-footer">
-        <div className="container footer-inner">
-          <div>
-            <BrandLogo className="footer-logo" />
-            <p>現場の力を、技術で引き出す。</p>
-          </div>
-          <div className="footer-links">
-            <a href={`mailto:${contactEmail}`}>Email</a>
-            <a href="https://x.com/pinkietech" target="_blank" rel="noreferrer">
-              X<span className="sr-only">（新しいタブで開く）</span>
-            </a>
-            <a href="https://github.com/w-pinkietech" target="_blank" rel="noreferrer">
-              GitHub<span className="sr-only">（新しいタブで開く）</span>
-            </a>
-          </div>
-          <p className="copyright">© 2026 PinkieTech株式会社</p>
-        </div>
-      </footer>
+      <SiteFooter />
     </div>
   )
 }

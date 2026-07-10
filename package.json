@@ -7,7 +7,7 @@
     "dev": "vite",
     "build": "tsc -b && vite build",
     "design:check": "node scripts/check-design.mjs",
-    "lint": "eslint src/main.tsx src/App.tsx src/pages/Home.tsx vite.config.ts",
+    "lint": "eslint src vite.config.ts",
     "preview": "vite preview"
   },
   "dependencies": {

@@ -16,6 +16,7 @@ PinkieTech株式会社の公式Webサイトです。
 
 ブランドの正式な基準は非公開の `w-pinkietech/pinkietech-brand` リポジトリで管理します。
 このリポジトリでは、実装に必要なWebデザイン基準を [`DESIGN.md`](DESIGN.md) に同期しています。
+公開会社情報はブランド管理リポジトリの正本から [`COMPANY.md`](COMPANY.md) へ同期し、`/company/`で表示します。
 
 外部の `awesome-design-md` / `awesome-design-md-jp` は調査資料として参照し、PinkieTech固有の意味・ロゴ・配色・文章を優先して再構成しています。
 
