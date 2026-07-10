@@ -9,7 +9,7 @@ export const companyFacts = {
   en: [
     ['Company name', 'PinkieTech Co., Ltd.'],
     ['Japanese registered name', 'PinkieTech株式会社'],
-    ['Representative Director', '渡部健太'],
+    ['Representative Director', 'Watanabe Kenta'],
     ['Established', 'January 17, 2025'],
     ['Capital', 'JPY 5,000,000'],
     ['Head office', '1-14-22 Tono, Yahatanishi-ku, Kitakyushu, Fukuoka, Japan'],
