@@ -1,0 +1,14 @@
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+# Search and user-requested access are welcome. Model-training access is separate.
+User-agent: GPTBot
+Disallow: /
+
+User-agent: *
+Allow: /
+
+Sitemap: https://pinkie-tech.jp/sitemap.xml

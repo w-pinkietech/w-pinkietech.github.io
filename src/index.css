@@ -46,6 +46,17 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
+html[lang='en'] body {
+  line-break: auto;
+}
+
+html[lang='en'] h1,
+html[lang='en'] h2,
+html[lang='en'] h3,
+html[lang='en'] nav {
+  font-feature-settings: "kern" 1;
+}
+
 body,
 button,
 a {
@@ -215,6 +226,17 @@ h3 {
   border-bottom-color: var(--orange);
 }
 
+.site-nav .nav-language {
+  padding-inline: 0.7rem;
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+}
+
+.site-nav .nav-language:hover {
+  border-color: var(--orange);
+}
+
 .site-nav .nav-cta {
   min-height: 2.75rem;
   padding: 0.55rem 1rem;
@@ -324,6 +346,15 @@ h3 {
   grid-column: 1 / span 8;
   align-self: center;
   padding-bottom: clamp(4rem, 8vw, 7rem);
+}
+
+html[lang='en'] .hero-copy {
+  grid-column-end: span 9;
+}
+
+html[lang='en'] .hero h1,
+html[lang='en'] .company-hero h1 {
+  max-width: 16em;
 }
 
 .kicker,

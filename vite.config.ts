@@ -9,6 +9,8 @@ export default defineConfig({
       input: {
         main: path.resolve(__dirname, 'index.html'),
         company: path.resolve(__dirname, 'company/index.html'),
+        en: path.resolve(__dirname, 'en/index.html'),
+        enCompany: path.resolve(__dirname, 'en/company/index.html'),
       },
     },
   },

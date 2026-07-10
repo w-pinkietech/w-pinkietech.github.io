@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc -b && vite build",
+    "build": "tsc -b && vite build && node scripts/prerender.mjs",
     "design:check": "node scripts/check-design.mjs",
     "lint": "eslint src vite.config.ts",
     "preview": "vite preview"

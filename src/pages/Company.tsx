@@ -1,15 +1,26 @@
 import { SiteFooter } from '../components/SiteFooter'
 import { SiteHeader } from '../components/SiteHeader'
-import { companyBusiness, companyFacts } from '../content/company'
+import { companyBusiness, companyFacts, companyPageCopy } from '../content/company'
+import { siteCopy, type Locale } from '../content/locales'
 
-export default function Company() {
+type CompanyProps = {
+  locale?: Locale
+}
+
+export default function Company({ locale = 'ja' }: CompanyProps) {
+  const copy = companyPageCopy[locale]
+  const localeSiteCopy = siteCopy[locale]
+  const localeFacts = companyFacts[locale]
+  const localeBusiness = companyBusiness[locale]
+  const homePath = locale === 'ja' ? '/' : '/en/'
+
   return (
     <div className="site-shell company-page">
       <a className="skip-link" href="#main-content">
-        本文へ移動
+        {localeSiteCopy.skip}
       </a>
 
-      <SiteHeader current="company" />
+      <SiteHeader current="company" locale={locale} />
 
       <main id="main-content">
         <section className="company-hero" aria-labelledby="company-title">
@@ -22,26 +33,24 @@ export default function Company() {
             aria-hidden="true"
           />
           <div className="container company-hero-grid">
-            <p className="section-index">Company / 会社概要</p>
+            <p className="section-index">{copy.heroIndex}</p>
             <div>
               <h1 id="company-title">
-                <span>人と技術をつなぐ、</span>
-                <span>現場のエンジニアリング会社。</span>
+                <span>{copy.title[0]}</span>
+                <span>{copy.title[1]}</span>
               </h1>
-              <p className="company-lead">
-                PinkieTech株式会社は、働く人の困りごとから始め、技術を使い続けられる改善へ変えていく会社です。
-              </p>
+              <p className="company-lead">{copy.lead}</p>
             </div>
           </div>
         </section>
 
         <section className="company-overview section" aria-labelledby="overview-title">
           <div className="container company-section-grid">
-            <p className="section-index">01 / 企業情報</p>
+            <p className="section-index">{copy.factsIndex}</p>
             <div>
-              <h2 id="overview-title">企業情報</h2>
+              <h2 id="overview-title">{copy.factsTitle}</h2>
               <dl className="company-facts">
-                {companyFacts.map(([label, value]) => (
+                {localeFacts.map(([label, value]) => (
                   <div key={label}>
                     <dt>{label}</dt>
                     <dd>{value}</dd>
@@ -55,18 +64,18 @@ export default function Company() {
         <section className="company-business section" aria-labelledby="business-title">
           <div className="container">
             <div className="section-intro">
-              <p className="section-index">02 / 事業内容</p>
+              <p className="section-index">{copy.businessIndex}</p>
               <div>
-                <h2 id="business-title">技術からではなく、課題から始めます。</h2>
-                <p>AI・IoT・OSSを手段として組み合わせ、実際の仕事に合う改善を設計・実装します。</p>
+                <h2 id="business-title">{copy.businessTitle}</h2>
+                <p>{copy.businessLead}</p>
               </div>
             </div>
             <div className="company-business-list">
-              {companyBusiness.map((business) => (
-                <article className="company-business-row" key={business.number}>
-                  <span>{business.number}</span>
-                  <h3>{business.title}</h3>
-                  <p>{business.text}</p>
+              {localeBusiness.map(([number, title, text]) => (
+                <article className="company-business-row" key={number}>
+                  <span>{number}</span>
+                  <h3>{title}</h3>
+                  <p>{text}</p>
                 </article>
               ))}
             </div>
@@ -75,19 +84,17 @@ export default function Company() {
 
         <section className="company-stance section" aria-labelledby="stance-title">
           <div className="container company-section-grid">
-            <p className="section-index">03 / 私たちの姿勢</p>
+            <p className="section-index">{copy.stanceIndex}</p>
             <div>
-              <h2 id="stance-title">話しかけやすく、誠実に。</h2>
-              <p>
-                できることとできないことを分かる言葉で伝え、仕事をする人と同じ方向を見ながら、小さな改善を積み重ねます。
-              </p>
+              <h2 id="stance-title">{copy.stanceTitle}</h2>
+              <p>{copy.stanceText}</p>
               <div className="company-actions">
-                <a className="button button-primary" href="/#contact">
-                  現場の課題を相談する
+                <a className="button button-primary" href={`${homePath}#contact`}>
+                  {copy.contact}
                   <span aria-hidden="true">→</span>
                 </a>
-                <a className="text-link" href="/">
-                  PinkieTechの考え方を見る
+                <a className="text-link" href={homePath}>
+                  {copy.philosophy}
                   <span aria-hidden="true">→</span>
                 </a>
               </div>
@@ -96,7 +103,7 @@ export default function Company() {
         </section>
       </main>
 
-      <SiteFooter />
+      <SiteFooter locale={locale} />
     </div>
   )
 }

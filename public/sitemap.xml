@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset
+  xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+  xmlns:xhtml="http://www.w3.org/1999/xhtml"
+>
+  <url>
+    <loc>https://pinkie-tech.jp/</loc>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://pinkie-tech.jp/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://pinkie-tech.jp/en/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://pinkie-tech.jp/" />
+  </url>
+  <url>
+    <loc>https://pinkie-tech.jp/en/</loc>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://pinkie-tech.jp/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://pinkie-tech.jp/en/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://pinkie-tech.jp/" />
+  </url>
+  <url>
+    <loc>https://pinkie-tech.jp/company/</loc>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://pinkie-tech.jp/company/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://pinkie-tech.jp/en/company/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://pinkie-tech.jp/company/" />
+  </url>
+  <url>
+    <loc>https://pinkie-tech.jp/en/company/</loc>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://pinkie-tech.jp/company/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://pinkie-tech.jp/en/company/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://pinkie-tech.jp/company/" />
+  </url>
+</urlset>
