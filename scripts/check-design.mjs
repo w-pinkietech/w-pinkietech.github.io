@@ -193,6 +193,7 @@ const checks = [
       'PinkieTech株式会社',
       'PinkieTech Co., Ltd.',
       '渡部健太',
+      'Watanabe Kenta',
       '2025年1月17日',
       '5,000,000円',
       '福岡県北九州市八幡西区塔野1-14-22',
@@ -210,6 +211,13 @@ const checks = [
       files.companyContent.includes("['Company name', 'PinkieTech Co., Ltd.']") &&
       files.footer.includes("locale === 'ja' ? 'PinkieTech株式会社' : 'PinkieTech Co., Ltd.'") &&
       files.readme.includes('英語で`PinkieTech Co., Ltd.`'),
+  },
+  {
+    name: 'The approved English representative name is used on English public surfaces',
+    pass:
+      files.companyContent.includes("['Representative Director', 'Watanabe Kenta']") &&
+      files.companyProfile.includes('| 代表取締役（英語表記） | Watanabe Kenta |') &&
+      files.llms.includes('Representative Director: Watanabe Kenta'),
   },
   {
     name: 'Verifiable public work is linked without invented metrics',
