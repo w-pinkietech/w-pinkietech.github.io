@@ -1,3 +1,7 @@
+import { useEffect, useRef, useState } from 'react'
+
+const contactEmail = 'contact@pinkie-tech.jp'
+
 const problems = [
   {
     number: '01',
@@ -63,6 +67,49 @@ function BrandLogo({ className = '' }: { className?: string }) {
 }
 
 function Home() {
+  const mobileMenuRef = useRef<HTMLDetailsElement>(null)
+  const [copyStatus, setCopyStatus] = useState<'idle' | 'copied' | 'failed'>('idle')
+
+  const closeMobileMenu = () => {
+    if (mobileMenuRef.current) {
+      mobileMenuRef.current.open = false
+    }
+  }
+
+  useEffect(() => {
+    const handlePointerDown = (event: PointerEvent) => {
+      const menu = mobileMenuRef.current
+      if (menu?.open && event.target instanceof Node && !menu.contains(event.target)) {
+        menu.open = false
+      }
+    }
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+      const menu = mobileMenuRef.current
+      if (event.key === 'Escape' && menu?.open) {
+        menu.open = false
+        menu.querySelector('summary')?.focus()
+      }
+    }
+
+    document.addEventListener('pointerdown', handlePointerDown)
+    document.addEventListener('keydown', handleKeyDown)
+
+    return () => {
+      document.removeEventListener('pointerdown', handlePointerDown)
+      document.removeEventListener('keydown', handleKeyDown)
+    }
+  }, [])
+
+  const copyContactEmail = async () => {
+    try {
+      await navigator.clipboard.writeText(contactEmail)
+      setCopyStatus('copied')
+    } catch {
+      setCopyStatus('failed')
+    }
+  }
+
   return (
     <div className="site-shell">
       <a className="skip-link" href="#main-content">
@@ -78,17 +125,17 @@ function Home() {
             <a href="#problems">できること</a>
             <a href="#approach">進め方</a>
             <a href="#about">私たちについて</a>
-            <a className="nav-cta" href="mailto:contact@pinkie-tech.jp">
+            <a className="nav-cta" href="#contact">
               課題を相談する
             </a>
           </nav>
-          <details className="mobile-menu">
+          <details className="mobile-menu" ref={mobileMenuRef}>
             <summary>メニュー</summary>
-            <nav aria-label="モバイルナビゲーション">
+            <nav aria-label="モバイルナビゲーション" onClick={closeMobileMenu}>
               <a href="#problems">できること</a>
               <a href="#approach">進め方</a>
               <a href="#about">私たちについて</a>
-              <a href="mailto:contact@pinkie-tech.jp">課題を相談する</a>
+              <a href="#contact">課題を相談する</a>
             </nav>
           </details>
         </div>
@@ -120,9 +167,9 @@ function Home() {
                 物理的な場所だけでなく、オフィス、遠隔、デジタルの仕事も含みます。
               </p>
               <div className="hero-actions">
-                <a className="button button-primary" href="mailto:contact@pinkie-tech.jp">
+                <a className="button button-primary" href="#contact">
                   現場の課題を相談する
-                  <span aria-hidden="true">→</span>
+                  <span aria-hidden="true">↓</span>
                 </a>
                 <a className="text-link" href="#problems">
                   私たちにできること
@@ -281,7 +328,7 @@ function Home() {
           </div>
         </section>
 
-        <section className="contact section" aria-labelledby="contact-title">
+        <section className="contact section" id="contact" aria-labelledby="contact-title">
           <div className="container contact-grid">
             <p className="section-index">07 / ご相談</p>
             <div>
@@ -289,11 +336,29 @@ function Home() {
               <p>
                 技術や要件が決まっていなくても構いません。仕事と課題の整理から、一緒に始められます。
               </p>
+              <div className="contact-address">
+                <span>メールアドレス</span>
+                <a href={`mailto:${contactEmail}`}>{contactEmail}</a>
+              </div>
               <div className="contact-actions">
-                <a className="button button-primary" href="mailto:contact@pinkie-tech.jp">
-                  contact@pinkie-tech.jp
+                <a className="button button-primary" href={`mailto:${contactEmail}`}>
+                  メールで相談する
                   <span aria-hidden="true">→</span>
                 </a>
+                <button
+                  className="text-link copy-email"
+                  type="button"
+                  onClick={copyContactEmail}
+                >
+                  <span aria-live="polite">
+                    {copyStatus === 'copied'
+                      ? 'コピーしました'
+                      : copyStatus === 'failed'
+                        ? 'コピーできませんでした'
+                        : 'アドレスをコピー'}
+                  </span>
+                  <span aria-hidden="true">{copyStatus === 'copied' ? '✓' : '⧉'}</span>
+                </button>
                 <a
                   className="text-link"
                   href="https://x.com/pinkietech"
@@ -317,7 +382,7 @@ function Home() {
             <p>現場の力を、技術で引き出す。</p>
           </div>
           <div className="footer-links">
-            <a href="mailto:contact@pinkie-tech.jp">Email</a>
+            <a href={`mailto:${contactEmail}`}>Email</a>
             <a href="https://x.com/pinkietech" target="_blank" rel="noreferrer">
               X<span className="sr-only">（新しいタブで開く）</span>
             </a>

@@ -1,12 +1,12 @@
 {
   "schemaVersion": 1,
   "sourceRepository": "w-pinkietech/pinkietech-brand",
-  "sourceCommit": "81a16cf2c90df6a247824a659346fa4303cbd7ea",
+  "sourceCommit": "fd6c3bbdff071b8d528e3dd5cd2cc4bd6d0f1446",
   "sourceVersion": "0.3.0-draft",
   "files": {
     "DESIGN.md": {
       "source": "docs/website-design-system.md",
-      "sha256": "9a4104a93a9a02f7286eaa837629141e543db87c64e3d5c69c41f5392bded7c6"
+      "sha256": "00ee5ad8db6cb37d829e526c4c72e4126a5bf8efe1b8b1e5de8602baeb24acee"
     },
     "public/brand/pinkietech.css": {
       "source": "assets/brand/tokens/pinkietech.css",

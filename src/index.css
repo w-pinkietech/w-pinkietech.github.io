@@ -672,8 +672,33 @@ h3 {
   max-width: 16em;
 }
 
+.contact-address {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1rem;
+  margin-top: 2rem;
+  color: var(--text-faint);
+  font-size: 0.875rem;
+}
+
+.contact-address a {
+  color: var(--text);
+}
+
 .contact-actions {
-  margin-top: 2.5rem;
+  margin-top: 1.5rem;
+}
+
+.copy-email {
+  min-height: 2.75rem;
+  padding: 0;
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+}
+
+.copy-email:hover {
+  text-decoration-thickness: 0.14em;
 }
 
 .site-footer {

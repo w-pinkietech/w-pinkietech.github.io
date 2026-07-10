@@ -43,6 +43,7 @@ const interactiveSelectors = [
   '.mobile-menu nav a',
   '.button',
   '.text-link',
+  '.copy-email',
   '.footer-links a',
 ]
 
@@ -116,6 +117,22 @@ const checks = [
       files.home.includes('className="mobile-menu"') &&
       files.css.includes('.mobile-menu {') &&
       files.css.includes('display: block;'),
+  },
+  {
+    name: 'Mobile navigation has complete dismissal behavior',
+    pass:
+      files.home.includes("document.addEventListener('pointerdown'") &&
+      files.home.includes("event.key === 'Escape'") &&
+      files.home.includes("menu.querySelector('summary')?.focus()") &&
+      files.home.includes('onClick={closeMobileMenu}'),
+  },
+  {
+    name: 'Contact journey has an in-page destination and email fallback',
+    pass:
+      (files.home.match(/href="#contact"/g) ?? []).length >= 3 &&
+      files.home.includes('id="contact"') &&
+      files.home.includes('navigator.clipboard.writeText(contactEmail)') &&
+      files.home.includes('アドレスをコピー'),
   },
   {
     name: 'The page avoids generic card components',
