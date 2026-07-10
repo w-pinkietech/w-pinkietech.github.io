@@ -2,7 +2,7 @@
 
 PinkieTech株式会社の公式Webサイトです。
 
-> 現場に寄り添い、人と技術をつなぐ。
+> 現場の力を、技術で引き出す。
 
 技術を前面に出すのではなく、仕事をする人、課題を理解する姿勢、小さな改善の積み重ねを中心に構成しています。
 
@@ -15,6 +15,9 @@ PinkieTech株式会社の公式Webサイトです。
 - Approachable — 難しい言葉を避け、相談しやすいプロフェッショナルである
 
 ブランドの正式な基準は非公開の `w-pinkietech/pinkietech-brand` リポジトリで管理します。
+このリポジトリでは、実装に必要なWebデザイン基準を [`DESIGN.md`](DESIGN.md) に同期しています。
+
+外部の `awesome-design-md` / `awesome-design-md-jp` は調査資料として参照し、PinkieTech固有の意味・ロゴ・配色・文章を優先して再構成しています。
 
 ## Development
 
@@ -29,6 +32,7 @@ npm run dev
 
 ```bash
 npm run lint
+npm run design:check
 npm run build
 npm audit
 ```

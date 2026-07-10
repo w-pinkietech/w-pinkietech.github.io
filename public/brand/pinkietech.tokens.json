@@ -1,0 +1,93 @@
+{
+  "meta": {
+    "name": "PinkieTech",
+    "version": "0.3.0-draft",
+    "description": "Canonical visual tokens for PinkieTech brand applications"
+  },
+  "color": {
+    "brandOrange": "#E86A2D",
+    "charcoal": "#111827",
+    "white": "#FFFFFF",
+    "teal": "#0DA5A4",
+    "lightGray": "#F5F5F5",
+    "logoInk": "#101218",
+    "logoDarkCanvas": "#050608",
+    "logoOrangeStart": "#FF7A18",
+    "logoOrangeMiddle": "#FF5E13",
+    "logoOrangeEnd": "#F04C10"
+  },
+  "semantic": {
+    "surfaceDefault": "#FFFFFF",
+    "surfaceSubtle": "#F5F5F5",
+    "surfaceInverseDeep": "#050608",
+    "surfaceInverse": "#111827",
+    "surfaceInverseSubtle": "#0B0E13",
+    "surfaceInverseElevated": "#182131",
+    "textPrimary": "#111827",
+    "textInverse": "#FFFFFF",
+    "textInverseMuted": "#B8BEC8",
+    "textInverseSubtle": "#858D99",
+    "borderInverse": "#343D4A",
+    "borderInverseSoft": "#242C38",
+    "actionPrimaryBackground": "#E86A2D",
+    "actionPrimaryText": "#111827",
+    "linkText": "#111827",
+    "focusRingLight": "#111827",
+    "focusRingDark": "#E86A2D",
+    "informationAccent": "#0DA5A4",
+    "linkTextInverse": "#FFFFFF"
+  },
+  "font": {
+    "familySans": "Inter, \"Noto Sans JP\", system-ui, sans-serif",
+    "familyMono": "\"JetBrains Mono\", ui-monospace, monospace",
+    "weightRegular": 400,
+    "weightMedium": 500,
+    "weightSemibold": 600,
+    "sizeHero": "clamp(2.625rem, 1.5rem + 4.5vw, 5rem)",
+    "sizeDisplay": "clamp(2.25rem, 1.75rem + 2vw, 3rem)",
+    "sizeH1": "clamp(2rem, 1.67rem + 1.33vw, 2.5rem)",
+    "sizeH2": "clamp(1.75rem, 1.58rem + 0.67vw, 2rem)",
+    "sizeH3": "clamp(1.375rem, 1.29rem + 0.33vw, 1.5rem)",
+    "sizeLead": "clamp(1.125rem, 1.04rem + 0.33vw, 1.25rem)",
+    "sizeBody": "1rem",
+    "sizeSmall": "0.875rem",
+    "sizeLabel": "0.8125rem",
+    "lineHeightHero": 1.12,
+    "lineHeightDisplay": 1.15,
+    "lineHeightH1": 1.25,
+    "lineHeightH2": 1.3,
+    "lineHeightH3": 1.4,
+    "lineHeightLead": 1.7,
+    "lineHeightBody": 1.75,
+    "lineHeightSmall": 1.6,
+    "lineHeightLabel": 1.4
+  },
+  "space": {
+    "1": "0.25rem",
+    "2": "0.5rem",
+    "3": "0.75rem",
+    "4": "1rem",
+    "6": "1.5rem",
+    "8": "2rem",
+    "12": "3rem",
+    "16": "4rem",
+    "24": "6rem"
+  },
+  "radius": {
+    "small": "0.25rem",
+    "medium": "0.5rem",
+    "large": "0.75rem",
+    "pill": "999px"
+  },
+  "border": {
+    "thin": "1px",
+    "medium": "2px"
+  },
+  "logo": {
+    "clearSpaceRatioOfSymbolHeight": 0.25,
+    "horizontalMinDigital": "160px",
+    "horizontalMinPrint": "35mm",
+    "symbolMinDigital": "24px",
+    "symbolMinPrint": "8mm"
+  }
+}

@@ -1,57 +1,70 @@
-const supportAreas = [
+const problems = [
   {
     number: '01',
-    title: '課題を一緒に整理する',
-    description:
-      '話を聞き、仕事の流れや困りごとを見える形にします。技術ありきではなく、まず何を良くしたいのかを揃えます。',
-    tags: ['業務整理', '技術相談', '小さな検証'],
+    title: '作業の負担を減らす',
+    text: '転記、確認、繰り返し作業、探す時間。日々積み重なる小さな負担から見直します。',
+    detail: '業務整理 / 自動化 / AI活用',
   },
   {
     number: '02',
-    title: '使える仕組みをつくる',
-    description:
-      'AI・IoT・OSSを必要な分だけ組み合わせ、日々の仕事に馴染む仕組みを設計・実装します。',
-    tags: ['AI活用', 'IoT連携', 'ソフトウェア開発'],
+    title: '判断しやすくする',
+    text: '散らばった情報を、必要な人が必要なときに見られる形へつなぎます。',
+    detail: '可視化 / データ連携 / 判断支援',
   },
   {
     number: '03',
-    title: '一緒に育てていく',
-    description:
-      '導入して終わりにはしません。使って分かったことを次の改善につなげ、知識が現場に残る形を目指します。',
-    tags: ['継続改善', '運用支援', 'OSS'],
+    title: '情報の途切れをなくす',
+    text: '人、設備、システムの間にある分断を理解し、無理なく続く流れをつくります。',
+    detail: 'IoT / センサー / システム連携',
+  },
+  {
+    number: '04',
+    title: '変化に早く気づく',
+    text: 'いつもと違う状態を捉え、問題が大きくなる前に動ける仕組みを一緒に考えます。',
+    detail: '計測 / 通知 / 異常把握',
   },
 ]
 
 const approach = [
   {
-    step: 'Listen',
-    title: '理解する',
-    text: '現場の声と仕事の流れを知る。対面・遠隔を問わず、実際の状況から始めます。',
+    number: '01',
+    title: '仕事を理解する',
+    text: '資料だけで判断せず、実際の仕事、道具、データ、制約、使う人の声を確かめます。',
   },
   {
-    step: 'Build',
+    number: '02',
     title: '小さく試す',
-    text: '大きく作り込む前に、価値を確かめられる最小の形をつくります。',
+    text: '大きく作り込む前に、価値とリスクを確かめられる最小の形をつくります。',
   },
   {
-    step: 'Improve',
-    title: '改善を続ける',
-    text: '利用する人の反応と変化を確かめ、次の一手を一緒に考えます。',
+    number: '03',
+    title: '改善を続けられる形にする',
+    text: '使って分かったことを次へつなぎ、知識と判断が現場に残る状態を目指します。',
   },
 ]
 
-function BrandLockup() {
+const values = [
+  ['人を第一に', '技術の都合より、使う人の判断と仕事を優先する。'],
+  ['現場から始める', '物理的な場所に限らず、仕事が実際に行われる状況を知る。'],
+  ['開いて、分かち合う', 'OSSと共有できる知識を活かし、囲い込みに頼らない。'],
+  ['わかりやすく、誠実に', 'できることとできないことを、専門外の人にも伝わる言葉で話す。'],
+]
+
+function BrandLogo({ className = '' }: { className?: string }) {
   return (
-    <span className="brand-lockup">
-      <img src="/brand/pinkietech-mark.svg" alt="" width="42" height="42" />
-      <span>PinkieTech</span>
-    </span>
+    <img
+      className={className}
+      src="/brand/pinkietech-logo-reverse.svg"
+      alt="PinkieTech"
+      width="1408"
+      height="297"
+    />
   )
 }
 
 function Home() {
   return (
-    <>
+    <div className="site-shell">
       <a className="skip-link" href="#main-content">
         本文へ移動
       </a>
@@ -59,126 +72,134 @@ function Home() {
       <header className="site-header">
         <div className="container header-inner">
           <a className="brand-link" href="#top" aria-label="PinkieTech ホーム">
-            <BrandLockup />
+            <BrandLogo className="header-logo" />
           </a>
           <nav className="site-nav" aria-label="メインナビゲーション">
-            <a href="#support">できること</a>
+            <a href="#problems">できること</a>
             <a href="#approach">進め方</a>
             <a href="#about">私たちについて</a>
-            <a className="nav-contact" href="mailto:contact@pinkie-tech.jp">
-              相談する
+            <a className="nav-cta" href="mailto:contact@pinkie-tech.jp">
+              課題を相談する
             </a>
           </nav>
+          <details className="mobile-menu">
+            <summary>メニュー</summary>
+            <nav aria-label="モバイルナビゲーション">
+              <a href="#problems">できること</a>
+              <a href="#approach">進め方</a>
+              <a href="#about">私たちについて</a>
+              <a href="mailto:contact@pinkie-tech.jp">課題を相談する</a>
+            </nav>
+          </details>
         </div>
       </header>
 
       <main id="main-content">
         <section className="hero" id="top" aria-labelledby="hero-title">
-          <div className="container hero-grid">
+          <img
+            className="hero-mark"
+            src="/brand/pinkietech-mark.svg"
+            alt=""
+            width="296"
+            height="297"
+            aria-hidden="true"
+          />
+          <div className="container hero-inner">
             <div className="hero-copy">
-              <p className="eyebrow">People first. Technology that works.</p>
+              <p className="kicker">現場伴走型エンジニアリング</p>
               <h1 id="hero-title">
-                現場に寄り添い、
-                <br />
-                人と技術をつなぐ。
+                <span>現場の力を、</span>
+                <span>技術で引き出す。</span>
               </h1>
               <p className="hero-lead">
-                PinkieTechは、仕事をする人のそばで課題を理解し、
-                AI・IoT・OSSを使って、一緒に改善を進めるエンジニア集団です。
+                働く人の困りごとから始め、AI・IoT・OSSを必要な形で使いながら、
+                改善を続けられる仕組みを一緒につくります。
+              </p>
+              <p className="hero-definition">
+                私たちがいう「現場」は、仕事が実際に行われる状況のこと。
+                物理的な場所だけでなく、オフィス、遠隔、デジタルの仕事も含みます。
               </p>
               <div className="hero-actions">
                 <a className="button button-primary" href="mailto:contact@pinkie-tech.jp">
-                  課題を相談する <span aria-hidden="true">→</span>
+                  現場の課題を相談する
+                  <span aria-hidden="true">→</span>
                 </a>
-                <a className="button button-secondary" href="#support">
-                  できることを見る
+                <a className="text-link" href="#problems">
+                  私たちにできること
+                  <span aria-hidden="true">↓</span>
                 </a>
               </div>
-              <p className="hero-note">まだ要件が決まっていない段階でも構いません。</p>
             </div>
 
-            <div className="hero-visual" aria-label="理解し、つくり、改善するPinkieTechの進め方">
-              <div className="workbench-label">
-                <span>FIELD NOTES</span>
-                <span>PT–001</span>
-              </div>
-              <div className="workbench-flow">
-                <div className="flow-node flow-node-active">
-                  <span className="flow-index">01</span>
-                  <strong>理解する</strong>
-                  <small>LISTEN</small>
+            <div className="hero-process" aria-label="理解、試作、改善の3段階">
+              {approach.map((item) => (
+                <div className="hero-process-item" key={item.number}>
+                  <span>{item.number}</span>
+                  <strong>{item.title}</strong>
                 </div>
-                <span className="flow-line" aria-hidden="true" />
-                <div className="flow-node">
-                  <span className="flow-index">02</span>
-                  <strong>小さく試す</strong>
-                  <small>BUILD</small>
-                </div>
-                <span className="flow-line" aria-hidden="true" />
-                <div className="flow-node">
-                  <span className="flow-index">03</span>
-                  <strong>改善する</strong>
-                  <small>IMPROVE</small>
-                </div>
-              </div>
-              <div className="workbench-footer">
-                <span className="status-dot" aria-hidden="true" />
-                <span>人を中心に、技術を組み立てる</span>
-              </div>
+              ))}
             </div>
           </div>
         </section>
 
-        <section className="promise-band" aria-label="ブランドプロミス">
-          <div className="container promise-inner">
-            <p>技術は目的ではありません。</p>
-            <p>人を支えるための手段です。</p>
-          </div>
-        </section>
-
-        <section className="section" id="support" aria-labelledby="support-title">
-          <div className="container">
-            <div className="section-heading">
-              <p className="section-kicker">What we do</p>
-              <h2 id="support-title">課題の近くから、はじめます。</h2>
+        <section className="manifesto" aria-labelledby="manifesto-title">
+          <div className="container manifesto-grid">
+            <p className="section-index">01 / 考え方</p>
+            <div>
+              <h2 id="manifesto-title">
+                技術は目的ではありません。
+                <br />
+                人を支えるための手段です。
+              </h2>
               <p>
-                決まった製品を当てはめるのではなく、状況に合わせて必要な支援を組み立てます。
+                新しい技術を入れることより、仕事をする人の負担が減り、判断しやすくなり、
+                自分たちで次の改善を続けられることを大切にします。
               </p>
             </div>
+          </div>
+        </section>
 
-            <div className="support-grid">
-              {supportAreas.map((area) => (
-                <article className="support-card" key={area.number}>
-                  <span className="card-number">{area.number}</span>
-                  <h3>{area.title}</h3>
-                  <p>{area.description}</p>
-                  <ul className="tag-list" aria-label={`${area.title}の領域`}>
-                    {area.tags.map((tag) => (
-                      <li key={tag}>{tag}</li>
-                    ))}
-                  </ul>
+        <section className="problems section" id="problems" aria-labelledby="problems-title">
+          <div className="container">
+            <div className="section-intro">
+              <p className="section-index">02 / 取り組む課題</p>
+              <div>
+                <h2 id="problems-title">課題の近くから、始めます。</h2>
+                <p>
+                  決まった製品を当てはめるのではなく、今の仕事と困りごとを理解して、
+                  必要な支援を組み立てます。
+                </p>
+              </div>
+            </div>
+
+            <div className="problem-list">
+              {problems.map((problem) => (
+                <article className="problem-row" key={problem.number}>
+                  <span className="row-number">{problem.number}</span>
+                  <h3>{problem.title}</h3>
+                  <p>{problem.text}</p>
+                  <p className="row-detail">{problem.detail}</p>
                 </article>
               ))}
             </div>
           </div>
         </section>
 
-        <section className="section approach-section" id="approach" aria-labelledby="approach-title">
-          <div className="container approach-layout">
-            <div className="section-heading approach-heading">
-              <p className="section-kicker">How we work</p>
+        <section className="approach section" id="approach" aria-labelledby="approach-title">
+          <div className="container approach-grid">
+            <div className="approach-intro">
+              <p className="section-index">03 / 進め方</p>
               <h2 id="approach-title">一度で完璧を目指さない。</h2>
               <p>
-                小さな改善を積み重ね、仕事をする人にとって本当に役立つ変化へつなげます。
+                小さくつくり、確かめ、学ぶ。その積み重ねを、実際に使われ続ける変化へつなげます。
               </p>
             </div>
 
             <ol className="approach-list">
-              {approach.map((item, index) => (
-                <li key={item.step}>
-                  <span className="approach-number">0{index + 1}</span>
+              {approach.map((item) => (
+                <li key={item.number}>
+                  <span className="approach-number">{item.number}</span>
                   <div>
-                    <span className="approach-step">{item.step}</span>
                     <h3>{item.title}</h3>
                     <p>{item.text}</p>
                   </div>
@@ -188,88 +209,126 @@ function Home() {
           </div>
         </section>
 
-        <section className="section values-section" aria-labelledby="values-title">
-          <div className="container values-grid">
-            <div className="values-mark" aria-hidden="true">
-              <img src="/brand/pinkietech-mark.svg" alt="" width="180" height="180" />
-            </div>
-            <div className="values-copy">
-              <p className="section-kicker">Our values</p>
-              <h2 id="values-title">話しかけやすい、プロフェッショナル。</h2>
+        <section className="proof section" aria-labelledby="proof-title">
+          <div className="container proof-grid">
+            <p className="section-index">04 / 公開しているもの</p>
+            <div>
+              <h2 id="proof-title">つくったものを、確かめられる形に。</h2>
               <p>
-                難しい言葉で技術をひけらかすのではなく、分かる言葉で誠実に話す。
-                好奇心と技術力を持ちながら、泥臭い改善も楽しむ。それが私たちのスタイルです。
+                公開できるコードや知識はGitHubで共有します。成果を実績らしく飾るより、
+                判断の前提と実装を見られる形にすることを大切にします。
               </p>
-              <div className="value-chips" aria-label="PinkieTechの価値観">
-                <span>人を第一に</span>
-                <span>現場主義</span>
-                <span>オープンソース</span>
-                <span>改善を楽しむ</span>
+              <a
+                className="text-link"
+                href="https://github.com/w-pinkietech"
+                target="_blank"
+                rel="noreferrer"
+              >
+                公開リポジトリを見る
+                <span aria-hidden="true">↗</span>
+                <span className="sr-only">（新しいタブで開く）</span>
+              </a>
+            </div>
+          </div>
+        </section>
+
+        <section className="values section" id="about" aria-labelledby="values-title">
+          <img
+            className="values-mark"
+            src="/brand/pinkietech-mark.svg"
+            alt=""
+            width="296"
+            height="297"
+            aria-hidden="true"
+          />
+          <div className="container values-inner">
+            <div className="section-intro values-intro">
+              <p className="section-index">05 / 私たちらしさ</p>
+              <div>
+                <h2 id="values-title">話しかけやすい、プロフェッショナル。</h2>
+                <p>
+                  技術を難しく見せるのではなく、分かる言葉で誠実に話す。
+                  好奇心と技術力を持ちながら、泥臭い改善も楽しむ。それが私たちのスタイルです。
+                </p>
+              </div>
+            </div>
+
+            <dl className="value-list">
+              {values.map(([title, description]) => (
+                <div key={title}>
+                  <dt>{title}</dt>
+                  <dd>{description}</dd>
+                </div>
+              ))}
+            </dl>
+          </div>
+        </section>
+
+        <section className="story section" aria-labelledby="story-title">
+          <div className="container story-grid">
+            <p className="section-index">06 / Pinkieの由来</p>
+            <div>
+              <h2 id="story-title">小さな支えが、大きな力になる。</h2>
+              <div className="story-columns">
+                <p>
+                  小指は、手の中で一番小さな指です。けれど、小指が支えることで、手はしっかりと握り、本来の力を発揮できます。
+                </p>
+                <p>
+                  現場の改善も同じです。派手な仕組みだけでなく、日々の仕事に合った小さな改善が、人の負担を減らし、判断を助け、現場全体を強くします。
+                </p>
               </div>
             </div>
           </div>
         </section>
 
-        <section className="section story-section" id="about" aria-labelledby="story-title">
-          <div className="container story-grid">
+        <section className="contact section" aria-labelledby="contact-title">
+          <div className="container contact-grid">
+            <p className="section-index">07 / ご相談</p>
             <div>
-              <p className="section-kicker">Why Pinkie?</p>
-              <h2 id="story-title">小さな改善が、現場の大きな力になる。</h2>
-            </div>
-            <div className="story-copy">
-              <p>
-                小指は、手の中で一番小さな指です。しかし、小指があることで握る力が増し、手は本来の力を発揮できます。
-              </p>
-              <p>
-                PinkieTechも、人と技術をつなぎ、仕事に足りない最後のピースになります。技術を作ることではなく、働く人を支え、より良い状態を一緒につくることが私たちの使命です。
-              </p>
-            </div>
-          </div>
-        </section>
-
-        <section className="contact-section" aria-labelledby="contact-title">
-          <div className="container contact-inner">
-            <div>
-              <p className="section-kicker">Start a conversation</p>
               <h2 id="contact-title">まず、困っていることを聞かせてください。</h2>
-              <p>技術や要件が固まっていなくても、課題の整理から一緒に始められます。</p>
-            </div>
-            <div className="contact-actions">
-              <a className="button button-primary" href="mailto:contact@pinkie-tech.jp">
-                contact@pinkie-tech.jp <span aria-hidden="true">→</span>
-              </a>
-              <a
-                className="text-link text-link-light"
-                href="https://x.com/pinkietech"
-                target="_blank"
-                rel="noreferrer"
-              >
-                Xで相談する <span aria-hidden="true">↗</span>
-              </a>
+              <p>
+                技術や要件が決まっていなくても構いません。仕事と課題の整理から、一緒に始められます。
+              </p>
+              <div className="contact-actions">
+                <a className="button button-primary" href="mailto:contact@pinkie-tech.jp">
+                  contact@pinkie-tech.jp
+                  <span aria-hidden="true">→</span>
+                </a>
+                <a
+                  className="text-link"
+                  href="https://x.com/pinkietech"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  Xで相談する
+                  <span aria-hidden="true">↗</span>
+                  <span className="sr-only">（新しいタブで開く）</span>
+                </a>
+              </div>
             </div>
           </div>
         </section>
       </main>
 
       <footer className="site-footer">
-        <div className="container footer-grid">
+        <div className="container footer-inner">
           <div>
-            <BrandLockup />
-            <p>現場に寄り添い、人と技術をつなぐ。</p>
+            <BrandLogo className="footer-logo" />
+            <p>現場の力を、技術で引き出す。</p>
           </div>
           <div className="footer-links">
             <a href="mailto:contact@pinkie-tech.jp">Email</a>
             <a href="https://x.com/pinkietech" target="_blank" rel="noreferrer">
-              X <span className="sr-only">（新しいタブで開く）</span>
+              X<span className="sr-only">（新しいタブで開く）</span>
             </a>
             <a href="https://github.com/w-pinkietech" target="_blank" rel="noreferrer">
-              GitHub <span className="sr-only">（新しいタブで開く）</span>
+              GitHub<span className="sr-only">（新しいタブで開く）</span>
             </a>
           </div>
           <p className="copyright">© 2026 PinkieTech株式会社</p>
         </div>
       </footer>
-    </>
+    </div>
   )
 }
 

@@ -2,6 +2,8 @@
 
 This repository contains the public PinkieTech website.
 
+Read `DESIGN.md` before changing layout, typography, color, logo use, components, or responsive behavior. It is derived from the canonical `pinkietech-brand/docs/website-design-system.md` source.
+
 ## Brand principles
 
 - Center the people doing the work and the reality of their work site (`現場`).

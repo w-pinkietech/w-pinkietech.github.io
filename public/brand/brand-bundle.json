@@ -1,0 +1,28 @@
+{
+  "schemaVersion": 1,
+  "sourceRepository": "w-pinkietech/pinkietech-brand",
+  "sourceCommit": "65daea3502fa44e4b5860fa54bd534dc4e709b51",
+  "sourceVersion": "0.3.0-draft",
+  "files": {
+    "DESIGN.md": {
+      "source": "docs/website-design-system.md",
+      "sha256": "9a4104a93a9a02f7286eaa837629141e543db87c64e3d5c69c41f5392bded7c6"
+    },
+    "public/brand/pinkietech.css": {
+      "source": "assets/brand/tokens/pinkietech.css",
+      "sha256": "0c582fc358ee2586d8910da5df884a287bd79727ca88d4e31050fde518424680"
+    },
+    "public/brand/pinkietech.tokens.json": {
+      "source": "assets/brand/tokens/pinkietech.tokens.json",
+      "sha256": "312d247663e6291f2cd46fdadea75129495e3147a9da9a09a61a71bf63dab92c"
+    },
+    "public/brand/pinkietech-logo-reverse.svg": {
+      "source": "assets/svg/pinkietech-logo-reverse.svg",
+      "sha256": "62928a58c6f62981182a375a0f9bcf28165864315dc88ec7404314c54c1b1f20"
+    },
+    "public/brand/pinkietech-mark.svg": {
+      "source": "assets/svg/pinkietech-mark.svg",
+      "sha256": "f4b58aa0e3fbddfad8c6b7b18c60d2cae1eba3a5702401730b6d6d36a870d4be"
+    }
+  }
+}
