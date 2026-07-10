@@ -10,6 +10,7 @@ export function SiteFooter({ locale = 'ja' }: SiteFooterProps) {
   const homePath = locale === 'ja' ? '/' : '/en/'
   const companyPath = locale === 'ja' ? '/company/' : '/en/company/'
   const alternatePath = locale === 'ja' ? '/en/' : '/'
+  const companyName = locale === 'ja' ? 'PinkieTech株式会社' : 'PinkieTech Co., Ltd.'
 
   return (
     <footer className="site-footer">
@@ -31,7 +32,7 @@ export function SiteFooter({ locale = 'ja' }: SiteFooterProps) {
             GitHub<span className="sr-only">{copy.newTab}</span>
           </a>
         </div>
-        <p className="copyright">© 2026 PinkieTech株式会社</p>
+        <p className="copyright">© 2026 {companyName}</p>
       </div>
     </footer>
   )

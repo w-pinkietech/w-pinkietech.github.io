@@ -7,7 +7,8 @@ export const companyFacts = {
     ['所在地', '福岡県北九州市八幡西区塔野1-14-22'],
   ],
   en: [
-    ['Legal name', 'PinkieTech株式会社'],
+    ['Company name', 'PinkieTech Co., Ltd.'],
+    ['Japanese registered name', 'PinkieTech株式会社'],
     ['Representative Director', '渡部健太'],
     ['Established', 'January 17, 2025'],
     ['Capital', 'JPY 5,000,000'],

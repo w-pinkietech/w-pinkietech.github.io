@@ -13,6 +13,8 @@ PinkieTech株式会社の公式Webサイトです。
 
 日本語を会社情報とブランド文言の正本とし、英語ページは同じ公開情報の正式な英語表現として管理します。言語は自動転送せず、各ページのヘッダーとフッターから同等ページへ切り替えられます。
 
+法人名は、日本語で`PinkieTech株式会社`、英語で`PinkieTech Co., Ltd.`を使用します。ロゴや見出しなどのブランド表記は`PinkieTech`です。
+
 各ページには固有の`lang`、title、description、canonical、Open Graph metadataと、相互参照する`hreflang`を設定します。
 
 ## Brand direction

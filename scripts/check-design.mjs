@@ -191,6 +191,7 @@ const checks = [
     name: 'Verified company facts stay synchronized with the brand source',
     pass: [
       'PinkieTech株式会社',
+      'PinkieTech Co., Ltd.',
       '渡部健太',
       '2025年1月17日',
       '5,000,000円',
@@ -201,6 +202,14 @@ const checks = [
     ].every(
       (fact) => files.companyProfile.includes(fact) && files.companyContent.includes(fact),
     ),
+  },
+  {
+    name: 'Official company names are consistent across English public surfaces',
+    pass:
+      files.enCompanyHtml.includes('PinkieTech Co., Ltd.') &&
+      files.companyContent.includes("['Company name', 'PinkieTech Co., Ltd.']") &&
+      files.footer.includes("locale === 'ja' ? 'PinkieTech株式会社' : 'PinkieTech Co., Ltd.'") &&
+      files.readme.includes('英語で`PinkieTech Co., Ltd.`'),
   },
   {
     name: 'Verifiable public work is linked without invented metrics',
@@ -275,6 +284,7 @@ const checks = [
         (item) =>
           item['@type'] === 'Organization' &&
           item.legalName === 'PinkieTech株式会社' &&
+          item.alternateName === 'PinkieTech Co., Ltd.' &&
           item.email === 'contact@pinkie-tech.jp' &&
           item.foundingDate === '2025-01-17',
       ) &&
@@ -287,6 +297,7 @@ const checks = [
       files.robots.includes('User-agent: GPTBot\nDisallow: /') &&
       files.robots.includes('Sitemap: https://pinkie-tech.jp/sitemap.xml') &&
       files.llms.startsWith('# PinkieTech') &&
+      files.llms.includes('Official English company name: PinkieTech Co., Ltd.') &&
       files.llms.includes('Japanese is the source language') &&
       files.llms.includes('does not claim unlisted customer results'),
   },
