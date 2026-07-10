@@ -1,7 +1,7 @@
 import Home from './pages/Home'
 
 function App() {
-  return <Home />
+  return <Home locale="ja" />
 }
 
 export default App

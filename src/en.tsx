@@ -1,12 +1,12 @@
 import { StrictMode } from 'react'
 import { hydrateRoot } from 'react-dom/client'
 
-import Company from './pages/Company'
 import './index.css'
+import Home from './pages/Home'
 
 hydrateRoot(
   document.getElementById('root')!,
   <StrictMode>
-    <Company locale="ja" />
+    <Home locale="en" />
   </StrictMode>,
 )

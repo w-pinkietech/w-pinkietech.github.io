@@ -1,21 +1,34 @@
+import { siteCopy, type Locale } from '../content/locales'
 import { BrandLogo } from './BrandLogo'
 
-export function SiteFooter() {
+type SiteFooterProps = {
+  locale?: Locale
+}
+
+export function SiteFooter({ locale = 'ja' }: SiteFooterProps) {
+  const copy = siteCopy[locale]
+  const homePath = locale === 'ja' ? '/' : '/en/'
+  const companyPath = locale === 'ja' ? '/company/' : '/en/company/'
+  const alternatePath = locale === 'ja' ? '/en/' : '/'
+
   return (
     <footer className="site-footer">
       <div className="container footer-inner">
         <div>
           <BrandLogo className="footer-logo" />
-          <p>現場の力を、技術で引き出す。</p>
+          <p>{copy.tagline}</p>
         </div>
         <div className="footer-links">
-          <a href="/#contact">Contact</a>
-          <a href="/company/">会社概要</a>
+          <a href={`${homePath}#contact`}>Contact</a>
+          <a href={companyPath}>{copy.company}</a>
+          <a href={alternatePath} hrefLang={locale === 'ja' ? 'en' : 'ja'}>
+            {copy.language}
+          </a>
           <a href="https://x.com/pinkietech" target="_blank" rel="noreferrer">
-            X<span className="sr-only">（新しいタブで開く）</span>
+            X<span className="sr-only">{copy.newTab}</span>
           </a>
           <a href="https://github.com/w-pinkietech" target="_blank" rel="noreferrer">
-            GitHub<span className="sr-only">（新しいタブで開く）</span>
+            GitHub<span className="sr-only">{copy.newTab}</span>
           </a>
         </div>
         <p className="copyright">© 2026 PinkieTech株式会社</p>

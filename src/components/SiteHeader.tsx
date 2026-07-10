@@ -1,14 +1,27 @@
 import { useEffect, useRef } from 'react'
 
+import { siteCopy, type Locale } from '../content/locales'
 import { BrandLogo } from './BrandLogo'
 
 type SiteHeaderProps = {
   current: 'home' | 'company'
+  locale?: Locale
 }
 
-export function SiteHeader({ current }: SiteHeaderProps) {
+export function SiteHeader({ current, locale = 'ja' }: SiteHeaderProps) {
   const mobileMenuRef = useRef<HTMLDetailsElement>(null)
-  const homePrefix = current === 'home' ? '' : '/'
+  const copy = siteCopy[locale]
+  const homePath = locale === 'ja' ? '/' : '/en/'
+  const companyPath = locale === 'ja' ? '/company/' : '/en/company/'
+  const homePrefix = current === 'home' ? '' : homePath
+  const alternatePath =
+    current === 'home'
+      ? locale === 'ja'
+        ? '/en/'
+        : '/'
+      : locale === 'ja'
+        ? '/en/company/'
+        : '/company/'
 
   const closeMobileMenu = () => {
     if (mobileMenuRef.current) {
@@ -43,14 +56,17 @@ export function SiteHeader({ current }: SiteHeaderProps) {
 
   const navigation = (
     <>
-      <a href={`${homePrefix}#problems`}>できること</a>
-      <a href={`${homePrefix}#approach`}>進め方</a>
-      <a href={`${homePrefix}#about`}>私たちについて</a>
-      <a href="/company/" aria-current={current === 'company' ? 'page' : undefined}>
-        会社概要
+      <a href={`${homePrefix}#problems`}>{copy.problems}</a>
+      <a href={`${homePrefix}#approach`}>{copy.approach}</a>
+      <a href={`${homePrefix}#about`}>{copy.about}</a>
+      <a href={companyPath} aria-current={current === 'company' ? 'page' : undefined}>
+        {copy.company}
+      </a>
+      <a className="nav-language" href={alternatePath} hrefLang={locale === 'ja' ? 'en' : 'ja'} aria-label={copy.languageLabel}>
+        {copy.language}
       </a>
       <a className="nav-cta" href={`${homePrefix}#contact`}>
-        課題を相談する
+        {copy.contact}
       </a>
     </>
   )
@@ -58,15 +74,19 @@ export function SiteHeader({ current }: SiteHeaderProps) {
   return (
     <header className="site-header">
       <div className="container header-inner">
-        <a className="brand-link" href={current === 'home' ? '#top' : '/#top'} aria-label="PinkieTech ホーム">
+        <a
+          className="brand-link"
+          href={current === 'home' ? '#top' : `${homePath}#top`}
+          aria-label={copy.homeLabel}
+        >
           <BrandLogo className="header-logo" />
         </a>
-        <nav className="site-nav" aria-label="メインナビゲーション">
+        <nav className="site-nav" aria-label={copy.navLabel}>
           {navigation}
         </nav>
         <details className="mobile-menu" ref={mobileMenuRef}>
-          <summary>メニュー</summary>
-          <nav aria-label="モバイルナビゲーション" onClick={closeMobileMenu}>
+          <summary>{copy.menu}</summary>
+          <nav aria-label={copy.mobileNavLabel} onClick={closeMobileMenu}>
             {navigation}
           </nav>
         </details>
