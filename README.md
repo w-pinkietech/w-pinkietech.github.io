@@ -1,81 +1,48 @@
-# PinkieTech株式会社 - 公式ウェブサイト
+# PinkieTech Website
 
-**モノづくり × OSS × AI**
+PinkieTech株式会社の公式Webサイトです。
 
-PinkieTech株式会社の公式ウェブサイトです。ReactとTypeScriptを使用したサイバーパンクテーマのターミナル風インターフェースを採用しています。
+> 現場の力を、技術で引き出す。
 
-## 会社概要
+技術を前面に出すのではなく、仕事をする人、課題を理解する姿勢、小さな改善の積み重ねを中心に構成しています。
 
-PinkieTech株式会社は、日本の製造業にOSSとAIの力を融合させることで、新たな可能性を開拓する企業です。
+## Brand direction
 
-- **設立**: 2025年01月17日
-- **代表**: 渡部健太
-- **資本金**: 5,000,000円
-- **所在地**: 〒806-0047 福岡県北九州市八幡西区塔野１丁目１４‐２２
+- People first — 技術より人を先に考える
+- Field oriented — 物理的な場所に限らず、実際に仕事が行われる「現場」から始める
+- Practical — 大きな構想だけでなく、使える小さな一歩をつくる
+- Open — OSSを尊重し、知識を共有可能な形で残す
+- Approachable — 難しい言葉を避け、相談しやすいプロフェッショナルである
 
-## 主要サービス
+ブランドの正式な基準は非公開の `w-pinkietech/pinkietech-brand` リポジトリで管理します。
+このリポジトリでは、実装に必要なWebデザイン基準を [`DESIGN.md`](DESIGN.md) に同期しています。
 
-- **製造業DX支援**: OSS活用による工場見える化
-- **IoT導入支援**: センサーデータ収集・可視化システム
-- **OSS開発**: 製造業向けOSSツール開発
-- **技術研修・教育**: OSS・AI・IoT技術教育
+外部の `awesome-design-md` / `awesome-design-md-jp` は調査資料として参照し、PinkieTech固有の意味・ロゴ・配色・文章を優先して再構成しています。
 
-## サイト機能
+## Development
 
-### CLI風インターフェース
-- ターミナルエミュレーター形式のユーザーインターフェース
-- サイバーパンクテーマのデザイン
-- 日本語・英語切り替え対応
+Node.js 20以上が必要です。
 
-### 利用可能なコマンド
+```bash
+npm ci
+npm run dev
+```
 
-#### 基本情報
-- `about` - 会社概要
-- `services` - サービス一覧
-- `works` - 活動実績・取組み
-- `contact` - お問い合わせ情報
-- `legal` - 法的情報（プライバシーポリシー、利用規約、特定商取引法）
+## Verification
 
-#### システム情報
-- `help` - コマンド一覧
-- `neofetch` - システム情報表示
-- `readme` - README表示
-- `clear` - 画面クリア
-- `lang` - 言語切り替え
+```bash
+npm run lint
+npm run design:check
+npm run build
+npm audit
+```
 
-#### エンターテイメント
-- `cat` - サイバー猫表示
-- `game` - ミニゲーム
-- `banner` - ロゴ表示
+## Contact
 
-## 技術スタック
+- Email: [contact@pinkie-tech.jp](mailto:contact@pinkie-tech.jp)
+- X: [@pinkietech](https://x.com/pinkietech)
+- GitHub: [w-pinkietech](https://github.com/w-pinkietech)
 
-- **フロントエンド**: React 18, TypeScript
-- **ビルドツール**: Vite
-- **ルーティング**: React Router (HashRouter)
-- **国際化**: react-i18next
-- **スタイリング**: Tailwind CSS
-- **デプロイ**: GitHub Pages
+## License
 
-## ミッション
-
-日本の中小製造業が直面する情報格差を解消し、ソフトウェアの力で新たな付加価値を創造する。
-
-## お問い合わせ
-
-- **X (Twitter)**: [@pinkietech](https://twitter.com/pinkietech)
-- **GitHub**: [w-pinkietech](https://github.com/w-pinkietech)
-
-## ライセンス
-
-このプロジェクトは [MIT License](LICENSE) の下で公開されています。
-
-## コントリビューション
-
-バグ報告、機能要求、改善提案など、コミュニティからのフィードバックを歓迎します！
-- [Issues](https://github.com/w-pinkietech/w-pinkietech.github.io/issues) - バグ報告や機能要求
-- [Pull Requests](https://github.com/w-pinkietech/w-pinkietech.github.io/pulls) - 改善提案
-
----
-
-© 2025 PinkieTech株式会社. All rights reserved.
+[MIT License](LICENSE)
