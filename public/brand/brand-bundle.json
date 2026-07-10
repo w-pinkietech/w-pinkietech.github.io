@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "sourceRepository": "w-pinkietech/pinkietech-brand",
-  "sourceCommit": "65daea3502fa44e4b5860fa54bd534dc4e709b51",
+  "sourceCommit": "81a16cf2c90df6a247824a659346fa4303cbd7ea",
   "sourceVersion": "0.3.0-draft",
   "files": {
     "DESIGN.md": {
@@ -18,11 +18,11 @@
     },
     "public/brand/pinkietech-logo-reverse.svg": {
       "source": "assets/svg/pinkietech-logo-reverse.svg",
-      "sha256": "62928a58c6f62981182a375a0f9bcf28165864315dc88ec7404314c54c1b1f20"
+      "sha256": "4dfcdb5d17455a7360ae92b8a8a06ae97f813b35930132023722d9aecec63c89"
     },
     "public/brand/pinkietech-mark.svg": {
       "source": "assets/svg/pinkietech-mark.svg",
-      "sha256": "f4b58aa0e3fbddfad8c6b7b18c60d2cae1eba3a5702401730b6d6d36a870d4be"
+      "sha256": "da6ee71da22c4479cbfc8b0a4d0d820d7080bcd1d5cdce320078a90b8abe61fd"
     }
   }
 }
