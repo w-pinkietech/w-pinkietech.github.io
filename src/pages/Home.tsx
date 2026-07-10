@@ -338,15 +338,11 @@ function Home() {
               </p>
               <div className="contact-address">
                 <span>メールアドレス</span>
-                <a href={`mailto:${contactEmail}`}>{contactEmail}</a>
+                <span className="contact-email">{contactEmail}</span>
               </div>
               <div className="contact-actions">
-                <a className="button button-primary" href={`mailto:${contactEmail}`}>
-                  メールで相談する
-                  <span aria-hidden="true">→</span>
-                </a>
                 <button
-                  className="text-link copy-email"
+                  className="button button-primary copy-email"
                   type="button"
                   onClick={copyContactEmail}
                 >
@@ -355,10 +351,14 @@ function Home() {
                       ? 'コピーしました'
                       : copyStatus === 'failed'
                         ? 'コピーできませんでした'
-                        : 'アドレスをコピー'}
+                        : 'メールアドレスをコピー'}
                   </span>
                   <span aria-hidden="true">{copyStatus === 'copied' ? '✓' : '⧉'}</span>
                 </button>
+                <a className="text-link" href={`mailto:${contactEmail}`}>
+                  メールアプリを開く
+                  <span aria-hidden="true">→</span>
+                </a>
                 <a
                   className="text-link"
                   href="https://x.com/pinkietech"
@@ -370,6 +370,9 @@ function Home() {
                   <span className="sr-only">（新しいタブで開く）</span>
                 </a>
               </div>
+              <p className="contact-note">
+                「メールアプリを開く」は端末の設定によって動作しない場合があります。その場合はメールアドレスをコピーしてご利用ください。
+              </p>
             </div>
           </div>
         </section>

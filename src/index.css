@@ -681,7 +681,7 @@ h3 {
   font-size: 0.875rem;
 }
 
-.contact-address a {
+.contact-email {
   color: var(--text);
 }
 
@@ -690,15 +690,16 @@ h3 {
 }
 
 .copy-email {
-  min-height: 2.75rem;
-  padding: 0;
-  background: transparent;
-  border: 0;
+  min-height: 3rem;
   cursor: pointer;
 }
 
-.copy-email:hover {
-  text-decoration-thickness: 0.14em;
+.contact-note {
+  max-width: 42rem;
+  margin-top: 1rem;
+  color: var(--text-faint);
+  font-size: 0.8125rem;
+  line-height: 1.8;
 }
 
 .site-footer {

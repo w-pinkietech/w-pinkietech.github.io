@@ -132,7 +132,10 @@ const checks = [
       (files.home.match(/href="#contact"/g) ?? []).length >= 3 &&
       files.home.includes('id="contact"') &&
       files.home.includes('navigator.clipboard.writeText(contactEmail)') &&
-      files.home.includes('アドレスをコピー'),
+      files.home.includes('className="button button-primary copy-email"') &&
+      files.home.includes('メールアドレスをコピー') &&
+      files.home.includes('メールアプリを開く') &&
+      files.home.includes('端末の設定によって動作しない場合があります'),
   },
   {
     name: 'The page avoids generic card components',
