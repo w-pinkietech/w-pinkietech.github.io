@@ -63,9 +63,16 @@ export const homeCopy = {
     },
     proof: {
       index: '04 / 公開しているもの',
-      title: 'つくったものを、確かめられる形に。',
-      text: '公開できるコードや知識はGitHubで共有します。成果を実績らしく飾るより、判断の前提と実装を見られる形にすることを大切にします。',
-      link: '公開リポジトリを見る',
+      title: 'IoTKitを、OSSとして公開しました。',
+      text: '公開できるコードや知識はGitHubで共有します。成果を実績らしく飾るより、判断の前提と実装を見られる形にすることを大切にしています。最初のプロジェクトとして、現場のセンサーデータを確実につなぐIoT収集基盤「IoTKit」を公開しました。',
+      projectStatus: 'Open Source / Apache-2.0',
+      projectName: 'IoTKit',
+      projectDescription:
+        'ネットワーク障害や電源断が起きても収集を続け、データを失わずに次のシステムへ渡すための、オンプレミスファーストのIoT収集プラットフォームです。',
+      projectDetail:
+        'センサーごとの接続部分だけを追加すれば、保存、再送、データ保持を共通の仕組みで扱えます。Rust、SQLite、標準MQTTブローカーを中心に構成しています。',
+      projectLink: 'IoTKitをGitHubで見る',
+      allProjectsLink: '公開リポジトリ一覧',
     },
     valuesSection: {
       index: '05 / 私たちらしさ',
@@ -120,9 +127,16 @@ export const homeCopy = {
     },
     proof: {
       index: '04 / Work in the open',
-      title: 'Make the work inspectable.',
-      text: 'We share code and knowledge on GitHub when we can. Instead of decorating outcomes as claims, we prefer to make the assumptions and implementation available to inspect.',
-      link: 'Explore our public repositories',
+      title: 'IoTKit is now open source.',
+      text: 'We share code and knowledge on GitHub when we can. Our first featured project is IoTKit, an IoT collection platform built to move sensor data reliably from the work site to the systems that need it.',
+      projectStatus: 'Open Source / Apache-2.0',
+      projectName: 'IoTKit',
+      projectDescription:
+        'An on-premises-first IoT collection platform that keeps collecting through network outages and power loss, then hands data to the next system without silently losing it.',
+      projectDetail:
+        'Add the sensor-specific connection layer while IoTKit provides shared storage, retry, and retention. It is built around Rust, SQLite, and a standard MQTT broker.',
+      projectLink: 'Explore IoTKit on GitHub',
+      allProjectsLink: 'View all public repositories',
     },
     valuesSection: {
       index: '05 / What we are like',
