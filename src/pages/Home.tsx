@@ -135,22 +135,45 @@ function Home({ locale = 'ja' }: HomeProps) {
           </div>
         </section>
 
-        <section className="proof section" aria-labelledby="proof-title">
+        <section className="proof section" id="oss" aria-labelledby="proof-title">
           <div className="container proof-grid">
             <p className="section-index">{copy.proof.index}</p>
             <div>
               <h2 id="proof-title">{copy.proof.title}</h2>
               <p>{copy.proof.text}</p>
-              <a
-                className="text-link"
-                href="https://github.com/w-pinkietech"
-                target="_blank"
-                rel="noreferrer"
-              >
-                {copy.proof.link}
-                <span aria-hidden="true">↗</span>
-                <span className="sr-only">{localeSiteCopy.newTab}</span>
-              </a>
+
+              <article className="oss-project" aria-labelledby="iotkit-title">
+                <div className="oss-project-heading">
+                  <p className="oss-project-status">{copy.proof.projectStatus}</p>
+                  <h3 id="iotkit-title">{copy.proof.projectName}</h3>
+                </div>
+                <div className="oss-project-body">
+                  <p className="oss-project-description">{copy.proof.projectDescription}</p>
+                  <p>{copy.proof.projectDetail}</p>
+                  <div className="oss-project-actions">
+                    <a
+                      className="button button-primary"
+                      href="https://github.com/w-pinkietech/iotkit"
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      {copy.proof.projectLink}
+                      <span aria-hidden="true">↗</span>
+                      <span className="sr-only">{localeSiteCopy.newTab}</span>
+                    </a>
+                    <a
+                      className="text-link"
+                      href="https://github.com/w-pinkietech"
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      {copy.proof.allProjectsLink}
+                      <span aria-hidden="true">↗</span>
+                      <span className="sr-only">{localeSiteCopy.newTab}</span>
+                    </a>
+                  </div>
+                </div>
+              </article>
             </div>
           </div>
         </section>
