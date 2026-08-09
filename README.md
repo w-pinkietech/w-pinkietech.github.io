@@ -49,6 +49,27 @@ npm run build
 npm audit
 ```
 
+## Fonts
+
+Inter と Noto Sans JP は、サイトで実際に使う文字だけに絞ったサブセットを
+`public/brand/fonts/` にセルフホストしています。Google Fonts をランタイムで
+読み込む方式(描画をブロックする連鎖 `@import`)をやめ、ファーストビューを
+高速化するためです。`src/fonts.generated.css` の `@font-face` はビルド時に
+バンドルされ、各ページの `<head>` でクリティカルなウェイトを `preload` します。
+
+コピー(`src/content/*`、コンポーネント、各 `index.html` など)を変更したら、
+フォントを再生成してコミットしてください。
+
+```bash
+npm run fonts:build   # ネットワーク必須。非決定的なため build には含めていません
+```
+
+再生成を忘れると、新しく追加した文字がサブセットに含まれず、システムフォントに
+フォールバックします。この取りこぼしは `npm run design:check`(CI でも実行)が
+`src/fonts.generated.css` に埋め込んだ文字集合の署名と現在のコピーを突き合わせて
+検出し、失敗させます。生成物(`public/brand/fonts/*.woff2` と
+`src/fonts.generated.css`)は必ず一緒にコミットしてください。
+
 ## Search and AI access
 
 - `public/sitemap.xml` — 日本語・英語ページと対応関係
