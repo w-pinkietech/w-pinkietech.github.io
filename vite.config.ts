@@ -7,16 +7,16 @@ export default defineConfig({
   build: {
     rollupOptions: {
       input: {
-        main: path.resolve(__dirname, 'index.html'),
-        company: path.resolve(__dirname, 'company/index.html'),
-        en: path.resolve(__dirname, 'en/index.html'),
-        enCompany: path.resolve(__dirname, 'en/company/index.html'),
+        main: path.resolve(import.meta.dirname, 'index.html'),
+        company: path.resolve(import.meta.dirname, 'company/index.html'),
+        en: path.resolve(import.meta.dirname, 'en/index.html'),
+        enCompany: path.resolve(import.meta.dirname, 'en/company/index.html'),
       },
     },
   },
   resolve: {
     alias: {
-      "@": path.resolve(__dirname, "./src"),
+      "@": path.resolve(import.meta.dirname, "./src"),
     },
   },
   base: '/',
