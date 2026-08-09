@@ -1,6 +1,8 @@
 import { createHash } from 'node:crypto'
 import { readFile } from 'node:fs/promises'
 
+import { charsetSignature, collectCharset } from './lib/charset.mjs'
+
 const rootUrl = new URL('../', import.meta.url)
 const read = (path) => readFile(new URL(path, rootUrl))
 const readText = async (path) => (await read(path)).toString('utf8')
@@ -20,6 +22,7 @@ const files = {
   header: await readText('src/components/SiteHeader.tsx'),
   footer: await readText('src/components/SiteFooter.tsx'),
   css: await readText('src/index.css'),
+  fontsCss: await readText('src/fonts.generated.css'),
   html: await readText('index.html'),
   companyHtml: await readText('company/index.html'),
   enHtml: await readText('en/index.html'),
@@ -55,6 +58,13 @@ const bundleResults = await Promise.all(
     }
   }),
 )
+
+// Self-hosted fonts are character subsets built for the exact copy on the site.
+// If the copy changes without rerunning `npm run fonts:build`, new glyphs fall
+// back to system fonts. Compare the fingerprint baked into the generated CSS
+// against one recomputed from the current source to catch that drift in CI.
+const embeddedFontSignature = files.fontsCss.match(/charset-sha256:\s*([0-9a-f]{64})/)?.[1]
+const currentFontSignature = charsetSignature(await collectCharset(rootUrl))
 
 const cssRuleHasMinHeight = (selector) => {
   const escaped = selector.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
@@ -129,6 +139,14 @@ const checks = [
       files.css.includes('var(--pt-semantic-surface-inverse-deep)') &&
       files.css.includes('var(--pt-semantic-text-inverse-subtle)') &&
       !/#[0-9a-f]{6}/i.test(files.css),
+  },
+  {
+    name: 'Self-hosted font subsets match the current site copy',
+    pass:
+      files.css.includes("@import './fonts.generated.css'") &&
+      !files.css.includes('fonts.googleapis.com') &&
+      Boolean(embeddedFontSignature) &&
+      embeddedFontSignature === currentFontSignature,
   },
   {
     name: 'Japanese typography and deliberate hero lines are present',
