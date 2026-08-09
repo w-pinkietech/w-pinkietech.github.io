@@ -144,7 +144,9 @@ const checks = [
     name: 'Self-hosted font subsets match the current site copy',
     pass:
       files.css.includes("@import './fonts.generated.css'") &&
-      !files.css.includes('fonts.googleapis.com') &&
+      // No stylesheet may be @import-ed from an absolute http(s) URL: fonts must
+      // stay self-hosted, never fetched from a third-party CDN at runtime.
+      !/@import\s+(?:url\()?\s*['"]?https?:\/\//i.test(files.css) &&
       Boolean(embeddedFontSignature) &&
       embeddedFontSignature === currentFontSignature,
   },

@@ -32,13 +32,20 @@ const families = [
 ]
 const weights = [400, 500, 600]
 
+// Bound every network request so a stalled connection can't hang the build.
+const REQUEST_TIMEOUT_MS = 30_000
+const fetchOptions = () => ({
+  headers: { 'User-Agent': UA },
+  signal: AbortSignal.timeout(REQUEST_TIMEOUT_MS),
+})
+
 async function fetchSubsetCss(family, weight, charset) {
   const url =
     'https://fonts.googleapis.com/css2' +
     `?family=${encodeURIComponent(family)}:wght@${weight}` +
     `&text=${encodeURIComponent(charset.join(''))}` +
     '&display=swap'
-  const res = await fetch(url, { headers: { 'User-Agent': UA } })
+  const res = await fetch(url, fetchOptions())
   if (!res.ok) throw new Error(`Google Fonts CSS ${res.status} for ${family} ${weight}`)
   return res.text()
 }
@@ -50,7 +57,7 @@ function extractWoff2Url(css) {
 }
 
 async function downloadFont(url, destPath) {
-  const res = await fetch(url, { headers: { 'User-Agent': UA } })
+  const res = await fetch(url, fetchOptions())
   if (!res.ok) throw new Error(`Font download ${res.status} for ${url}`)
   const buffer = Buffer.from(await res.arrayBuffer())
   await writeFile(destPath, buffer)
