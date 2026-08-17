@@ -235,8 +235,8 @@ const checks = [
   {
     name: 'Japanese and English routes are static build entries',
     pass:
-      files.vite.includes("path.resolve(__dirname, 'en/index.html')") &&
-      files.vite.includes("path.resolve(__dirname, 'en/company/index.html')") &&
+      files.vite.includes("path.resolve(import.meta.dirname, 'en/index.html')") &&
+      files.vite.includes("path.resolve(import.meta.dirname, 'en/company/index.html')") &&
       files.enHtml.includes('<html lang="en">') &&
       files.enCompanyHtml.includes('<html lang="en">') &&
       files.html.includes('<html lang="ja">') &&
